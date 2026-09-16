@@ -1,9 +1,5 @@
 # Cross-Sectional Equity Factor Research
 
-## Work in Progress
-
-This project is currently under active development. The Data System, Factor Layer and Factor Selection Layer are completed. The Research Layer is the current stage.
-
 
 ## Research Objective
 
@@ -18,12 +14,12 @@ The current objective is factor discovery and evaluation. A production trading s
 
 ## Project Roadmap
 
-| stage                  | status            |
-|------------------------|-------------------|
-| Data System            | **completed**     |
-| Factor Layer           | **completed**     |
-| Factor Selection Layer | **completed**     |
-| Research Layer         | <- here right now |
+| stage                  | status        |
+|------------------------|---------------|
+| Data System            | **completed** |
+| Factor Layer           | **completed** |
+| Factor Selection Layer | **completed** |
+| Research Layer         | **completed** |
 
 
 ## Project Structure
@@ -49,6 +45,7 @@ src/
     - factor_builder.py
     - forward_returns.py
     - factor_storage.py
+    - factor_report.py
     - **pipeline.py**
     - delete.py
 
@@ -128,11 +125,15 @@ Results/
 
 
   - Factors_Layer/
+    - Figures/
+      - factor_layer_summary.png
     - factor_run_metadata.json
+    - factor_layer_report.md
 
 
   - Factor_Selection_Layer/
     - Figures/
+      - factor_selection_summary.png
     - quantile_run_metadata.json
     - selection_run_metadata.json
     - hypothesis_cards.csv
@@ -145,6 +146,7 @@ Results/
   - Research_Layer/
     - General/
       - Figures/
+        - general_research_summary.png
       - multiple_testing_comparison.csv
       - multiple_testing_summary.csv
       - factor_overlap.csv
@@ -162,6 +164,7 @@ Results/
       - research_report.md
     - Low_Volatility/
       - Figures/
+        - low_volatility_summary.png
       - portfolio_metadata.csv
       - portfolio_statistics.csv
       - calendar_phase_stability.csv
@@ -710,6 +713,8 @@ The completed layer creates:
 - One factor metadata table.
 - One cache manifest.
 - One run metadata file.
+- One readable Factor Layer report.
+- One summary figure for the complete factor grid.
 
 Every matrix contains `4,686` trading dates and `900` historical ticker columns. Observations from 2008 provide warm-up history for long factor windows. The intended research period begins in 2010.
 
@@ -735,7 +740,8 @@ IMPORTANT:
 - Stores factor matrices in `Data/Factors_Layer/Cache/Factor_Matrices`.
 - Stores forward-return matrices in `Data/Factors_Layer/Cache/Forward_Return_Matrices`.
 - Stores factor metadata and the cache manifest in `Data/Factors_Layer/Cache`.
-- Stores run metadata in `Results/Factors_Layer`.
+- Stores run metadata and the readable report in `Results/Factors_Layer`.
+- Stores the Factor Layer summary figure in `Results/Factors_Layer/Figures`.
 - Requires at least 80% of observations inside every factor window.
 - Keeps winsorization limits at the 1st and 99th cross-sectional percentiles.
 - Sets `APPLY_WINSORIZATION = False`, so these limits are not currently applied.
@@ -1052,6 +1058,40 @@ IMPORTANT:
 - Saves the current Factor Layer run information as JSON.
 
 
+#### save_text
+- Saves the readable Factor Layer Markdown report atomically.
+
+
+### **factor_report.py**:
+- Converts Factor Layer metadata into compact readable results.
+- Does not read the 64 large matrices or evaluate factor performance.
+
+
+#### readable_family_name
+- Converts internal factor-family names into readable titles.
+
+
+#### family_summary
+- Checks that saved factor metadata matches the configured factor grid.
+- Creates one summary row for each of the 11 factor families.
+- Lists the number and names of all variants in every family.
+
+
+#### build_factor_report
+- Creates `factor_layer_report.md`.
+- Records the data period, matrix dimensions, factor counts, horizons and cache status.
+- Creates a compact family table and a complete 56-row configuration table with parameters.
+- Describes the complete Factor Layer grid without making performance conclusions.
+
+
+#### create_factor_summary
+- Creates `Results/Factors_Layer/Figures/factor_layer_summary.png`.
+- Visualizes configuration counts across all 11 factor families.
+- Shows all eight forward-return horizons.
+- Shows the complete grid size: 56 configurations, eight horizons and 448 hypotheses.
+- Replaces the previous figure atomically on every Factor Layer run.
+
+
 ### **pipeline.py**:
 - Orchestrates the complete Factor Layer workflow.
 - Does not contain factor formulas, transformations, file-writing implementation or factor evaluation logic.
@@ -1070,6 +1110,7 @@ IMPORTANT:
 - Loads completed Data System matrices through `factor_storage.py`.
 - Calls `prepare_factor_cache` to reuse or rebuild the Factor Layer cache.
 - Saves the run time, data period, matrix dimensions, factor counts, horizons and cache status.
+- Recreates the readable Factor Layer report and summary figure on every run.
 - Prints the final number of factor and forward-return matrices.
 - Returns the 56-row factor metadata table.
 - Does not calculate IC, robustness, quantiles or factor selection.
@@ -1082,6 +1123,10 @@ IMPORTANT:
 
 
 ## Factor Layer Result
+
+![Factor Layer summary](Results/Factors_Layer/Figures/factor_layer_summary.png)
+
+The complete factor-family and configuration tables are saved in `Results/Factors_Layer/factor_layer_report.md`.
 
 **Build snapshot**:
 - Equity period: `2008-01-02` to `2026-08-18`.
@@ -1127,6 +1172,7 @@ The current setting uses `ACTIVE_FACTOR_KEYS = None`. Every run therefore analyz
 
 ### selection_config.py
 - Defines every Layer 3 input and output path.
+- Defines the path of the automatically updated Factor Selection summary figure.
 - Uses the same eight return horizons produced by the Factor Layer.
 - Uses a one-day signal lag, ten quantiles and at least 30 valid stocks per daily comparison.
 - Marks dates from `2010-01-01` as research observations while keeping 2008-2009 warm-up rows in the source dataset.
@@ -1339,6 +1385,11 @@ The current setting uses `ACTIVE_FACTOR_KEYS = None`. Every run therefore analyz
 #### plot_hypothesis_overview
 - Visualizes Mean IC, the strongest economic-effect t-statistic, monthly consistency and rank autocorrelation across all 448 hypotheses.
 
+#### plot_selection_summary
+- Creates one compact Layer 3 result image.
+- Shows the complete research scope, detected relationship shapes and final FDR decision.
+- Keeps statistical Rank-IC discoveries separate from economic discoveries and final candidates.
+
 #### plot_quantile_curves
 - Shows Q1-Q10 returns relative to the Q4-Q7 middle for all eight horizons.
 
@@ -1353,7 +1404,7 @@ The current setting uses `ACTIVE_FACTOR_KEYS = None`. Every run therefore analyz
 - Prevents a full run from creating 448 separate graph sets.
 
 #### create_selection_figures
-- Creates the complete visual output for the active analysis.
+- Creates the compact summary, complete-scope overview and detailed factor figures for the active analysis.
 
 #### format_number
 - Formats report values consistently and keeps missing values visible as `NA`.
@@ -1399,6 +1450,8 @@ The current setting uses `ACTIVE_FACTOR_KEYS = None`. Every run therefore analyz
 
 ## Factor Selection Layer Result
 
+![Factor Selection summary](Results/Factor_Selection_Layer/Figures/factor_selection_summary.png)
+
 The complete run analyzes 56 factor configurations across eight horizons. It creates:
 
 - `hypothesis_cards.csv`: one readable classification row per hypothesis.
@@ -1407,6 +1460,7 @@ The complete run analyzes 56 factor configurations across eight horizons. It cre
 - `classifier_validation.csv`: the six-case classifier self-check.
 - `time_stability.parquet`: monthly and annual effect histories used by the figures.
 - `factor_selection_report.md`: the main readable report.
+- `factor_selection_summary.png`: the compact scope and final-decision summary used in this README.
 - `Figures/`: the complete-scope overview and detailed figures for the active factor.
 
 The completed full run found 426 hypotheses without stable structure and 22 descriptive economic patterns. Ten patterns were unstable through time and twelve were rejected after global multiple-testing correction. No economic hypothesis became a final candidate. One volatility-scaled momentum IC result survived global FDR, but its Q10-Q1 return spread was not statistically supported.
@@ -1429,6 +1483,7 @@ The walk-forward output is explicitly post-selection. The candidates were alread
 
 ### research_config.py
 - Defines shared inputs and the General Research cache, result and figure paths.
+- Defines the path of the automatically updated General Research summary figure.
 - Freezes the four candidate leads received from the completed Selection Layer.
 - Defines six portfolio-construction methods.
 - Uses 1, 5, 21 and 63-day rebalance frequencies.
@@ -1657,7 +1712,46 @@ The walk-forward output is explicitly post-selection. The candidates were alread
 
 
 ### research_report.py
-- Creates figures for multiple-testing sensitivity, factor overlap, costs, turnover, walk-forward paths and regimes.
+
+#### save_figure
+- Saves one General Research figure in `Results/Research_Layer/General/Figures`.
+
+#### candidate_label
+- Converts a complete factor key into a short readable family name for figures.
+
+#### plot_research_summary
+- Creates `general_research_summary.png`.
+- Shows final statuses for the four frozen leads.
+- Compares their selected net annualized returns, full-history Sharpe and long walk-forward Sharpe.
+
+#### plot_multiple_testing
+- Compares discovery counts under the original global FDR and exploratory alternative corrections.
+
+#### plot_cost_sensitivity
+- Shows how median implementation Sharpe changes under different transaction costs.
+
+#### plot_turnover_sharpe
+- Shows the relationship between annualized turnover and net Sharpe at the primary cost assumption.
+
+#### plot_walk_forward_paths
+- Shows the strongest displayed post-selection walk-forward path for every factor and periodization scheme.
+
+#### plot_regime_comparison
+- Shows the top displayed walk-forward path across the recorded market regimes.
+
+#### plot_factor_overlap
+- Visualizes daily rank correlation between the four frozen factor leads.
+
+#### create_research_figures
+- Creates the General Research summary and all supporting diagnostic figures.
+
+#### markdown_table
+- Converts readable result tables into Markdown while preserving missing values.
+
+#### relative_figure_path
+- Creates report-relative paths for General Research figures.
+
+#### build_research_report
 - Creates `research_report.md` with final candidate statuses, benchmarks, statistical sensitivity, implementation results, risk diagnostics, walk-forward behaviour and interpretation limits.
 
 
@@ -1683,6 +1777,7 @@ The walk-forward output is explicitly post-selection. The candidates were alread
 
 ### Low_Volatility/config.py
 - Defines every focused Low Volatility data, result and figure path.
+- Defines the path of the automatically updated Low Volatility summary figure.
 - Defines the seven lookback windows, fixed portfolio anchor and declared decision rules.
 - Keeps focused-study settings out of the general `research_config.py`.
 
@@ -1728,6 +1823,12 @@ The walk-forward output is explicitly post-selection. The candidates were alread
 #### save_low_volatility_figure
 - Saves one focused figure in `Results/Research_Layer/Low_Volatility/Figures`.
 
+#### plot_low_volatility_summary
+- Creates `low_volatility_summary.png`.
+- Compares net annualized return across all seven windows.
+- Compares full-history, long walk-forward and short walk-forward Sharpe.
+- Shows how many declared checks each window passed.
+
 #### create_low_volatility_figures
 - Visualizes lookback sensitivity, walk-forward Sharpe, transaction costs and the declared pass/fail checks.
 
@@ -1765,3 +1866,35 @@ The walk-forward output is explicitly post-selection. The candidates were alread
 - Sector exposure remains explicitly unavailable until a reliable point-in-time sector dataset is added to the Data System.
 - A factor is not called alpha unless its return survives costs, turnover, risk exposure, calendar phases, both walk-forward structures and market-regime analysis.
 - The focused Low Volatility study looks for a stable parameter plateau, not the single highest Sharpe ratio.
+
+
+## Research Layer Result
+
+### General Research
+
+![General Research summary](Results/Research_Layer/General/Figures/general_research_summary.png)
+
+The General Research pipeline tested four frozen leads through 160 portfolio implementations. At the declared 10 bps cost assumption:
+
+- Low Volatility became one `ECONOMIC_LEAD`.
+- Volatility-Scaled Momentum remained one `STATISTICAL_LEAD`.
+- Short-Term Reversal and Liquidity Change were rejected.
+- No candidate was labelled validated alpha because candidate discovery already used the complete historical sample.
+
+The selected 60-day Low Volatility implementation produced a 4.77% net annualized return, 0.505 full-history Sharpe and 0.432 long walk-forward Sharpe. Its alpha HAC t-statistic was 1.60, so the result remained an economic lead rather than statistically confirmed alpha.
+
+The complete tables, diagnostics and limitations are saved in `Results/Research_Layer/General/research_report.md`.
+
+
+### Low Volatility Research
+
+![Low Volatility summary](Results/Research_Layer/Low_Volatility/Figures/low_volatility_summary.png)
+
+The focused pipeline applied the same `Q10 - middle`, beta-neutral, 63-day implementation to seven volatility windows:
+
+- The 60-day window had the highest net annualized return at 4.77% and the highest full-history Sharpe at 0.505.
+- It passed 6 of 10 declared checks and remained positive in both walk-forward structures.
+- Its neighbouring windows did not form a robust parameter plateau.
+- No window survived all statistical, cost, calendar-phase, walk-forward, regime and neighbour-support requirements.
+
+The final status is therefore `ISOLATED_RESULT`, not validated alpha. The complete focused analysis is saved in `Results/Research_Layer/Low_Volatility/low_volatility_report.md`.

@@ -29,6 +29,10 @@ LOW_VOLATILITY_FIGURES_DIR = os.path.join(
     LOW_VOLATILITY_RESULTS_DIR,
     "Figures",
 )
+LOW_VOLATILITY_SUMMARY_PATH = os.path.join(
+    LOW_VOLATILITY_FIGURES_DIR,
+    "low_volatility_summary.png",
+)
 LOW_VOLATILITY_PORTFOLIO_METADATA_PATH = os.path.join(
     LOW_VOLATILITY_RESULTS_DIR,
     "portfolio_metadata.csv",

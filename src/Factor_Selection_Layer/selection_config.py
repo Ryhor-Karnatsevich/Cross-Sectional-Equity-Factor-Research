@@ -44,6 +44,10 @@ SELECTION_RESULTS_DIR = os.path.join(
     "Factor_Selection_Layer",
 )
 SELECTION_FIGURES_DIR = os.path.join(SELECTION_RESULTS_DIR, "Figures")
+SELECTION_SUMMARY_PATH = os.path.join(
+    SELECTION_FIGURES_DIR,
+    "factor_selection_summary.png",
+)
 DAILY_QUANTILE_RESULTS_PATH = os.path.join(
     SELECTION_CACHE_DIR,
     "daily_quantile_results.parquet",

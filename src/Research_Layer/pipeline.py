@@ -255,6 +255,7 @@ def run_pipeline():
         )
         save_csv(regime_results, REGIME_RESULTS_PATH)
         figure_paths = create_research_figures(
+            decisions,
             multiple_testing_summary,
             statistics,
             walk_summary,

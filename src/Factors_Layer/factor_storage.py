@@ -12,6 +12,7 @@ from factor_config import (
     FACTOR_CACHE_MANIFEST_PATH,
     FACTOR_CONFIGS,
     FACTOR_DATA_DIR,
+    FACTOR_FIGURES_DIR,
     FACTOR_MATRIX_CACHE_DIR,
     FACTOR_METADATA_CACHE_PATH,
     FACTOR_RESULTS_DIR,
@@ -61,6 +62,7 @@ def prepare_factor_directories():
         FACTOR_MATRIX_CACHE_DIR,
         FORWARD_RETURN_MATRIX_CACHE_DIR,
         FACTOR_RESULTS_DIR,
+        FACTOR_FIGURES_DIR,
     )
 
     for directory in directories:
@@ -185,6 +187,16 @@ def save_json(data, path):
 
     with open(temporary, "w", encoding="utf-8") as file:
         json.dump(data, file, indent=2)
+
+    os.replace(temporary, path)
+
+
+def save_text(text, path):
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    temporary = temporary_path(path)
+
+    with open(temporary, "w", encoding="utf-8") as file:
+        file.write(text)
 
     os.replace(temporary, path)
 

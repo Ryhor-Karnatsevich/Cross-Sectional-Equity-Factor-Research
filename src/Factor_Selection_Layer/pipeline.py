@@ -55,6 +55,7 @@ def run_factor_classification():
     save_parquet(time_stability, TIME_STABILITY_PATH)
     figure_paths = create_selection_figures(
         cards,
+        effect_tests,
         curves,
         time_stability,
     )

@@ -9,6 +9,7 @@ PROJECT_ROOT = os.path.abspath(
 FACTOR_DATA_DIR = os.path.join(PROJECT_ROOT, "Data", "Factors_Layer")
 FACTOR_CACHE_DIR = os.path.join(FACTOR_DATA_DIR, "Cache")
 FACTOR_RESULTS_DIR = os.path.join(PROJECT_ROOT, "Results", "Factors_Layer")
+FACTOR_FIGURES_DIR = os.path.join(FACTOR_RESULTS_DIR, "Figures")
 FACTOR_MATRIX_CACHE_DIR = os.path.join(FACTOR_CACHE_DIR, "Factor_Matrices")
 FORWARD_RETURN_MATRIX_CACHE_DIR = os.path.join(
     FACTOR_CACHE_DIR,
@@ -25,6 +26,14 @@ FACTOR_CACHE_MANIFEST_PATH = os.path.join(
 FACTOR_RUN_METADATA_PATH = os.path.join(
     FACTOR_RESULTS_DIR,
     "factor_run_metadata.json",
+)
+FACTOR_REPORT_PATH = os.path.join(
+    FACTOR_RESULTS_DIR,
+    "factor_layer_report.md",
+)
+FACTOR_SUMMARY_PATH = os.path.join(
+    FACTOR_FIGURES_DIR,
+    "factor_layer_summary.png",
 )
 
 

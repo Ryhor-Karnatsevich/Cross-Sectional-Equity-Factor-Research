@@ -10,6 +10,7 @@ import matplotlib.pyplot as plt
 from research_config import (
     PRIMARY_TRANSACTION_COST_BPS,
     RESEARCH_FIGURES_DIR,
+    RESEARCH_SUMMARY_PATH,
 )
 
 
@@ -19,6 +20,110 @@ def save_figure(figure, name):
     figure.savefig(path, dpi=180, bbox_inches="tight")
     plt.close(figure)
     return path
+
+
+def candidate_label(factor_key):
+    family = factor_key.split("|", maxsplit=1)[0]
+    labels = {
+        "volatility_scaled_momentum": "Vol-Scaled Momentum",
+        "short_term_reversal": "Short Reversal",
+        "liquidity_change": "Liquidity Change",
+        "low_volatility": "Low Volatility",
+    }
+    return labels.get(family, family.replace("_", " ").title())
+
+
+def plot_research_summary(candidate_decisions, portfolio_statistics):
+    decisions = candidate_decisions.copy()
+    decisions["candidate"] = decisions["factor_key"].map(candidate_label)
+    status_colors = {
+        "ECONOMIC_LEAD": "#2F855A",
+        "STATISTICAL_LEAD": "#805AD5",
+        "REJECTED": "#C53030",
+    }
+
+    figure, axes = plt.subplots(1, 3, figsize=(17.5, 5.7))
+    figure.suptitle("General Research Summary", fontsize=20, fontweight="bold")
+    figure.text(
+        0.5,
+        0.91,
+        (
+            f"{len(decisions)} frozen leads  |  "
+            f"{portfolio_statistics['path_key'].nunique()} portfolio implementations  |  "
+            f"primary cost {PRIMARY_TRANSACTION_COST_BPS} bps"
+        ),
+        ha="center",
+        color="#4A5568",
+    )
+
+    status_axis = axes[0]
+    status_order = ("ECONOMIC_LEAD", "STATISTICAL_LEAD", "REJECTED")
+    status_counts = decisions["final_status"].value_counts()
+    values = [int(status_counts.get(status, 0)) for status in status_order]
+    bars = status_axis.bar(
+        [status.replace("_", "\n") for status in status_order],
+        values,
+        color=[status_colors[status] for status in status_order],
+    )
+    status_axis.bar_label(bars, padding=3, fontsize=12, fontweight="bold")
+    status_axis.set_title("Candidate decisions", fontweight="bold")
+    status_axis.set_ylabel("Candidates")
+    status_axis.set_ylim(0, max(values) + 0.6)
+    status_axis.spines[["top", "right"]].set_visible(False)
+    status_axis.grid(axis="y", color="#E2E8F0", linewidth=0.8)
+    status_axis.set_axisbelow(True)
+
+    return_axis = axes[1]
+    ordered = decisions.sort_values("best_net_annualized_return")
+    bars = return_axis.barh(
+        ordered["candidate"],
+        ordered["best_net_annualized_return"] * 100,
+        color=[status_colors.get(status, "#718096") for status in ordered["final_status"]],
+    )
+    return_axis.bar_label(bars, fmt="%.2f%%", padding=3, fontsize=9)
+    return_axis.axvline(0, color="black", linewidth=0.8)
+    return_axis.set_title("Selected net annual return", fontweight="bold")
+    return_axis.set_xlabel(f"Annualized return at {PRIMARY_TRANSACTION_COST_BPS} bps")
+    return_axis.spines[["top", "right", "left"]].set_visible(False)
+    return_axis.grid(axis="x", color="#E2E8F0", linewidth=0.8)
+    return_axis.set_axisbelow(True)
+
+    sharpe_axis = axes[2]
+    x = np.arange(len(decisions))
+    width = 0.36
+    sharpe_axis.bar(
+        x - width / 2,
+        decisions["best_net_sharpe"],
+        width,
+        label="Full history",
+        color="#2B6CB0",
+    )
+    sharpe_axis.bar(
+        x + width / 2,
+        decisions["best_long_wf_sharpe"],
+        width,
+        label="Long walk-forward",
+        color="#DD6B20",
+    )
+    sharpe_axis.axhline(0, color="black", linewidth=0.8)
+    sharpe_axis.set_xticks(x, decisions["candidate"], rotation=15, ha="right")
+    sharpe_axis.set_title("Selected implementation Sharpe", fontweight="bold")
+    sharpe_axis.legend(fontsize=8)
+    sharpe_axis.spines[["top", "right"]].set_visible(False)
+    sharpe_axis.grid(axis="y", color="#E2E8F0", linewidth=0.8)
+    sharpe_axis.set_axisbelow(True)
+
+    figure.subplots_adjust(
+        top=0.78,
+        bottom=0.20,
+        left=0.055,
+        right=0.98,
+        wspace=0.62,
+    )
+    os.makedirs(RESEARCH_FIGURES_DIR, exist_ok=True)
+    figure.savefig(RESEARCH_SUMMARY_PATH, dpi=180, bbox_inches="tight")
+    plt.close(figure)
+    return RESEARCH_SUMMARY_PATH
 
 
 def plot_multiple_testing(summary):
@@ -170,6 +275,7 @@ def plot_factor_overlap(factor_overlap):
 
 
 def create_research_figures(
+    candidate_decisions,
     multiple_testing_summary,
     portfolio_statistics,
     walk_forward_summary,
@@ -178,6 +284,7 @@ def create_research_figures(
     factor_overlap,
 ):
     paths = [
+        plot_research_summary(candidate_decisions, portfolio_statistics),
         plot_multiple_testing(multiple_testing_summary),
         plot_cost_sensitivity(portfolio_statistics),
         plot_turnover_sharpe(portfolio_statistics),
@@ -235,6 +342,8 @@ def build_research_report(
     )
     lines = [
         "# Research Layer Report",
+        "",
+        "![General Research summary](Figures/general_research_summary.png)",
         "",
         "## Scope",
         "",
@@ -413,6 +522,8 @@ def build_research_report(
         "",
     ]
     for path in figure_paths:
+        if os.path.basename(path) == "general_research_summary.png":
+            continue
         title = os.path.splitext(os.path.basename(path))[0].replace("_", " ").title()
         lines.extend(
             [

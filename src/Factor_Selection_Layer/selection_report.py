@@ -13,6 +13,7 @@ from selection_config import (
     MAX_FACTOR_FIGURES,
     QUANTILE_COUNT,
     SELECTION_FIGURES_DIR,
+    SELECTION_SUMMARY_PATH,
 )
 from selection_storage import safe_factor_name, temporary_path
 
@@ -38,6 +39,101 @@ def factor_figure_path(factor_key, suffix):
     family, variant = factor_key.split("|", maxsplit=1)
     name = safe_factor_name(family, variant)
     return os.path.join(SELECTION_FIGURES_DIR, f"{name}__{suffix}.png")
+
+
+def plot_selection_summary(cards, effect_tests):
+    factor_count = cards["factor_key"].nunique()
+    hypothesis_count = cards["hypothesis_key"].nunique()
+    rejected = effect_tests["reject_active_scope_fdr"].fillna(False)
+    ic_discoveries = int(
+        (rejected & effect_tests["effect"].eq("spearman_ic")).sum()
+    )
+    economic_discoveries = int(
+        (rejected & effect_tests["effect"].ne("spearman_ic")).sum()
+    )
+    economic_candidates = int(
+        cards["evidence_status"].eq("candidate_after_full_fdr").sum()
+    )
+
+    figure, axes = plt.subplots(1, 3, figsize=(16, 5.7))
+    figure.suptitle("Factor Selection Summary", fontsize=20, fontweight="bold")
+    figure.text(
+        0.5,
+        0.91,
+        (
+            f"{factor_count} configurations  |  {hypothesis_count} hypotheses  |  "
+            f"{len(effect_tests):,} effect tests"
+        ),
+        ha="center",
+        color="#4A5568",
+    )
+
+    scope_axis = axes[0]
+    scope_axis.set_title("Research scope", fontweight="bold")
+    scope_axis.axis("off")
+    scope_metrics = (
+        ("Factor configurations", factor_count, "#2B6CB0"),
+        ("Forward horizons", cards["horizon_days"].nunique(), "#805AD5"),
+        ("Hypotheses", hypothesis_count, "#DD6B20"),
+        ("Effect tests", len(effect_tests), "#4A5568"),
+    )
+    for position, (label, value, color) in enumerate(scope_metrics):
+        y = 0.82 - position * 0.21
+        scope_axis.text(0.04, y, label, fontsize=10, color="#4A5568")
+        scope_axis.text(
+            0.96,
+            y,
+            f"{value:,}",
+            ha="right",
+            fontsize=18,
+            fontweight="bold",
+            color=color,
+        )
+        if position < len(scope_metrics) - 1:
+            scope_axis.plot(
+                [0.04, 0.96],
+                [y - 0.09, y - 0.09],
+                color="#E2E8F0",
+                linewidth=0.8,
+            )
+
+    pattern_axis = axes[1]
+    pattern_counts = cards["pattern"].value_counts().sort_values()
+    pattern_labels = [label.replace("_", " ").title() for label in pattern_counts.index]
+    bars = pattern_axis.barh(pattern_labels, pattern_counts.values, color="#2B6CB0")
+    pattern_axis.bar_label(bars, padding=3, fontsize=9)
+    pattern_axis.set_title("Detected relationship shapes", fontweight="bold")
+    pattern_axis.set_xlabel("Hypotheses")
+    pattern_axis.spines[["top", "right", "left"]].set_visible(False)
+    pattern_axis.grid(axis="x", color="#E2E8F0", linewidth=0.8)
+    pattern_axis.set_axisbelow(True)
+
+    decision_axis = axes[2]
+    decision_labels = (
+        "Rank IC\nFDR discoveries",
+        "Economic\nFDR discoveries",
+        "Final economic\ncandidates",
+    )
+    decision_values = (
+        ic_discoveries,
+        economic_discoveries,
+        economic_candidates,
+    )
+    bars = decision_axis.bar(
+        decision_labels,
+        decision_values,
+        color=["#805AD5", "#DD6B20", "#2F855A"],
+    )
+    decision_axis.bar_label(bars, padding=3, fontsize=12, fontweight="bold")
+    decision_axis.set_title("Final selection decision", fontweight="bold")
+    decision_axis.set_ylabel("Discoveries")
+    decision_axis.set_ylim(0, max(1.25, max(decision_values) + 0.25))
+    decision_axis.spines[["top", "right"]].set_visible(False)
+    decision_axis.grid(axis="y", color="#E2E8F0", linewidth=0.8)
+    decision_axis.set_axisbelow(True)
+
+    figure.subplots_adjust(top=0.78, wspace=0.40)
+    return save_figure(figure, SELECTION_SUMMARY_PATH)
 
 
 # -------------------------
@@ -262,8 +358,11 @@ def factor_keys_for_figures(cards):
     return factor_scores.head(MAX_FACTOR_FIGURES).index.tolist()
 
 
-def create_selection_figures(cards, curves, time_stability):
-    paths = [plot_hypothesis_overview(cards)]
+def create_selection_figures(cards, effect_tests, curves, time_stability):
+    paths = [
+        plot_selection_summary(cards, effect_tests),
+        plot_hypothesis_overview(cards),
+    ]
 
     for factor_key in factor_keys_for_figures(cards):
         paths.extend(
@@ -431,6 +530,8 @@ def build_selection_report(cards, effect_tests, figure_paths):
     lines = [
         "# Factor Selection Report",
         "",
+        "![Factor Selection summary](Figures/factor_selection_summary.png)",
+        "",
         "## Scope",
         "",
         f"- Factor configurations analyzed: `{factor_count}`.",
@@ -488,6 +589,8 @@ def build_selection_report(cards, effect_tests, figure_paths):
     )
 
     for path in figure_paths:
+        if os.path.basename(path) == "factor_selection_summary.png":
+            continue
         relative = os.path.relpath(path, os.path.dirname(report_directory))
         relative = relative.replace("\\", "/")
         label = os.path.splitext(os.path.basename(path))[0].replace("_", " ")

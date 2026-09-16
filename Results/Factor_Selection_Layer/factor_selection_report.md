@@ -1,5 +1,7 @@
 # Factor Selection Report
 
+![Factor Selection summary](Figures/factor_selection_summary.png)
+
 ## Scope
 
 - Factor configurations analyzed: `56`.

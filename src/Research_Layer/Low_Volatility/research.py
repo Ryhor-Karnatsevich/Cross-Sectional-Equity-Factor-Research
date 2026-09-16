@@ -33,6 +33,7 @@ from Low_Volatility.config import (
     LOW_VOLATILITY_PORTFOLIO_METADATA_PATH,
     LOW_VOLATILITY_RESULTS_DIR,
     LOW_VOLATILITY_SELECTION_HORIZON,
+    LOW_VOLATILITY_SUMMARY_PATH,
     LOW_VOLATILITY_WINDOWS,
     PRIMARY_TRANSACTION_COST_BPS,
     SELECTION_CARDS_PATH,
@@ -399,8 +400,81 @@ def save_low_volatility_figure(figure, name):
     return path
 
 
+def plot_low_volatility_summary(summary):
+    colors = {
+        "NOT_SUPPORTED": "#C53030",
+        "ISOLATED_RESULT": "#DD6B20",
+        "ROBUST_ECONOMIC_LEAD": "#2B6CB0",
+        "STRONG_POST_SELECTION_LEAD": "#2F855A",
+    }
+    windows = summary["window"].astype(int)
+    bar_colors = [colors.get(status, "#718096") for status in summary["research_status"]]
+
+    figure, axes = plt.subplots(1, 3, figsize=(16, 5.7))
+    figure.suptitle("Low Volatility Research Summary", fontsize=20, fontweight="bold")
+    figure.text(
+        0.5,
+        0.91,
+        (
+            f"{len(summary)} lookback windows  |  Q10 - middle  |  "
+            f"63-day rebalance  |  primary cost {PRIMARY_TRANSACTION_COST_BPS} bps"
+        ),
+        ha="center",
+        color="#4A5568",
+    )
+
+    return_axis = axes[0]
+    bars = return_axis.bar(
+        windows.astype(str) + "d",
+        summary["net_annualized_return_10bps"] * 100,
+        color=bar_colors,
+    )
+    return_axis.bar_label(bars, fmt="%.2f%%", padding=3, fontsize=8)
+    return_axis.axhline(0, color="black", linewidth=0.8)
+    return_axis.set_title("Net annualized return", fontweight="bold")
+    return_axis.set_ylabel("Return at 10 bps")
+    return_axis.spines[["top", "right"]].set_visible(False)
+    return_axis.grid(axis="y", color="#E2E8F0", linewidth=0.8)
+    return_axis.set_axisbelow(True)
+
+    sharpe_axis = axes[1]
+    sharpe_axis.plot(windows, summary["net_sharpe_10bps"], marker="o", label="Full history")
+    sharpe_axis.plot(windows, summary["long_wf_sharpe"], marker="o", label="Long walk-forward")
+    sharpe_axis.plot(windows, summary["short_wf_sharpe"], marker="o", label="Short walk-forward")
+    sharpe_axis.axhline(0, color="black", linewidth=0.8)
+    sharpe_axis.axhline(LOW_VOLATILITY_MIN_NET_SHARPE, color="#718096", linewidth=1, linestyle="--")
+    sharpe_axis.set_title("Sharpe stability", fontweight="bold")
+    sharpe_axis.set_xlabel("Lookback window, trading days")
+    sharpe_axis.set_ylabel("Sharpe")
+    sharpe_axis.legend(fontsize=8)
+    sharpe_axis.spines[["top", "right"]].set_visible(False)
+    sharpe_axis.grid(color="#E2E8F0", linewidth=0.8)
+    sharpe_axis.set_axisbelow(True)
+
+    checks_axis = axes[2]
+    check_columns = [column for column in summary.columns if column.startswith("pass_")]
+    bars = checks_axis.bar(
+        windows.astype(str) + "d",
+        summary["passed_declared_checks"],
+        color=bar_colors,
+    )
+    checks_axis.bar_label(bars, padding=3, fontsize=9, fontweight="bold")
+    checks_axis.set_title("Declared checks passed", fontweight="bold")
+    checks_axis.set_ylabel(f"Passed checks out of {len(check_columns)}")
+    checks_axis.set_ylim(0, len(check_columns) + 1)
+    checks_axis.spines[["top", "right"]].set_visible(False)
+    checks_axis.grid(axis="y", color="#E2E8F0", linewidth=0.8)
+    checks_axis.set_axisbelow(True)
+
+    figure.subplots_adjust(top=0.78, wspace=0.36)
+    os.makedirs(LOW_VOLATILITY_FIGURES_DIR, exist_ok=True)
+    figure.savefig(LOW_VOLATILITY_SUMMARY_PATH, dpi=180, bbox_inches="tight")
+    plt.close(figure)
+    return LOW_VOLATILITY_SUMMARY_PATH
+
+
 def create_low_volatility_figures(summary, portfolio_statistics):
-    paths = []
+    paths = [plot_low_volatility_summary(summary)]
 
     figure, axes = plt.subplots(2, 1, figsize=(11, 8), sharex=True)
     axes[0].plot(
@@ -521,6 +595,8 @@ def build_low_volatility_report(
     lines = [
         "# Low Volatility Deep Dive",
         "",
+        "![Low Volatility summary](Figures/low_volatility_summary.png)",
+        "",
         "## Scope",
         "",
         f"- Tested lookbacks: `{list(LOW_VOLATILITY_WINDOWS)}` trading days.",
@@ -629,6 +705,8 @@ def build_low_volatility_report(
         "",
     ]
     for path in figure_paths:
+        if os.path.basename(path) == "low_volatility_summary.png":
+            continue
         name = os.path.splitext(os.path.basename(path))[0]
         title = name.replace("_", " ").title()
         lines.extend(

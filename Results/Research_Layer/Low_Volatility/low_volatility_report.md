@@ -1,5 +1,7 @@
 # Low Volatility Deep Dive
 
+![Low Volatility summary](Figures/low_volatility_summary.png)
+
 ## Scope
 
 - Tested lookbacks: `[20, 40, 60, 90, 120, 180, 252]` trading days.

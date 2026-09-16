@@ -3,10 +3,13 @@ from datetime import datetime, timezone
 from factor_builder import build_factor_matrices
 from factor_config import (
     APPLY_WINSORIZATION,
+    FACTOR_REPORT_PATH,
     FACTOR_RUN_METADATA_PATH,
+    FACTOR_SUMMARY_PATH,
     FACTOR_VARIANT_COUNT,
     FORWARD_HORIZONS,
 )
+from factor_report import build_factor_report, create_factor_summary
 from factor_storage import (
     factor_cache_is_valid,
     load_factor_inputs,
@@ -15,6 +18,7 @@ from factor_storage import (
     save_cache_manifest,
     save_factor_metadata,
     save_run_metadata,
+    save_text,
 )
 from forward_returns import build_forward_return_matrices
 
@@ -56,12 +60,19 @@ def run_pipeline():
         "factor_cache_reused": cache_reused,
     }
     save_run_metadata(run_metadata)
+    create_factor_summary(metadata, run_metadata)
+    save_text(
+        build_factor_report(metadata, run_metadata),
+        FACTOR_REPORT_PATH,
+    )
 
     print("Factor Layer is ready")
     print(f"Factor cache reused: {cache_reused}")
     print(f"Factor-score matrices: {FACTOR_VARIANT_COUNT}")
     print(f"Forward-return matrices: {len(FORWARD_HORIZONS)}")
     print(f"Run metadata: {FACTOR_RUN_METADATA_PATH}")
+    print(f"Report: {FACTOR_REPORT_PATH}")
+    print(f"Summary figure: {FACTOR_SUMMARY_PATH}")
 
     return metadata
 

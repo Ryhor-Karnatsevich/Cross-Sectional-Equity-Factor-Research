@@ -39,6 +39,10 @@ RESEARCH_FIGURES_DIR = os.path.join(
     GENERAL_RESEARCH_RESULTS_DIR,
     "Figures",
 )
+RESEARCH_SUMMARY_PATH = os.path.join(
+    RESEARCH_FIGURES_DIR,
+    "general_research_summary.png",
+)
 RESEARCH_CODE_PATHS = tuple(
     os.path.join(os.path.dirname(__file__), name)
     for name in (

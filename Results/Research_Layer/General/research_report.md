@@ -1,5 +1,7 @@
 # Research Layer Report
 
+![General Research summary](Figures/general_research_summary.png)
+
 ## Scope
 
 - Frozen factor leads: `4`.
