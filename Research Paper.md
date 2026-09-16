@@ -1,0 +1,2285 @@
+# Cross-Sectional Equity Factor Research
+
+
+## Abstract
+
+This study examines whether interpretable signals derived from historical prices, returns and trading volume can explain cross-sectional differences in future returns among point-in-time S&P500 constituents. The dataset covers 2008–2026, with observations from 2008–2009 retained as factor warm-up history and formal research beginning in 2010. Historical index membership is used to reduce survivorship bias, although incomplete Yahoo Finance coverage for old and delisted securities leaves residual data-availability limitations.
+
+The research evaluates 11 factor families, 56 parameter configurations and eight forward-return horizons. Their combination produces 448 factor-horizon hypotheses and 2,240 statistical and economic effect tests. Factor relationships are evaluated through cross-sectional Rank IC, quantile-return structures, HAC-adjusted inference, temporal consistency and global false-discovery-rate correction. Four explicitly labelled leads are subsequently examined through portfolio implementations incorporating alternative position-construction rules, rebalance frequencies, transaction costs, turnover, beta exposure, walk-forward behaviour and point-in-time market regimes.
+
+One volatility-scaled momentum Rank-IC result survives global FDR correction, but no directly interpretable economic return effect passes the complete Factor Selection rules. The strongest portfolio-level result is a 60-day Low Volatility implementation, which produces a 4.77% net annualized return, a 0.505 full-history Sharpe ratio and a 0.432 long walk-forward Sharpe ratio at the declared 10 bps transaction-cost assumption. However, its alpha HAC t-statistic is 1.60, and neighbouring lookback windows do not form a robust parameter plateau.
+
+The study therefore finds no validated alpha. Its main contribution is a reproducible point-in-time factor-research framework, together with one economically interesting but isolated Low Volatility lead and a transparent account of the statistical, economic and data limitations preventing a stronger conclusion.
+
+
+## Key Results
+
+| Result | Value |
+| --- | ---: |
+| Factor families | 11 |
+| Factor configurations | 56 |
+| Forward-return horizons | 8 |
+| Factor-horizon hypotheses | 448 |
+| Statistical and economic effect tests | 2,240 |
+| Rank-IC discoveries after global FDR | 1 |
+| Economic discoveries after global FDR | 0 |
+| Strongest economic lead | Low Volatility 60d |
+| Net annualized return at 10 bps | 4.77% |
+| Full-history Sharpe | 0.505 |
+| Long walk-forward Sharpe | 0.432 |
+| Final result | No validated alpha |
+
+
+## 1. Introduction
+
+The practical objective of this project is to determine whether simple and interpretable information already contained in equity prices, returns and trading volume can rank stocks by their subsequent return. The object being predicted is not the direction of the S&P 500. It is the relative performance of securities inside the index universe on the same date.
+
+This distinction defines the complete research design. On every date, each available stock receives a factor score. The cross-section is then examined to determine whether stocks with different scores subsequently earn systematically different returns. A useful factor must therefore show more than a large historical average. Its direction and economic shape should persist through time, survive correction for the number of hypotheses tested and remain usable after portfolio construction, turnover and transaction costs.
+
+The project deliberately focuses on transparent factors rather than a black-box forecasting model. This makes every result traceable to an economic idea, a formula and a point-in-time set of securities. It also makes negative findings informative: a factor can be rejected because it lacks a stable cross-sectional relationship, because an apparent effect disappears under multiple-testing correction, or because the relationship cannot be implemented economically.
+
+The final result is negative in the strict sense. No tested factor qualifies as validated alpha. One volatility-scaled momentum Rank-IC result survives the global statistical correction, and a 60-day Low Volatility portfolio becomes the strongest economic lead. Neither satisfies the complete confirmation standard. The project is therefore presented as a completed factor-research study, not as a production-ready trading strategy.
+
+
+## 2. Research Questions and Hypotheses
+
+The study addresses five ordered research questions.
+
+1. Do any of the tested factor scores contain a stable cross-sectional relationship with future stock returns?
+2. Does the relationship have an economically interpretable shape, such as monotonicity, an upper-tail effect or a lower-tail effect?
+3. Does the evidence remain statistically visible after accounting for the complete set of 448 factor-horizon hypotheses and 2,240 effect tests?
+4. Can a frozen lead be converted into a portfolio that remains useful after turnover, transaction costs and basic market-risk controls?
+5. Is the portfolio result stable across time, rebalance dates, market regimes and nearby parameter values?
+
+These questions imply the following hypotheses.
+
+- **H1 — Cross-sectional information:** at least one factor configuration is associated with the ordering of subsequent returns.
+- **H2 — Economic structure:** at least one hypothesis produces a stable monotonic or tail-return pattern rather than an isolated average correlation.
+- **H3 — Multiple-testing robustness:** at least one economic effect survives the global false-discovery-rate procedure applied to the complete declared test family.
+- **H4 — Implementability:** at least one frozen lead produces positive and sufficiently stable net portfolio performance under the declared 10 bps transaction-cost assumption.
+- **H5 — Parameter robustness:** a successful implementation is supported by neighbouring factor parameters rather than one isolated historical maximum.
+
+The sign of a factor is not assumed to be positive. A strong negative relationship can be as useful as a positive one because the portfolio direction can be reversed. The relevant questions are the magnitude, stability and economic meaning of the relationship.
+
+
+## 3. Economic Motivation and Literature
+
+The factor universe combines established return-predictability ideas with closely related transformations. The purpose is not to reproduce every published anomaly. It is to test a compact set of understandable mechanisms using one consistent point-in-time research architecture.
+
+### Momentum, trend and proximity to highs
+
+Momentum asks whether securities that performed strongly relative to other securities continue to outperform. The classic evidence of [Jegadeesh and Titman (1993)](https://doi.org/10.1111/j.1540-6261.1993.tb04702.x) motivates medium-horizon winner-minus-loser tests. The project varies the formation period and the recent period omitted from that formation window. Trend, trend slope and proximity to a rolling high test related but non-identical descriptions of persistent price movement.
+
+Momentum can arise from slow information diffusion, underreaction or institutional trading persistence. It can also reverse, decay or become crowded. The project therefore does not treat one conventional 12-1 specification as automatically valid. It compares multiple horizons, residual versions, volatility-scaled versions and price-volume confirmation.
+
+### Short-term reversal
+
+Short-term reversal tests whether recent relative winners become near-term losers and recent losers rebound. [Jegadeesh (1990)](https://doi.org/10.1111/j.1540-6261.1990.tb05110.x) documents negative first-order serial correlation and motivates treating reversal as a separate family rather than merely using a negative momentum coefficient. A reversal effect may reflect temporary liquidity pressure, bid-ask effects or short-lived overreaction; it may therefore disappear once turnover and costs are introduced.
+
+### Low volatility and risk-adjusted signals
+
+Low Volatility gives a higher factor score to stocks with lower trailing return variability. The sign is explicitly reversed so that a larger score always represents the preferred side of this factor definition. The literature documents that high-volatility and high-beta stocks have often failed to deliver proportionately higher returns; [Baker, Bradley and Wurgler (2011)](https://pages.stern.nyu.edu/~jwurgler/papers/faj-benchmarks.pdf) discuss benchmark and leverage constraints as one possible explanation.
+
+This project also tests volatility-scaled momentum and risk-adjusted trend. These signals ask whether a given price movement is more informative when achieved with less realised variability. They are transformations of price behaviour, not independent fundamental information.
+
+### Liquidity and price-volume interaction
+
+Liquidity can affect both expected returns and implementation costs. [Amihud (2002)](https://doi.org/10.1016/S1386-4181(01)00024-6) relates illiquidity to expected returns using price and dollar-volume information, while [Lee and Swaminathan (2000)](https://doi.org/10.1111/0022-1082.00280) connect past trading volume with the magnitude and persistence of momentum. The current project uses changes in rolling dollar volume and a price-volume confirmation transformation. These are deliberately simple proxies and should not be interpreted as full market-impact models.
+
+### Why strict inference is required
+
+Testing many factor definitions and horizons creates a large chance of selecting a lucky historical result. [Harvey, Liu and Zhu (2016)](https://doi.org/10.1093/rfs/hhv059) show why conventional single-test significance thresholds are inadequate in a crowded factor-discovery setting. The project therefore separates descriptive raw p-values from the confirmatory global false-discovery-rate decision and uses the [Benjamini–Hochberg procedure](https://doi.org/10.1111/j.2517-6161.1995.tb02031.x). Because daily observations and forward returns overlap, reported inference uses heteroskedasticity- and autocorrelation-consistent standard errors following [Newey and West (1987)](https://www.nber.org/papers/t0055).
+
+
+## 4. Data and Point-in-Time Universe
+
+### Coverage
+
+The market-data matrices contain 4,686 trading dates from 2008-01-02 through 2026-08-18 and 900 historical ticker columns. Observations from 2008–2009 are retained as warm-up history for long rolling calculations. Formal factor evaluation begins on 2010-01-01.
+
+The equity inputs are adjusted prices and raw trading volume downloaded through Yahoo Finance. The stored volume is rescaled so that adjusted price multiplied by compatible volume equals raw close multiplied by raw Yahoo volume. Daily returns and forward returns are calculated from adjusted prices. The risk-free series is the daily US three-month Treasury constant-maturity rate, DGS3MO, obtained from the [Federal Reserve Bank of St. Louis](https://fred.stlouisfed.org/series/DGS3MO).
+
+### Point-in-time membership
+
+Using only the current S&P 500 list would create direct survivorship bias. The project instead reconstructs date-specific membership from 2,720 historical component snapshots supplied by the community-maintained [fja05680/sp500 dataset](https://github.com/fja05680/sp500/blob/master/S%26P%20500%20Historical%20Components%20%26%20Changes.csv). The source contains between 496 and 507 components per snapshot. A stock is eligible only when it is an index member on that date, a price is observed and the price passes the data-quality mask.
+
+This approach reduces survivorship bias but does not eliminate it. Yahoo Finance has incomplete or missing histories for many old, renamed and delisted securities. In the final audit, 247 historical tickers have no price during their recorded membership, 262 have membership-period price coverage below 80%, 191 downloads are missing and 20 reused symbols are deliberately rejected. The research universe is therefore point-in-time with respect to the membership source, but not a complete institutional-grade delisting database.
+
+### Data quality
+
+The final data audit reports 54 PASS, four WARNING and zero FAIL checks. It verifies matrix alignment, formulas, membership reconstruction, valid prices, returns, adjusted-volume compatibility, availability and risk-free-rate coverage. Large returns are not winsorized or clipped. Unconfirmed price anomalies are quarantined through the quality mask, while confirmed real events remain usable.
+
+Volume quality is kept separate from price availability. Thirty-three zero-volume observations are excluded from liquidity calculations without removing the corresponding price observations. Thirty-six positive-to-positive volume jumps of at least 100 times remain as warnings because an internal consistency check cannot determine whether a positive market observation is economically genuine.
+
+### Information timing
+
+Daily return at date `t` means the adjusted-price return from `t-1` to `t`. A forward return for horizon `h` is
+
+\[
+R_{i,t}^{(h)} = \frac{P_{i,t+h}}{P_{i,t}} - 1.
+\]
+
+The factor used for a relationship dated `t` is shifted by one trading date. Factor Selection therefore compares information known at `t-1` with the return from `t` to `t+h`. Portfolio weights entering date `t` also use only the factor known at `t-1`, before earning the `t-1` to `t` daily return.
+
+
+## 5. Factor Methodology
+
+### Factor families
+
+The research contains 11 factor families and 56 fixed configurations.
+
+| Family | Configurations | Economic interpretation |
+| --- | ---: | --- |
+| Momentum | 17 | Cumulative historical return over different formation and skip periods |
+| Low Volatility | 7 | Negative trailing return volatility, so lower volatility receives a higher score |
+| Trend | 6 | Current price relative to its simple moving average |
+| Short-Term Reversal | 3 | Negative recent cumulative return |
+| Residual Momentum | 3 | Momentum after removing the daily equal-weight market return |
+| Volatility-Scaled Momentum | 3 | Momentum divided by trailing volatility |
+| High Proximity | 3 | Current price relative to its rolling high |
+| Trend Slope | 4 | Annualized rolling slope of log price |
+| Risk-Adjusted Trend | 4 | Trend slope divided by annualized volatility |
+| Liquidity Change | 3 | Log ratio of short- and long-window average dollar volume |
+| Price-Volume Confirmation | 3 | Momentum adjusted by a bounded liquidity-change signal |
+
+Each raw factor is restricted to the valid point-in-time availability matrix and transformed into a same-date cross-sectional z-score:
+
+\[
+z_{i,t} = \frac{x_{i,t}-\bar{x}_t}{s_t}.
+\]
+
+Consequently, a score of zero means that the stock is close to the same-date cross-sectional mean of that factor, not that the stock had zero return or zero trend. Winsorization is implemented as an optional transformation but is disabled in the completed research, so verified extreme factor values remain in the analysis.
+
+### Horizons and hypotheses
+
+Eight forward-return horizons are used: 1, 5, 10, 21, 42, 63, 126 and 252 trading days. Combining 56 configurations with eight horizons creates 448 factor-horizon hypotheses. A horizon changes the future return being compared with the factor; it does not change the factor score itself.
+
+### Daily cross-sectional evidence
+
+For each date and hypothesis, eligible stocks are ordered by their lagged factor score and divided into ten quantiles. At least 30 stocks with both a factor and a forward return are required. The system stores the number of securities, factor-score mean and median, and future-return mean and median for every quantile.
+
+The daily Rank Information Coefficient is the cross-sectional Spearman correlation
+
+\[
+IC_t^{(h)} = \rho_{S}\left(z_{i,t-1}, R_{i,t}^{(h)}\right).
+\]
+
+It answers whether higher factor ranks are associated with higher or lower future-return ranks across stocks on that date. It does not represent an IC for one individual stock and it does not by itself specify a trading portfolio.
+
+The quantile curves provide the economic shape that IC alone can hide. Five effects are tested for every hypothesis: Rank IC, Q10 minus Q1, Q10 minus the middle quantiles, middle quantiles minus Q1, and both edges minus the middle. This allows positive monotonic, negative monotonic, upper-tail, lower-tail and two-sided tail patterns to be distinguished.
+
+
+## 6. Experimental Design
+
+### Stage 1 — Complete hypothesis grid
+
+The Factor Layer creates all 56 factor-score matrices and all eight forward-return matrices before any winning configuration is known. The Factor Selection Layer then evaluates the complete 448-hypothesis grid. The declared configuration is stored in code and run metadata, preventing the final report from silently omitting weak variants.
+
+### Stage 2 — Statistical and economic classification
+
+Every hypothesis receives daily IC and quantile-return observations. HAC-adjusted statistics account for serial dependence, including the overlap created by multi-day forward returns. Monthly and annual direction rates measure whether an effect is repeatedly present rather than produced by one subperiod. Rank autocorrelation describes factor persistence and therefore has implications for turnover.
+
+Pattern classification requires sufficient observations, an economically recognisable quantile shape, temporal consistency and statistical visibility. The sign is not hard-coded: both positive and negative monotonic structures are admissible. The Benjamini–Hochberg correction is applied globally to all 2,240 declared effect tests. Exploratory within-group and hierarchical corrections are reported only as sensitivity analyses; they do not replace the original confirmatory rule after the results are visible.
+
+### Stage 3 — Frozen portfolio leads
+
+The complete selection procedure produces no final economic candidate. Four leads are nevertheless frozen for transparent post-selection investigation:
+
+| Lead | Horizon | Reason retained |
+| --- | ---: | --- |
+| Volatility-Scaled Momentum 12m-1m / vol60 | 1 day | The only Rank-IC result surviving global FDR |
+| Short-Term Reversal 5d | 5 days | Exploratory upper-tail pattern |
+| Liquidity Change 20d/252d | 252 days | Exploratory upper-tail pattern |
+| Low Volatility 60d | 63 days | Exploratory lower-tail pattern |
+
+Freezing the list prevents the portfolio layer from repeatedly returning to the 448-hypothesis grid after observing later results. These are research leads, not confirmed discoveries.
+
+### Stage 4 — Portfolio implementation
+
+The four leads are tested through continuous ranks, Q10-Q1, Q10-middle, middle-Q1 and one-sided Q1 or Q10 portfolios. Market-neutral methods are tested with and without trailing beta neutralization. Rebalancing occurs every 1, 5, 21 or 63 trading days, with multiple calendar phases used to reduce dependence on one arbitrary starting date.
+
+The engine carries weights through realised returns between rebalances. One-way turnover is the sum of absolute changes between target and pre-trade weights. Net daily return at cost `c` basis points is calculated as
+
+\[
+r_{p,t}^{net} = (1+r_{p,t}^{gross})\left(1-\frac{c}{10{,}000}\,Turnover_t\right)-1.
+\]
+
+The primary result uses 10 bps, with 0, 5 and 25 bps retained as sensitivity cases. Evaluation includes annualized return, volatility, Sharpe ratio, maximum drawdown, turnover, cost drag, market beta and HAC alpha. Long-only Sharpe ratios use returns above the daily risk-free rate; self-financing spreads use their own net return.
+
+### Stage 5 — Temporal and parameter robustness
+
+Walk-forward analysis uses two repeated structures: an 18-month selection window followed by six months of evaluation, and a four-year selection window followed by twelve months of evaluation. The implementation itself remains fixed; only the direction of a market-neutral spread can be chosen inside the preceding window. Because the candidates were discovered using the same full historical dataset, these windows are post-selection stability diagnostics, not a genuinely untouched final test.
+
+The strongest lead is examined separately across Low Volatility windows of 20, 40, 60, 90, 120, 180 and 252 days. This final step asks whether success forms a coherent neighbouring parameter plateau or is concentrated at one isolated setting.
+
+
+## 7. Factor Selection Results
+
+The complete selection run analyzes 448 hypotheses and 2,240 effect tests. Of the 448 hypotheses, 426 show no stable structure. Twenty-two display a descriptive economic pattern: 14 lower-tail patterns, seven upper-tail patterns and one positive monotonic pattern. Ten of the 22 are temporally unstable and twelve are rejected by the global multiple-testing rule.
+
+One volatility-scaled momentum Rank-IC result survives global FDR correction. This means the cross-sectional rank ordering contains statistically detectable information at its declared horizon. It does not establish a tradable return spread: no economic quantile effect survives the same complete global correction, and the volatility-scaled momentum Q10-Q1 relationship is not sufficiently supported.
+
+The selection result therefore supports H1 only in a narrow statistical sense. H2 and H3 are not confirmed for an economic return effect. The difference matters: a significant average rank relationship can be too diffuse, unstable or economically small to produce a reliable portfolio.
+
+![Factor Selection summary](Results/Factor_Selection_Layer/Figures/factor_selection_summary.png)
+
+
+## 8. Portfolio Research Results
+
+### General research
+
+The general portfolio layer evaluates 160 implementations at the primary 10 bps cost assumption. Short-Term Reversal and Liquidity Change are rejected. Volatility-Scaled Momentum remains a statistical lead but its chosen implementation has a net annualized return of 2.33%, a Sharpe ratio of 0.268 and a long walk-forward Sharpe ratio of -0.008.
+
+The 60-day Low Volatility implementation is the strongest economic lead. Its selected Q10-minus-middle, beta-neutral, 63-day rebalance portfolio produces:
+
+| Metric | Result |
+| --- | ---: |
+| Net annualized return | 4.77% |
+| Full-history Sharpe | 0.505 |
+| Maximum drawdown | -19.78% |
+| Annualized turnover | 8.19x |
+| Alpha HAC t-statistic | 1.60 |
+| Long walk-forward Sharpe | 0.432 |
+
+For context, the point-in-time equal-weight market proxy earns approximately 14.12% annually with a Sharpe ratio of 0.738 and a maximum drawdown of -39.90%, while the average annualized risk-free return is approximately 1.50%. The Low Volatility spread therefore has a lower absolute return than the equity benchmark but materially lower market exposure and drawdown. It should be judged as a relative, beta-controlled signal rather than as a replacement for a fully invested equity portfolio.
+
+![General Research summary](Results/Research_Layer/General/Figures/general_research_summary.png)
+
+### Focused Low Volatility research
+
+The focused study holds the portfolio rule fixed and compares seven neighbouring lookback windows. The 60-day window passes six of ten declared checks and remains positive in both walk-forward structures. However, its alpha HAC t-statistic is below the declared significance threshold, its alpha Benjamini–Hochberg q-value is approximately 0.479 and nearby windows do not form a stable plateau that passes the same complete rules.
+
+The 60-day result is therefore labelled `ISOLATED_RESULT`. It is economically interesting enough to document, but H4 and H5 are not jointly supported and the result is not upgraded to validated alpha.
+
+![Low Volatility summary](Results/Research_Layer/Low_Volatility/Figures/low_volatility_summary.png)
+
+
+## 9. Discussion
+
+The main lesson is not that price-based factors contain no information. The surviving volatility-scaled momentum Rank-IC result shows that the complete system can detect a statistically unusual cross-sectional ordering. The Low Volatility portfolio also shows that an economically coherent spread can persist after estimated trading costs and through repeated historical windows.
+
+The stronger conclusion fails because the evidence does not align across every level. The statistically strongest rank result is not the economically strongest portfolio. The economically strongest portfolio has a modest Sharpe ratio, an alpha t-statistic below the declared threshold and weak support from neighbouring parameters. This separation is exactly why factor discovery, pattern classification and portfolio implementation are treated as different layers.
+
+The Low Volatility lead may still have practical research value. Its drawdown and market-risk profile are different from those of the equal-weight benchmark, and the neighbouring windows are not uniformly poor. However, selecting the 60-day maximum after observing the complete history creates an additional selection problem. More tuning on the same data would increase confidence in the backtest appearance without supplying independent evidence.
+
+The appropriate next confirmation would therefore use genuinely new information: future observations accumulated after the research freeze, a separate institutional-quality dataset with improved delisting history, or a pre-registered replication in a different equity universe. Additional parameter search on the current history is not equivalent to confirmation.
+
+
+## 10. Threats to Validity
+
+- **Residual survivorship and data-availability bias.** Historical membership is reconstructed, but Yahoo Finance does not provide complete histories for all old and delisted securities. Missing securities may change both factor ranks and realised returns.
+- **Membership-source risk.** Historical components come from a community-maintained repository rather than official S&P point-in-time data.
+- **No untouched final sample.** The complete history influenced factor discovery and the frozen lead set. Walk-forward results describe temporal behaviour after selection; they are not a new independent experiment.
+- **Multiple testing.** Global FDR controls the declared family, but the broader human research process also contains choices about factor families, configurations, portfolio methods and follow-up studies.
+- **Overlapping returns.** Multi-day forward returns share daily observations. HAC inference reduces, but does not eliminate, the difficulty of interpreting dependent tests.
+- **Approximate implementation costs.** Fixed basis-point costs do not model bid-ask variation, nonlinear market impact, capacity, borrow fees, short availability or financing constraints.
+- **Incomplete risk controls.** Point-in-time sector classifications are unavailable. The code reports sector exposure as `NOT_AVAILABLE` instead of incorrectly applying current sectors to historical companies.
+- **Simple market model.** Alpha is evaluated against an equal-weight market proxy rather than a complete multi-factor risk model.
+- **Regime-analysis selection.** Regime thresholds use only information available at the time, but regime comparisons are still post-selection analyses of already selected candidates.
+- **Price-and-volume scope.** The factor set omits fundamentals, analyst estimates, options, intraday information and alternative data. The conclusion applies only to the tested signal universe.
+
+
+## 11. Final Conclusion
+
+This project tested whether interpretable price-, return- and volume-based signals could identify cross-sectional differences in future returns among point-in-time S&P 500 members.
+
+The completed system covered 11 factor families, 56 configurations, eight horizons, 448 hypotheses and 2,240 effect tests. One volatility-scaled momentum Rank-IC result survived global FDR correction, but no directly interpretable economic return effect passed the complete Factor Selection rules. Four explicitly labelled leads were then frozen for post-selection portfolio research. Short-Term Reversal and Liquidity Change were rejected, and Volatility-Scaled Momentum remained only a statistical lead.
+
+The 60-day Low Volatility implementation produced the strongest economic result: 4.77% net annualized return, a 0.505 full-history Sharpe ratio and a 0.432 long walk-forward Sharpe ratio under the declared 10 bps cost assumption. Its alpha HAC t-statistic of 1.60 and the absence of a robust neighbouring parameter plateau prevent it from being treated as confirmed alpha.
+
+The final conclusion is therefore **no validated alpha**. The successful output of the project is a reproducible research framework, a transparent negative result and one clearly bounded Low Volatility lead suitable for independent future confirmation. The project should not be presented as a production-ready strategy or as evidence of guaranteed future returns.
+
+
+## 12. References
+
+- Amihud, Y. (2002). “Illiquidity and Stock Returns: Cross-Section and Time-Series Effects.” *Journal of Financial Markets*, 5(1), 31–56. [DOI](https://doi.org/10.1016/S1386-4181(01)00024-6).
+- Baker, M., Bradley, B., and Wurgler, J. (2011). “Benchmarks as Limits to Arbitrage: Understanding the Low-Volatility Anomaly.” *Financial Analysts Journal*, 67(1), 40–54. [Author manuscript](https://pages.stern.nyu.edu/~jwurgler/papers/faj-benchmarks.pdf).
+- Benjamini, Y., and Hochberg, Y. (1995). “Controlling the False Discovery Rate: A Practical and Powerful Approach to Multiple Testing.” *Journal of the Royal Statistical Society: Series B*, 57(1), 289–300. [DOI](https://doi.org/10.1111/j.2517-6161.1995.tb02031.x).
+- Board of Governors of the Federal Reserve System. “Market Yield on U.S. Treasury Securities at 3-Month Constant Maturity, Quoted on an Investment Basis [DGS3MO].” [FRED](https://fred.stlouisfed.org/series/DGS3MO).
+- Harvey, C. R., Liu, Y., and Zhu, H. (2016). “… and the Cross-Section of Expected Returns.” *The Review of Financial Studies*, 29(1), 5–68. [DOI](https://doi.org/10.1093/rfs/hhv059).
+- Jegadeesh, N. (1990). “Evidence of Predictable Behavior of Security Returns.” *The Journal of Finance*, 45(3), 881–898. [DOI](https://doi.org/10.1111/j.1540-6261.1990.tb05110.x).
+- Jegadeesh, N., and Titman, S. (1993). “Returns to Buying Winners and Selling Losers: Implications for Stock Market Efficiency.” *The Journal of Finance*, 48(1), 65–91. [DOI](https://doi.org/10.1111/j.1540-6261.1993.tb04702.x).
+- Lee, C. M. C., and Swaminathan, B. (2000). “Price Momentum and Trading Volume.” *The Journal of Finance*, 55(5), 2017–2069. [DOI](https://doi.org/10.1111/0022-1082.00280).
+- Newey, W. K., and West, K. D. (1987). “A Simple, Positive Semi-Definite, Heteroskedasticity and Autocorrelation Consistent Covariance Matrix.” *Econometrica*, 55(3), 703–708. [NBER working paper](https://www.nber.org/papers/t0055).
+- fja05680. “S&P 500 Historical Components & Changes.” Community-maintained point-in-time membership source. [GitHub](https://github.com/fja05680/sp500/blob/master/S%26P%20500%20Historical%20Components%20%26%20Changes.csv).
+
+
+# Technical Appendix
+
+The appendix maps the research design to the exact files, functions, parameters and generated artifacts. It preserves the implementation-level documentation separately from the economic argument in the main paper.
+
+
+## Appendix A — Project Architecture and Environment
+
+### Technology Stack
+
+- **Python** — complete research orchestration and reproducible layer pipelines.
+- **pandas and NumPy** — point-in-time matrices, time series and cross-sectional calculations.
+- **SciPy and statsmodels** — correlation tests, HAC inference, regressions and multiple-testing correction.
+- **yfinance and Requests** — market, historical-universe and risk-free-rate data acquisition.
+- **PyArrow and Parquet** — compressed storage and filtered access to large research matrices.
+- **Matplotlib** — automatically generated audit, factor-selection and portfolio-research figures.
+
+
+### Original Project Objective
+
+The purpose of this project is to study whether information contained in historical stock prices can identify differences in future returns across S&P500 companies.
+
+The project does not attempt to forecast the direction of the complete stock market. It performs cross-sectional research: on every observation date, stocks are compared with other stocks available in the index universe at that time.
+
+The research begins with interpretable price-based factors. Different factor definitions, parameter settings and return horizons are tested across multiple historical periods. Their statistical and economic results are then compared to determine whether any signal is sufficiently stable for further research.
+
+The current objective is factor discovery and evaluation. A production trading strategy or final portfolio construction model is not assumed before the factors demonstrate useful out-of-sample behaviour.
+
+
+### Project Roadmap
+
+| stage                  | status        |
+|------------------------|---------------|
+| Data System            | **completed** |
+| Factor Layer           | **completed** |
+| Factor Selection Layer | **completed** |
+| Research Layer         | **completed** |
+| Final Conclusion       | **completed** |
+
+
+### Project Structure
+src/
+
+
+  - Data_System/
+    - __init__.py
+    - config.py
+    - risk_free_rate.py
+    - get_tickers.py
+    - data_quality.py
+    - equity_data.py
+    - data_audit.py
+    - **pipeline.py**
+    - delete.py
+
+
+  - Factors_Layer/
+    - factor_config.py
+    - factors.py
+    - transforms.py
+    - factor_builder.py
+    - forward_returns.py
+    - factor_storage.py
+    - factor_report.py
+    - **pipeline.py**
+    - delete.py
+
+
+  - Factor_Selection_Layer/
+    - selection_config.py
+    - selection_storage.py
+    - quantile_analysis.py
+    - hypothesis_analysis.py
+    - pattern_classification.py
+    - classifier_validation.py
+    - selection_report.py
+    - **pipeline.py**
+
+
+  - Research_Layer/
+    - __init__.py
+    - research_config.py
+    - research_storage.py
+    - research_data.py
+    - multiple_testing_research.py
+    - factor_overlap.py
+    - portfolio_construction.py
+    - risk_exposure.py
+    - portfolio_engine.py
+    - portfolio_evaluation.py
+    - walk_forward_research.py
+    - regime_research.py
+    - research_report.py
+    - **pipeline.py** (general research)
+    - Low_Volatility/
+      - __init__.py
+      - config.py
+      - research.py
+      - **pipeline.py**
+    - delete.py
+
+
+  - Pipeline
+    - run.py
+
+
+Data/
+
+
+  - Data_System/
+    - Raw/
+    - Processed/
+    - Cache/
+
+
+  - Factors_Layer/
+    - Cache/
+      - Factor_Matrices/
+      - Forward_Return_Matrices/
+
+
+  - Factor_Selection_Layer/
+    - Cache/
+      - daily_quantile_results.parquet
+      - time_stability.parquet
+
+
+  - Research_Layer/
+    - General/
+      - Cache/
+    - Low_Volatility/
+      - Cache/
+
+
+Results/
+
+
+  - Data_System/
+    - Figures/
+    - data_audit_report.md
+
+
+  - Factors_Layer/
+    - Figures/
+      - factor_layer_summary.png
+    - factor_run_metadata.json
+    - factor_layer_report.md
+
+
+  - Factor_Selection_Layer/
+    - Figures/
+      - factor_selection_summary.png
+    - quantile_run_metadata.json
+    - selection_run_metadata.json
+    - hypothesis_cards.csv
+    - effect_tests.csv
+    - quantile_curves.csv
+    - classifier_validation.csv
+    - factor_selection_report.md
+
+
+  - Research_Layer/
+    - General/
+      - Figures/
+        - general_research_summary.png
+      - multiple_testing_comparison.csv
+      - multiple_testing_summary.csv
+      - factor_overlap.csv
+      - portfolio_metadata.csv
+      - portfolio_statistics.csv
+      - calendar_phase_stability.csv
+      - walk_forward_periods.csv
+      - walk_forward_summary.csv
+      - candidate_decisions.csv
+      - benchmark_statistics.csv
+      - risk_exposure_summary.csv
+      - sector_exposure_status.csv
+      - regime_performance.csv
+      - research_run_metadata.json
+      - research_report.md
+    - Low_Volatility/
+      - Figures/
+        - low_volatility_summary.png
+      - portfolio_metadata.csv
+      - portfolio_statistics.csv
+      - calendar_phase_stability.csv
+      - walk_forward_periods.csv
+      - walk_forward_summary.csv
+      - window_summary.csv
+      - benchmark_statistics.csv
+      - factor_overlap.csv
+      - regime_performance.csv
+      - sector_exposure_status.csv
+      - run_metadata.json
+      - low_volatility_report.md
+
+
+`Data` contains large datasets, calculated matrices and disposable caches. It is excluded from Git because every current file can be downloaded or calculated again.
+
+`Results` contains compact tables, run metadata, audit reports and figures intended for direct reading and Git history.
+
+
+## Appendix B — Data System Implementation
+
+The purpose of this layer is to create the complete data foundation used by the Factor Layer. It downloads the historical S&P500 ticker universe, obtains available Yahoo Finance market data, reconstructs point-in-time index membership and prepares aligned research matrices.
+
+Equity market data are downloaded from 2008. This provides historical observations that can later be used as factor warm-up data. The Data System itself does not select factor-research periods or divide observations into research and validation windows.
+
+The completed layer creates 12 core equity datasets with different metrics and formats:
+- Seven **"Processed"** files.
+- Five **"Raw"** files.
+- One additional macro dataset containing the US three-month Treasury rate.
+
+The final output contains adjusted prices, returns, compatible volume, liquidity, historical index membership, price and volume quality, price availability, long-format prices and 21-day forward returns. All wide matrices use aligned trading dates and historical ticker columns.
+
+Every completed Data System bundle is checked by a separate read-only audit. The audit verifies file readability, matrix alignment, calculated relationships, historical-universe construction, price gaps, volume quality and risk-free-rate coverage. Its results are written to a separate Markdown report and do not automatically change the datasets.
+
+
+**Limitations**:
+- Historical membership is taken from a community-maintained GitHub repository, not from official S&P data.
+- yfinance may have missing or incomplete history for delisted stocks and old ticker symbols. Therefore survivorship bias is reduced but not fully removed.
+- All Factor Layer results must be interpreted with this remaining survivorship/data-availability bias in mind.
+- The dataset ends on the latest repository snapshot instead of assuming an unknown index composition after that date.
+
+
+IMPORTANT:
+- All future features must be computed using data up to t-1
+- daily returns represent t-1 -> t
+- saved forward returns represent t -> t+21 trading days
+
+
+
+### **config.py**:
+- Defines separate paths for heavy Data System files in `Data/Data_System` and readable outputs in `Results/Data_System`.
+- Stores raw datasets in `Data/Data_System/Raw`, processed matrices in `Data/Data_System/Processed` and the yfinance cache in `Data/Data_System/Cache`.
+- Stores the audit report in `Results/Data_System` and audit figures in `Results/Data_System/Figures`.
+- Defines the historical S&P500 components URL and the FRED DGS3MO URL.
+- `DATA_START_DATE = 2008-01-01`.
+- Price-quality parameters:
+  - `SUSPICIOUS_ABS_DAILY_RETURN = 0.5`.
+  - `MAX_ABS_DAILY_RETURN = 1.0`.
+  - `ROUND_TRIP_RETURN_TOLERANCE = 0.25`.
+- Audit parameters:
+  - `AUDIT_NUMERIC_TOLERANCE = 1e-10`.
+  - `AUDIT_FILE_TIME_SPREAD_HOURS = 6`.
+  - `AUDIT_VOLUME_JUMP_RATIO = 100`.
+- `CONFIRMED_REAL_RETURN_EVENTS` contains manually verified extreme market moves. Currently: `HIG` on `2008-12-05`, `GME` on `2021-01-27` and `NKTR` on `2025-06-24`.
+- `YAHOO_REUSED_TICKERS` contains obsolete symbols whose Yahoo history belongs to another security. These symbols are rejected when no verified continuous alias exists.
+- `YAHOO_TICKER_ALIASES` contains only verified direct company/ticker changes. Acquisitions, unrelated mergers and post-bankruptcy securities are not treated as continuous aliases.
+
+
+
+### **risk_free_rate.py**
+- Prepares the daily three-month US Treasury yield used as the project risk-free-rate dataset.
+- Uses the official FRED `DGS3MO` series and stores annual yield in percent.
+
+#### download_dgs3mo
+- Downloads DGS3MO observations for the requested start and end dates without an API key.
+- Requires exactly two columns from FRED and renames them to `date` and `annual_rate_pct`.
+- Parses dates and converts rate observations to numeric values.
+- Keeps unavailable rate observations as missing.
+- Sorts observations and limits them to the requested period.
+- Requires at least 100 valid rate observations.
+- Rejects duplicated dates and negative rates.
+- Returns the prepared rate DataFrame without saving it.
+
+#### prepare_risk_free_rate
+- Used by the main Data System pipeline.
+- Keeps the existing `Data/Data_System/Raw/dgs3mo.parquet` without downloading it again.
+- Calls `download_dgs3mo` only when the local file does not exist.
+- Creates the destination directory and saves the downloaded rate dataset.
+- Does not inspect or extend an existing file; its quality and coverage are checked later by `data_audit.py`.
+
+#### ensure_risk_free_rate
+- Used when another research module directly requires a rate dataset for a specific period.
+- Loads the existing file when forced downloading is disabled.
+- Checks whether valid local observations cover the requested start and end dates.
+- Returns the requested slice when local coverage is sufficient.
+- Downloads and overwrites the rate dataset when the file is missing, coverage is insufficient or `force_download=True`.
+
+
+
+### **get_tickers.py**:
+- Prepares the historical S&P500 universe and point-in-time membership.
+- Uses the community-maintained `fja05680/sp500` GitHub repository.
+
+#### normalize_ticker
+- Removes surrounding spaces and converts the ticker to uppercase.
+- Replaces dots with dashes for yfinance compatibility.
+
+#### get_sp500_history
+- Downloads `S&P 500 Historical Components & Changes (Updated).csv` when `refresh=True`.
+- Saves the downloaded source file in `Data/Data_System/Raw`.
+- Uses the local copy when the online request fails.
+- Raises the original download error when both the online source and local copy are unavailable.
+- Requires `date` and `tickers` columns.
+- Keeps only these two required columns.
+- Parses and sorts snapshot dates.
+- Keeps the last snapshot when the source contains the same date more than once.
+- Normalizes every ticker inside every snapshot.
+- Requires historical snapshots covering `DATA_START_DATE` or later.
+- Requires between 450 and 550 components in every relevant snapshot.
+- Rejects duplicated tickers inside one snapshot.
+- Returns the prepared historical snapshots DataFrame.
+
+#### get_sp500_tickers
+- Loads historical snapshots when they were not provided by the caller.
+- Starts with the latest snapshot available on or before the requested start date.
+- Raises an error when the requested start date is earlier than the available history.
+- Combines tickers from every relevant snapshot into one historical ticker union.
+- Removes duplicated ticker symbols and returns the sorted list.
+
+#### get_sp500_tickers_by_date
+- Loads historical snapshots when they were not provided by the caller.
+- Finds the latest index snapshot available on or before the requested date.
+- Returns the S&P500 component list from that snapshot.
+- Raises an error when the requested date is earlier than the available history.
+
+#### build_membership_matrix
+- Receives historical snapshots, equity trading dates and the complete ticker list.
+- Creates one boolean snapshot row for every historical component date.
+- Reindexes snapshots to the equity trading calendar.
+- Carries each snapshot forward until the next index change.
+- Uses `True` when a ticker belongs to the index and `False` when it does not.
+- Raises an error when membership history does not cover the first equity trading date.
+- Warns when trading dates extend beyond the latest available historical snapshot.
+- Returns the daily boolean membership matrix.
+
+
+
+### **data_quality.py**
+- Contains price- and volume-quality functions used by `equity_data.py`.
+- Does not download, save or change datasets by itself.
+
+#### build_volume_quality_mask
+- Receives the compatible-volume matrix.
+- Creates a boolean matrix with the same dates and tickers.
+- Returns `True` only when volume exists, is finite and is greater than zero.
+- Returns `False` for missing, zero, negative and infinite volume.
+- This mask is applied before liquidity is calculated.
+
+#### build_confirmed_event_mask
+- Receives prices and the manually verified extreme market events from `config.py`.
+- Creates a boolean matrix filled with `False`.
+- Marks `True` only on the ticker-date pairs listed in `CONFIRMED_REAL_RETURN_EVENTS`.
+- Allows known real extreme moves to remain usable instead of being treated as data errors.
+
+#### build_data_quality_mask
+- Receives the adjusted-price matrix and price-quality thresholds from `config.py`.
+- Requires observed prices to be positive.
+- Calculates raw daily returns without filling missing prices.
+- Flags returns with an absolute move of at least 50% as suspicious diagnostics.
+- Flags returns with an absolute move of at least 100% as extreme.
+- Detects possible one-day spike reversals: a large move followed by a large opposite move that approximately returns to the original price.
+- Removes manually confirmed real extreme events from the anomaly list.
+- Creates an anomaly trigger from unconfirmed extreme returns or spike reversals.
+- Quarantines a ticker from its first anomaly trigger onward.
+- Returns four boolean matrices: price quality, suspicious returns, anomaly triggers and quarantine state.
+
+#### first_true_date
+- Receives a boolean matrix such as the quarantine matrix.
+- Finds the first date with `True` for every ticker.
+- Returns `NaT` when a ticker never has a `True` observation.
+- Used by `equity_data.py` to store `quarantined_from` in `universe.csv`.
+
+
+
+### **equity_data.py**:
+- Downloads, calculates, aligns and saves the complete equity dataset for further factor analysis.
+
+#### download_yahoo_request
+- Sends one yfinance request for the provided tickers and start date.
+- Uses `auto_adjust=False` to receive both raw close and adjusted close.
+- Returns an empty DataFrame when Yahoo returns nothing or the request fails.
+
+#### Download helpers
+- `ticker_has_prices` checks whether a ticker has at least one adjusted close observation.
+- `select_ticker_data` selects one Yahoo ticker and renames it to the required historical ticker.
+- `merge_downloads` combines additional observations without overwriting existing non-missing data.
+- `replace_ticker_data` removes the existing ticker series before inserting its verified replacement.
+
+#### download_data
+- Downloads the historical ticker union from `DATA_START_DATE` in batches of 50.
+- Uses the local yfinance timezone and cookie cache.
+- Merges batches and removes duplicated columns.
+- Retries individually only tickers with no adjusted price observations after batch downloading.
+- Uses explicit aliases only for verified direct ticker changes.
+- Replaces the old ticker series with the verified alias series.
+- Rejects every ticker from `YAHOO_REUSED_TICKERS` when no verified continuous alias exists.
+- Keeps unavailable and rejected historical tickers in the universe but without false price data.
+- Records `batch`, `individual_retry`, `alias`, `missing` or `reused_symbol_rejected` for every ticker.
+- Raises an error only when Yahoo returns no usable price data for the entire ticker universe.
+
+#### get_price_matrix
+- Extracts adjusted close prices.
+- Sorts observations by date.
+- Removes dates where every ticker is missing.
+- Keeps individual missing prices as missing.
+
+#### get_volume_matrix
+- Extracts raw Yahoo volume.
+- Extracts raw close and adjusted close.
+- Rescales volume by `raw close / adjusted close`.
+- Keeps `adjusted price x stored volume` equal to `raw close x raw Yahoo volume`.
+- Replaces negative volume with missing values.
+- Does not replace zero volume at that step.
+
+#### compute_returns
+- Computes daily return from `t-1` to `t` using adjusted prices.
+- Does not clip large real market moves.
+- Requires both the current and previous price to pass data quality.
+- Replaces a return with missing when either endpoint failed data quality.
+
+#### compute_liquidity
+- Receives volume after the `volume_quality` mask has been applied.
+- Computes daily dollar volume as `adjusted price x compatible volume`.
+- Calculates the 20-day rolling mean of dollar volume.
+- Requires 20 valid observations in the rolling window.
+- Applies the `log(1 + x)` transform.
+
+#### to_long
+- Converts the wide adjusted-price matrix into `date`, `ticker`, `price` rows.
+- Stores only observed prices.
+
+#### compute_forward_returns
+- Uses 21 trading days as the default horizon.
+- Calculates `price[t+21] / price[t] - 1` without a forecasting model.
+- Requires both the starting and ending price to pass data quality.
+- Keeps unavailable forward returns as missing.
+
+#### compute_availability
+- Creates the final price availability matrix.
+- An observation is available only when price exists, the ticker is an index member and price quality is valid.
+- Does not include volume quality in price availability.
+
+#### sanity_checks
+- Checks that the price index is sorted.
+- Checks that the dataset contains more than 100 ticker columns.
+- Checks price and volume index and column alignment.
+- Raises an error for negative volume.
+- Raises an error for duplicated dates.
+- Prints the average missing-value ratio for volume.
+
+#### filter_universe
+- Counts available S&P500 members for every date.
+- Removes dates with fewer than 150 available members.
+- Initially filters prices, liquidity, membership and price quality.
+- Returns, forward returns, volume and volume quality are aligned to the retained dates afterwards.
+- Does not remove individual tickers using full-period coverage.
+
+#### save_all
+- Saves adjusted prices, compatible volume and liquidity in `Data/Data_System/Raw`.
+- Saves returns, forward returns, long prices, membership, data quality, volume quality and availability in `Data/Data_System/Processed`.
+- Saves the universe report as `Data/Data_System/Raw/universe.csv`.
+- Writes every dataset directly to its configured parquet or csv path.
+
+#### load_saved_equity_data
+- Loads prices, returns, volume, liquidity, long prices, availability and forward returns.
+- Returns these seven datasets to `pipeline.py` in a fixed order.
+
+#### build_and_save_dataset
+- Runs the complete equity data-building sequence.
+- Downloads data and creates the download report.
+- Creates price and compatible-volume matrices with every historical ticker column.
+- Limits prices and volume to the latest membership snapshot date.
+- Builds point-in-time membership using `get_tickers.py`.
+- Aligns volume to prices and keeps volume only where price exists.
+- Calls `data_quality.py` to identify suspicious returns, anomaly triggers and ticker quarantine dates.
+- Uses full-period coverage and anomaly statistics only for the universe diagnostic report.
+- Creates returns and 21-day forward returns using price quality.
+- Creates `volume_quality`, excludes invalid volume from liquidity input and computes liquidity.
+- Removes dates with fewer than 150 available index members.
+- Aligns all output matrices to the retained dates.
+- Creates availability and long-format prices.
+- Runs sanity checks.
+- Saves all equity datasets and the universe report.
+- Returns prices, returns, volume, liquidity, long prices, availability and forward returns.
+
+
+
+### **data_audit.py**
+- Runs a read-only audit of all Data System datasets.
+- Does not download, delete or correct market data.
+
+#### add_check
+- Adds one `PASS`, `WARNING` or `FAIL` result to the common checks list.
+- Stores the section, check name, status and result details.
+
+#### normalize_ticker
+- Converts a ticker to text, removes surrounding spaces and converts it to uppercase.
+- Replaces dots with dashes to match the Data System ticker format.
+
+#### normalize_history
+- Keeps only `date` and `tickers` from the historical components file.
+- Parses and sorts dates and keeps the last snapshot when a date is duplicated.
+- Applies ticker normalization to every historical snapshot.
+
+#### frame_is_aligned
+- Checks whether another matrix has exactly the same dates and ticker columns as the reference matrix.
+
+#### numeric_mismatch_count
+- Compares two numeric matrices using `AUDIT_NUMERIC_TOLERANCE`.
+- Treats missing values in the same positions as equal.
+- Returns the number of cells that do not match.
+
+#### build_bundle_fingerprint
+- Reads the file name, size and modification time of every expected dataset.
+- Includes missing-file states.
+- Creates one SHA-256 fingerprint for the complete Data System bundle.
+
+#### load_files
+- Checks whether every required parquet and csv file exists.
+- Records file path, state, size and modification time for the report inventory.
+- Opens every available file and reports unreadable or missing files as `FAIL`.
+- Returns all successfully loaded datasets to the remaining audit checks.
+
+#### check_file_generation_times
+- Compares modification times of all equity files except the risk-free-rate file.
+- Returns `WARNING` when some equity files are missing.
+- Returns `WARNING` when the modification-time spread exceeds `AUDIT_FILE_TIME_SPREAD_HOURS`.
+
+#### check_wide_matrices
+- Checks that the price index contains unique sorted dates.
+- Checks that price ticker columns are unique.
+- Rejects non-positive and infinite observed prices.
+- Checks that returns, volume, volume quality, liquidity, availability, forward returns, membership and price quality are aligned with prices.
+
+#### check_boolean_matrices
+- Checks that availability, membership, price quality and volume quality contain boolean columns.
+- Checks that price quality cannot be `True` where a positive observed price does not exist.
+
+#### check_calculated_matrices
+- Recalculates daily returns from prices and price quality and compares every cell with the saved matrix.
+- Confirms that large returns were not clipped and no unconfirmed return of at least 100% remains usable.
+- Recalculates 21-day forward returns and compares them with the saved matrix.
+- Recalculates availability as `price exists AND membership AND price quality`.
+- Recalculates liquidity from prices and volume after applying volume quality.
+
+#### longest_true_run
+- Calculates the longest consecutive `True` sequence in one boolean series.
+- Currently remains as a helper but is not called by the audit workflow.
+
+#### find_true_runs
+- Finds every consecutive `True` sequence with at least the requested length.
+- Returns the start date, end date and length of every sequence.
+- Used to find long missing-price and invalid-volume runs.
+
+#### check_price_gaps
+- Finds consecutive missing-price observations during actual index membership.
+- Reports `WARNING` when a price gap is longer than 5 trading dates.
+- Reports the number of runs, affected observations and affected tickers.
+- Shows the ticker, length, start date and end date of the 10 longest gaps.
+- Does not fill, remove or correct these gaps.
+
+#### check_volume
+- Rejects negative and infinite volume values.
+- Confirms that volume quality is `True` only for observed, finite and positive volume.
+- Counts missing and zero volume during actual index membership.
+- Confirms that every invalid raw volume observation is excluded by volume quality.
+- Reports positive-to-positive volume changes of at least `AUDIT_VOLUME_JUMP_RATIO`.
+- Reports runs of at least 5 missing or zero-volume observations.
+- Confirms that invalid volume is excluded from liquidity while the price observation remains available.
+
+#### check_prices_long
+- Requires `date`, `ticker` and `price` columns in the long prices dataset.
+- Checks row count and duplicated date-ticker pairs.
+- Recreates long prices from the wide price matrix and compares all keys and values.
+
+#### historical_ticker_union
+- Recreates the complete historical ticker union beginning with the latest snapshot available on or before `DATA_START_DATE`.
+
+#### build_expected_membership
+- Recreates the daily membership matrix directly from historical component snapshots.
+- Carries every snapshot forward until the next snapshot.
+- Uses missing membership as `False`.
+
+#### check_history_and_universe
+- Validates historical component columns, dates, component counts and unique snapshots.
+- Recreates membership and compares it with the saved membership matrix.
+- Confirms that price data does not extend beyond the latest membership snapshot.
+- Validates the columns and coverage values in `universe.csv`.
+- Confirms that universe, prices and historical ticker union contain the same ticker set.
+- Reports tickers without membership-period prices, coverage below 80%, missing downloads and rejected reused symbols.
+- Confirms that membership counts in `universe.csv` match the membership matrix.
+
+#### check_risk_free_rate
+- Requires the `annual_rate_pct` column.
+- Checks sorted unique dates, missing values, negative values and infinite values.
+- Confirms that valid DGS3MO observations cover the equity data period with a seven-day boundary tolerance.
+
+#### overall_status
+- Returns `FAIL` when at least one check failed.
+- Otherwise returns `WARNING` when at least one warning exists.
+- Returns `PASS` only when every check passed.
+
+#### run_check_group
+- Runs one group of audit checks.
+- Converts an unexpected exception inside a check group into a visible `FAIL` instead of stopping the complete audit.
+
+#### markdown_escape
+- Escapes table separators and line breaks before values are inserted into the Markdown report.
+
+#### render_report
+- Creates the main numbered checks table and file inventory.
+- Adds the bundle fingerprint, total status and status counts.
+- Adds interpretation rules and limitations of the audit.
+
+#### render_summary_image
+- Creates `Results/Data_System/Figures/data_audit_summary.png` from the datasets and completed audit checks.
+- Shows ticker coverage during membership, Yahoo download results and audit status counts.
+- Uses the same loaded data and checks as the Markdown audit report.
+- Atomically replaces the previous image on every audit run.
+
+#### render_availability_timeline
+- Creates `Results/Data_System/Figures/membership_availability_timeline.png` from membership and availability.
+- Calculates the percentage of actual index members with an available price on every trading date.
+- Shows the daily percentage, its 63-trading-day rolling mean and the full-period mean.
+- Uses a 60% to 100% vertical scale to keep the observed historical changes readable.
+- Atomically replaces the previous image on every audit run.
+
+#### write_report
+- Writes the report to a temporary file in the Reports directory.
+- Atomically replaces the previous `Results/Data_System/data_audit_report.md` after writing succeeds.
+
+#### run_data_audit
+- Builds the expected file list, timestamp and bundle fingerprint.
+- Loads all datasets.
+- Runs file, matrix, calculation, universe, price-gap, volume and risk-free-rate check groups.
+- Creates and writes the final Markdown report, PNG summary and availability timeline.
+- Prints the overall status and report path.
+- Returns the overall status and all individual check results.
+- Runs independently or automatically at the end of `pipeline.py`.
+
+
+### **pipeline.py**
+- Orchestrates the complete Data System workflow.
+- Does not contain downloading, cleaning or audit logic itself.
+
+#### EQUITY_REQUIRED_PATHS
+- Lists every file required for a complete equity dataset.
+- Includes raw prices, all processed matrices, the universe report and historical membership source.
+- Does not include the risk-free-rate file because it is prepared separately.
+
+#### prepare_equity_data
+- Checks whether every file in `EQUITY_REQUIRED_PATHS` exists.
+- Loads the saved equity datasets when the complete bundle exists.
+- Rebuilds the complete equity bundle when at least one required file is missing.
+- During a rebuild, loads historical S&P500 snapshots and creates the historical ticker union.
+- Passes historical snapshots and tickers to `equity_data.py` for downloading, processing and saving.
+- Does not rebuild only one missing equity file; it rebuilds the complete equity bundle to keep all matrices aligned.
+
+#### run_pipeline
+- Starts the complete Data System process.
+- Calls `prepare_equity_data` to load or rebuild the equity bundle.
+- Uses the first returned dataset, adjusted prices, to determine the equity end date.
+- Calls `prepare_risk_free_rate` for the period from `DATA_START_DATE` to the final equity date.
+- Runs `data_audit.py` after all datasets are available.
+- Prints that the Data System is ready and returns the loaded equity datasets.
+
+#### print_summary
+- Receives the seven returned equity datasets.
+- Prints DataFrame information for prices, returns, volume, liquidity, long prices, availability and forward returns.
+- Does not change or save data.
+
+
+### **delete.py**:
+- Deletes all generated Data System datasets, including the risk-free rate.
+- Deletes the generated audit report and both audit figures from `Results/Data_System`.
+- It could be useful to clean space for further data updating.
+
+
+
+
+
+### Data System Output Verification
+
+![Data System audit summary](Results/Data_System/Figures/data_audit_summary.png)
+
+![Membership price availability through time](Results/Data_System/Figures/membership_availability_timeline.png)
+
+**Build snapshot**:
+- Equity period: `2008-01-02` to `2026-08-18`.
+- Trading dates retained: `4,686`.
+- Historical ticker union: `900` tickers.
+- Historical component snapshots: `2,720`.
+- Final wide-matrix shape: `4,686 dates x 900 tickers`.
+- Long-format adjusted prices: `2,827,310` observations.
+
+**Price availability**:
+- Point-in-time membership observations: `2,350,698`.
+- Available price observations during membership: `1,921,650` (`81.75%`).
+- Missing or unavailable price observations during membership: `429,048` (`18.25%`).
+- Tickers without any price during their membership period: `247`.
+- Tickers with membership-period price coverage below 80%: `262`.
+- Yahoo tickers still reported as missing: `191`.
+- Reused Yahoo symbols rejected to prevent another security from entering the dataset: `20`.
+- No ticker is removed from the historical universe because of missing prices; unavailable ticker-date observations remain unavailable.
+
+**Quality effects**:
+- Price quality does not clip valid large returns.
+- The saved return matrix contains `92` absolute daily returns of at least 50% and no usable unconfirmed return of at least 100%.
+- `33` missing or zero-volume observations during membership are rejected by `volume_quality` and excluded only from liquidity calculations.
+- `36` positive-to-positive volume changes of at least 100x remain as warnings because both observations are valid positive values.
+- The audit reports `277` missing-price runs longer than 5 trading dates, containing `429,023` observations across `263` tickers.
+
+**Audit result**:
+- Overall status: **WARNING**.
+- Checks: `54 PASS / 4 WARNING / 0 FAIL`.
+- Every required dataset opens successfully.
+- All saved wide matrices are aligned and all audited calculated relationships reproduce from their source matrices.
+- The risk-free-rate dataset covers the complete equity period.
+
+**Conclusion**:
+
+The Data System produces a structurally consistent point-in-time dataset that is ready to be consumed by the Factor Layer. No failed internal checks remain. The main unresolved limitation is historical price availability from Yahoo Finance: missing and rejected old ticker histories reduce usable membership observations and leave residual survivorship/data-availability bias in all later factor results.
+
+
+
+
+## Appendix C — Factor Layer Implementation
+
+The purpose of this layer is to convert the completed market dataset into factor data prepared for cross-sectional research.
+
+The layer calculates the same factor logic for every historical trading date and every available S&P500 member. It does not decide whether a factor works. It only creates the matrices that will be compared with future returns in the Factor Selection Layer.
+
+The completed layer creates:
+- `56` factor-score matrices.
+- `8` forward-return matrices.
+- One factor metadata table.
+- One cache manifest.
+- One run metadata file.
+- One readable Factor Layer report.
+- One summary figure for the complete factor grid.
+
+Every matrix contains `4,686` trading dates and `900` historical ticker columns. Observations from 2008 provide warm-up history for long factor windows. The intended research period begins in 2010.
+
+
+**Limitations**:
+- Every factor is based only on prices, returns or volume. Fundamental company information is not used.
+- Factor quality is limited by the remaining Yahoo and historical-membership limitations described in the Data System.
+- Winsorization is disabled, so unusual but valid factor values remain in the matrices.
+- A calculated factor score is not evidence of alpha. Economic and statistical evaluation belongs to the next layer.
+
+
+IMPORTANT:
+- A factor value is calculated on date `t` from information available through date `t`.
+- The Factor Layer does not shift the signal by one day.
+- The Factor Selection Layer later uses `factor[t-1]` against a forward return beginning on date `t`.
+- A factor matrix contains normalized factor scores, not ranks, IC values or predicted returns.
+- A forward-return matrix contains realised future returns, not model forecasts.
+- Missing source data remain missing in the final matrices.
+
+
+### **factor_config.py**:
+- Defines every Factor Layer data, cache and result path.
+- Stores factor matrices in `Data/Factors_Layer/Cache/Factor_Matrices`.
+- Stores forward-return matrices in `Data/Factors_Layer/Cache/Forward_Return_Matrices`.
+- Stores factor metadata and the cache manifest in `Data/Factors_Layer/Cache`.
+- Stores run metadata and the readable report in `Results/Factors_Layer`.
+- Stores the Factor Layer summary figure in `Results/Factors_Layer/Figures`.
+- Requires at least 80% of observations inside every factor window.
+- Keeps winsorization limits at the 1st and 99th cross-sectional percentiles.
+- Sets `APPLY_WINSORIZATION = False`, so these limits are not currently applied.
+- Uses `252` trading days as the annualization factor.
+- Defines eight forward-return horizons: `1`, `5`, `10`, `21`, `42`, `63`, `126` and `252` trading days.
+- Defines `56` parameter configurations across `11` factor families.
+- Does not contain signal lag, research periods, IC settings or robustness windows. These belong to the Factor Selection Layer.
+
+
+### **factors.py**:
+- Contains the mathematical logic of every factor family.
+- Does not contain file paths, parameter grids, saving, ranking, IC calculation or factor selection.
+- Receives every window and parameter directly from `factor_builder.py`.
+
+
+**Momentum**
+- Measures cumulative historical return.
+- A higher raw value means that the stock rose more strongly during the formation period.
+- Can skip the most recent observations before calculating the formation return.
+- *Different windows and skipped recent periods are defined in **`factor_config.py`**.*
+
+
+**Low Volatility**
+- Measures the rolling standard deviation of daily returns.
+- Lower volatility is preferred, so the result is multiplied by `-1`.
+- A higher factor value therefore represents a less volatile stock.
+
+
+**Trend**
+- Calculates `price / moving average - 1`.
+- Measures how far the current price is above or below its moving average.
+- A positive value means that price is above the moving average.
+
+
+**Short-Term Reversal**
+- Measures recent cumulative return with the opposite sign.
+- Recent losers receive higher values and recent winners receive lower values.
+- Tests whether short-term price movements tend to reverse.
+
+
+**Residual Momentum**
+- Calculates the equal-weighted return of all available index members on every date.
+- Subtracts that market return from every stock return.
+- Calculates Momentum from the remaining stock-specific return.
+- A higher value means that the stock outperformed the cross-sectional market component.
+
+
+**Volatility-Scaled Momentum**
+- Calculates historical Momentum.
+- Divides Momentum by the stock's rolling volatility.
+- Rewards strong historical return relative to the amount of price variation used to produce it.
+- Replaces zero volatility with missing data before division.
+
+
+**High Proximity**
+- Finds the highest price inside the rolling window.
+- Calculates `current price / rolling high - 1`.
+- A value closer to zero means that the stock trades closer to its historical high.
+
+
+**Trend Slope**
+- Fits a straight trend line to logarithmic prices inside every rolling window.
+- Uses the slope of that line as the factor value.
+- Converts the daily slope into an annual rate using `252` trading days.
+- Measures the speed and direction of the price trend instead of distance from a moving average.
+
+
+**Risk-Adjusted Trend**
+- Calculates annualized Trend Slope.
+- Calculates annualized return volatility over the same window.
+- Divides Trend Slope by volatility.
+- Rewards a strong trend relative to the instability of daily returns.
+
+
+**Liquidity Change**
+- Calculates daily dollar volume as `price x volume`.
+- Compares its short rolling average with its long rolling average.
+- Calculates the logarithm of `short average / long average`.
+- A positive value means that recent trading activity is higher than its longer-term level.
+
+
+**Price-Volume Confirmation**
+- Starts with normalized Momentum.
+- Changes its strength using normalized Liquidity Change.
+- Increasing liquidity strengthens Momentum and decreasing liquidity weakens it.
+- Limits the liquidity adjustment before combining both signals.
+
+
+
+#### _cumulative_log_return
+- Converts daily simple returns into logarithmic returns using `log(1 + return)`.
+- Shifts returns when the most recent observations must be skipped.
+- Adds the remaining log returns inside the formation window.
+- Rejects impossible window and minimum-observation settings.
+
+
+#### _rolling_log_price_slope
+- Converts prices into logarithmic prices.
+- Fits a rolling linear trend separately for every ticker.
+- Handles missing prices by using only observed values inside each window.
+- Converts the estimated daily slope into an annual rate.
+- Rejects windows with too few observations or no valid time variation.
+
+
+### **transforms.py**:
+- Contains the common cross-sectional preparation applied after a raw factor is calculated.
+
+
+#### winsorize
+- Finds the configured lower and upper factor percentiles separately on every date.
+- Replaces values outside these boundaries with the boundary values.
+- Does nothing in the current pipeline because winsorization is disabled.
+
+
+#### zscore
+- Calculates the cross-sectional mean and standard deviation on every date.
+- Subtracts the same-date mean from every available stock value.
+- Divides the result by the same-date standard deviation.
+- A score of `0` represents the cross-sectional average on that date.
+- A score of `1` represents one cross-sectional standard deviation above the average.
+- Replaces zero standard deviation with missing data.
+
+
+#### prepare_factor
+- Removes factor observations that are not available according to the Data System availability matrix.
+- Applies winsorization only when it is enabled in `factor_config.py`.
+- Applies cross-sectional z-score normalization.
+- Returns the final factor-score matrix.
+
+
+### **factor_builder.py**:
+- Connects configurations from `factor_config.py` with formulas from `factors.py`.
+- Builds the complete set of factor-score matrices.
+
+
+#### required_observations
+- Multiplies a factor window by the common 80% observation requirement.
+- Rounds the result upward.
+- Requires at least two observations.
+
+
+#### configuration_parameters
+- Removes the readable `variant` name from one factor configuration.
+- Keeps the numerical parameters that produced the matrix.
+- These parameters are later stored in factor metadata.
+
+
+#### factor_key
+- Combines factor family and variant into one unique `family|variant` identifier.
+
+
+#### prepare_raw_factor
+- Sends one raw factor matrix to `transforms.py`.
+- Applies availability, optional winsorization and cross-sectional z-score normalization.
+
+
+#### build_factor_scores
+- Receives one factor family, one parameter configuration and the Data System inputs.
+- Selects the correct function from `factors.py`.
+- Passes prices, returns, volume, windows and minimum observations required by that factor.
+- Uses volume only after the volume-quality mask has been applied.
+- Returns one prepared date-by-ticker factor-score matrix.
+
+
+#### build_factor_matrices
+- Goes through all 56 configurations in `factor_config.py`.
+- Calls `build_factor_scores` for every configuration.
+- Saves every factor matrix through `factor_storage.py`.
+- Creates a metadata row containing key, family, variant, parameters and file path.
+- Returns one metadata table with exactly 56 unique rows.
+- Raises an error when the number of matrices is not 56 or a key is duplicated.
+
+
+### **forward_returns.py**:
+- Creates the realised-return matrices required for later factor evaluation.
+- Does not use a forecasting model.
+
+
+#### compute_forward_returns
+- Receives adjusted prices, price quality and one horizon `h`.
+- Calculates `price[t+h] / price[t] - 1`.
+- Requires an observed and valid price at both `t` and `t+h`.
+- Keeps the result missing when either endpoint is unavailable or failed price quality.
+
+
+#### build_forward_return_matrices
+- Calls `compute_forward_returns` for all eight configured horizons.
+- Creates one date-by-ticker matrix for every horizon.
+- Saves every matrix through `factor_storage.py`.
+- Does not rank returns or combine them with factor scores.
+
+
+### **factor_storage.py**:
+- Loads Factor Layer inputs and controls all Factor Layer file locations, saving and cache validation.
+
+
+#### prepare_factor_directories
+- Creates the Factor Layer Data, Cache, Factor Matrices, Forward Return Matrices and Results directories.
+
+
+#### load_factor_inputs
+- Loads adjusted prices, returns, compatible volume, availability, membership, price quality and volume quality from the Data System.
+- Uses the price matrix as the reference for all dates and ticker columns.
+- Aligns every remaining matrix to that reference.
+- Converts availability and quality matrices to boolean values.
+- Removes invalid volume before volume reaches liquidity-based factors.
+- Requires unique sorted dates and unique ticker columns.
+- Confirms that availability equals `price exists AND membership AND price quality`.
+- Returns all prepared inputs to `pipeline.py`.
+
+
+#### safe_factor_name
+- Combines factor family and variant into a safe file name.
+- Replaces spaces and unsupported path separators.
+
+
+#### factor_matrix_cache_path
+- Returns the Parquet path for one factor-score matrix.
+
+
+#### forward_return_matrix_cache_path
+- Returns the Parquet path for one forward-return horizon.
+
+
+#### expected_factor_matrix_paths
+- Creates the complete list of 56 expected factor-matrix paths from `factor_config.py`.
+
+
+#### expected_forward_return_matrix_paths
+- Creates the complete list of eight expected forward-return matrix paths.
+
+
+#### temporary_path
+- Creates the temporary file name used during atomic saving.
+
+
+#### save_parquet
+- Saves a DataFrame to a temporary Parquet file.
+- Replaces the previous final file only after saving succeeds.
+
+
+#### save_csv
+- Saves a DataFrame to a temporary CSV file.
+- Replaces the previous final file only after saving succeeds.
+
+
+#### save_json
+- Saves a dictionary to a temporary JSON file.
+- Replaces the previous final file only after saving succeeds.
+
+
+#### file_state
+- Records the relative path, file size and modification time of one Data System input.
+
+
+#### source_hash
+- Reads one source-code file and calculates its SHA-256 hash.
+- Allows the cache to detect changes in factor calculation code.
+
+
+#### cache_signature_payload
+- Collects the states of all Data System inputs.
+- Collects hashes of `factors.py`, `transforms.py`, `factor_builder.py` and `forward_returns.py`.
+- Collects every Factor Layer setting that affects calculated values.
+- Returns the complete cache description.
+
+
+#### cache_signature
+- Converts the cache description into one stable SHA-256 signature.
+
+
+#### current_cache_manifest
+- Combines the current cache signature with the complete cache description.
+
+
+#### save_cache_manifest
+- Saves the current cache manifest after all Factor Layer matrices are successfully created.
+
+
+#### factor_metadata_is_valid
+- Checks that factor metadata can be opened.
+- Requires the expected columns, 56 rows and unique factor keys.
+
+
+#### factor_cache_is_valid
+- Requires all 56 factor matrices and all eight forward-return matrices.
+- Requires factor metadata and the cache manifest.
+- Requires valid 56-row factor metadata.
+- Recalculates the current cache signature and compares it with the saved signature.
+- Returns `False` when data, code, settings or required files changed.
+
+
+#### save_factor_matrix
+- Converts one factor-score matrix to `float32`.
+- Saves it atomically to its configured Parquet path.
+- Returns the saved path for factor metadata.
+
+
+#### save_forward_return_matrix
+- Converts one forward-return matrix to `float32`.
+- Saves it atomically to its configured Parquet path.
+
+
+#### save_factor_metadata
+- Saves the 56-row factor metadata table as CSV.
+
+
+#### load_factor_metadata
+- Loads the saved factor metadata.
+- Requires exactly 56 unique factor keys.
+
+
+#### save_run_metadata
+- Saves the current Factor Layer run information as JSON.
+
+
+#### save_text
+- Saves the readable Factor Layer Markdown report atomically.
+
+
+### **factor_report.py**:
+- Converts Factor Layer metadata into compact readable results.
+- Does not read the 64 large matrices or evaluate factor performance.
+
+
+#### readable_family_name
+- Converts internal factor-family names into readable titles.
+
+
+#### family_summary
+- Checks that saved factor metadata matches the configured factor grid.
+- Creates one summary row for each of the 11 factor families.
+- Lists the number and names of all variants in every family.
+
+
+#### build_factor_report
+- Creates `factor_layer_report.md`.
+- Records the data period, matrix dimensions, factor counts, horizons and cache status.
+- Creates a compact family table and a complete 56-row configuration table with parameters.
+- Describes the complete Factor Layer grid without making performance conclusions.
+
+
+#### create_factor_summary
+- Creates `Results/Factors_Layer/Figures/factor_layer_summary.png`.
+- Visualizes configuration counts across all 11 factor families.
+- Shows all eight forward-return horizons.
+- Shows the complete grid size: 56 configurations, eight horizons and 448 hypotheses.
+- Replaces the previous figure atomically on every Factor Layer run.
+
+
+### **pipeline.py**:
+- Orchestrates the complete Factor Layer workflow.
+- Does not contain factor formulas, transformations, file-writing implementation or factor evaluation logic.
+
+
+#### prepare_factor_cache
+- Checks whether the complete Factor Layer cache is valid.
+- Loads existing factor metadata without recalculating matrices when the cache is valid.
+- Rebuilds all 56 factor matrices and eight forward-return matrices when the cache is missing or outdated.
+- Saves new factor metadata and the cache manifest after a successful rebuild.
+- Returns factor metadata and whether the cache was reused.
+
+
+#### run_pipeline
+- Creates all required Factor Layer directories.
+- Loads completed Data System matrices through `factor_storage.py`.
+- Calls `prepare_factor_cache` to reuse or rebuild the Factor Layer cache.
+- Saves the run time, data period, matrix dimensions, factor counts, horizons and cache status.
+- Recreates the readable Factor Layer report and summary figure on every run.
+- Prints the final number of factor and forward-return matrices.
+- Returns the 56-row factor metadata table.
+- Does not calculate IC, robustness, quantiles or factor selection.
+
+
+### **delete.py**:
+- Deletes all generated Factor Layer matrices, metadata, cache files and results.
+- Does not delete Data System or Factor Selection Layer files.
+- It can be used before a complete Factor Layer rebuild.
+
+
+### Factor Layer Output Verification
+
+![Factor Layer summary](Results/Factors_Layer/Figures/factor_layer_summary.png)
+
+The complete factor-family and configuration tables are saved in `Results/Factors_Layer/factor_layer_report.md`.
+
+**Build snapshot**:
+- Equity period: `2008-01-02` to `2026-08-18`.
+- Trading dates: `4,686`.
+- Historical ticker columns: `900`.
+- Factor families: `11`.
+- Factor configurations: `56`.
+- Forward-return horizons: `8`.
+- Every matrix shape: `4,686 dates x 900 tickers`.
+
+**Stored matrices**:
+- Factor-score matrices: `56 / 56`.
+- Total factor-score cells: `236,174,400`.
+- Observed factor scores: `104,582,220`.
+- Factor matrix storage: approximately `580.55 MB`.
+- Forward-return matrices: `8 / 8`.
+- Total forward-return cells: `33,739,200`.
+- Observed forward returns: `22,218,069`.
+- Forward-return matrix storage: approximately `122.09 MB`.
+
+**Cache result**:
+- Factor metadata contains `56` unique rows.
+- All 64 required matrices exist.
+- Factor and forward-return matrices use the same dates and ticker columns.
+- The saved cache manifest matches the current Data System files, factor code and configuration.
+- Current cache status: **valid**.
+
+**Conclusion**:
+
+The Factor Layer is complete. It produces a reproducible set of normalized factor scores and realised forward returns without evaluating or selecting factors. These matrices are ready to be combined in the Factor Selection Layer.
+
+
+## Appendix D — Factor Selection Implementation
+
+The purpose of this layer is to identify the shape and strength of the relationship between factor scores and future cross-sectional returns. It combines the 56 Factor Layer configurations with eight return horizons, creating 448 separate hypotheses. It does not recalculate factor formulas and it does not yet build a trading portfolio.
+
+The data foundation is `daily_quantile_results.parquet`. One row represents one trading date and one factor-horizon hypothesis. The complete file contains 2,099,328 rows: 4,686 dates multiplied by 56 factor configurations and eight horizons.
+
+The selection system then converts these daily observations into one readable card per hypothesis. It recognizes positive and negative monotonic relationships, upper-tail effects, lower-tail effects, two-tail effects and cases without stable structure. Positive IC is not required: a stable negative relationship can also be useful when the factor direction is reversed.
+
+The current setting uses `ACTIVE_FACTOR_KEYS = None`. Every run therefore analyzes all 56 factor configurations, all eight horizons, 448 hypotheses and 2,240 separate effect tests.
+
+
+### selection_config.py
+- Defines every Layer 3 input and output path.
+- Defines the path of the automatically updated Factor Selection summary figure.
+- Uses the same eight return horizons produced by the Factor Layer.
+- Uses a one-day signal lag, ten quantiles and at least 30 valid stocks per daily comparison.
+- Marks dates from `2010-01-01` as research observations while keeping 2008-2009 warm-up rows in the source dataset.
+- Defines `ACTIVE_FACTOR_KEYS = None` for the complete 448-hypothesis scope.
+- Defines the initial descriptive boundaries for monotonicity, tail dominance, data coverage and time consistency.
+- Defines the 5% multiple-testing level and the maximum number of factor-specific figure sets.
+
+
+### selection_storage.py
+
+#### prepare_selection_directories
+- Creates Layer 3 Data, Cache, Results and Figures directories.
+
+#### safe_factor_name
+- Converts a factor family and variant into the same safe file name used by the Factor Layer.
+
+#### factor_matrix_path
+- Returns the expected path of one factor-score matrix.
+
+#### forward_return_matrix_path
+- Returns the expected path of one forward-return matrix.
+
+#### load_factor_metadata
+- Loads the Factor Layer metadata table.
+- Requires exactly 56 unique factor configurations.
+
+#### load_membership
+- Loads point-in-time index membership.
+- Requires unique sorted dates and ticker columns.
+
+#### validate_matrix_axes
+- Rejects a matrix when its dates or tickers differ from membership.
+
+#### load_factor_matrix
+- Loads and validates one factor-score matrix.
+
+#### load_forward_return_matrices
+- Loads and validates all requested forward-return matrices.
+
+#### load_factor_quantile_results
+- Reads only one requested factor configuration from the 2.1-million-row Parquet file.
+- Uses Parquet filtering so the complete dataset does not need to be loaded into memory.
+
+#### temporary_path
+- Creates the temporary path used for atomic output replacement.
+
+#### save_json
+- Saves run metadata atomically.
+
+#### save_csv
+- Saves readable result tables atomically.
+
+#### save_parquet
+- Saves large internal tables atomically with Zstandard compression.
+
+#### save_text
+- Saves the Markdown report atomically.
+
+#### save_parquet_chunks
+- Streams daily result chunks into one compressed temporary Parquet file.
+- Replaces the previous complete file only after every chunk succeeds.
+
+
+### quantile_analysis.py
+
+#### prepare_factor_quantiles
+- Shifts the factor matrix by one trading day.
+- Keeps only stocks that are index members on the new trade date.
+- Ranks the available factor scores cross-sectionally on every date.
+- Assigns each stock to Q1-Q10 without using its future return.
+
+#### grouped_median
+- Calculates one median for every date-quantile group.
+- Keeps empty groups as missing.
+
+#### rowwise_linear_relationship
+- Calculates cross-sectional correlation and factor beta for every date.
+- Requires at least 30 valid factor-return pairs.
+
+#### compute_daily_relationship_metrics
+- Calculates daily Spearman Rank IC, Pearson correlation and factor beta.
+
+#### aggregate_quantile_relationships
+- Combines factor scores, quantile assignments and realised future returns.
+- Calculates stock count, mean factor score, median factor score, mean return and median return inside Q1-Q10.
+
+#### research_date_mask
+- Marks observations from 2010 onward as eligible for research conclusions.
+
+#### build_quantile_result_chunk
+- Creates one row per date for one factor-horizon hypothesis.
+- Stores coverage, daily relationship metrics and Q1-Q10 factor and return statistics.
+- Stores both mean-return and median-return `Q10 - Q1` spreads.
+
+#### quantile_result_chunks
+- Loads one of the 56 factor matrices at a time.
+- Reuses its quantile assignments across all eight horizons.
+- Produces 448 Parquet row groups without holding the complete result in memory.
+
+#### run_quantile_analysis
+- Creates `daily_quantile_results.parquet` and its run metadata.
+- Verifies the expected 2,099,328-row result.
+- Can be run independently when the daily foundation must be rebuilt.
+
+
+### hypothesis_analysis.py
+
+#### select_factor_metadata
+- Applies the temporary active-factor restriction.
+- Uses all 56 configurations when the restriction is `None`.
+
+#### required_quantile_columns
+- Lists only the Parquet columns required for hypothesis analysis.
+
+#### hac_tstat
+- Calculates a t-statistic adjusted for autocorrelation caused by overlapping forward-return horizons.
+
+#### direction_rate
+- Measures how often an effect has the same sign as its complete-period mean.
+
+#### period_means
+- Converts daily observations into monthly or annual mean effects.
+
+#### summarize_effect
+- Calculates coverage, mean, median, standard deviation, HAC t-statistic and approximate p-value.
+- Measures daily, monthly and annual direction consistency.
+
+#### daily_effects
+- Creates five separate daily relationships: Spearman IC, `Q10 - Q1`, `Q10 - middle`, `middle - Q1` and both edges against the middle.
+- Uses Q4-Q7 as the middle of the factor distribution.
+
+#### quantile_curve
+- Creates the average ten-point factor-score and future-return curve for one hypothesis.
+
+#### curve_shape_statistics
+- Measures Q1-Q10 monotonicity and the share of adjacent quantile steps moving in the same direction.
+
+#### rank_autocorrelation_by_horizon
+- Compares cross-sectional factor ranks with their previous ranks after 1, 5, 10, 21, 42, 63, 126 and 252 trading days.
+- Shows how quickly the factor ranking changes.
+
+#### analyze_factor
+- Reads one factor configuration from the daily Parquet dataset.
+- Calculates all eight hypothesis cards, 40 effect tests, quantile curves and time-stability observations.
+
+#### build_hypothesis_metrics
+- Repeats the same analysis for every active factor configuration.
+- Returns the complete tables required for classification and reporting.
+
+
+### pattern_classification.py
+
+#### apply_multiple_testing
+- Applies Benjamini-Hochberg false-discovery-rate correction across every effect test in the active run.
+- Marks the correction as preliminary while fewer than all 448 hypotheses are active.
+- Also reports a conservative Bonferroni value for the planned full 2,240 effect tests.
+
+#### statistically_visible
+- Checks whether the absolute HAC t-statistic crosses the initial descriptive boundary.
+
+#### classify_pattern
+- Classifies each hypothesis as positive monotonic, negative monotonic, upper tail, lower tail, both tails against the middle or no stable structure.
+- Keeps pattern direction separate from pattern strength.
+
+#### strongest_economic_effect
+- Finds the largest absolute HAC t-statistic among the four return-based effects.
+- Reports it separately without treating a significant IC as an economic return pattern.
+
+#### primary_effect_values
+- Selects the effect that directly represents the detected pattern.
+- Prevents every pattern from being judged only by Mean IC.
+
+#### evidence_status
+- Separates insufficient data, weak patterns, unstable patterns and provisional candidates.
+- Uses final FDR candidate status only when the full 448-hypothesis run is complete.
+
+#### classification_reason
+- Writes a short human-readable explanation of the assigned pattern.
+
+#### classify_hypotheses
+- Applies pattern recognition, multiple-testing information and evidence status to every hypothesis card.
+- Records the strongest economic effect separately from IC.
+- Uses `primary_effect = none` when no stable economic structure is detected.
+- Does not delete hypotheses from the result table.
+
+
+### classifier_validation.py
+
+#### validation_cases
+- Defines six transparent examples with known positive monotonic, negative monotonic, upper-tail, lower-tail, two-tail and no-structure results.
+- Does not use real market observations or optimize classification boundaries.
+
+#### run_classifier_validation
+- Sends every known example through the same pattern classifier used for real hypotheses.
+- Saves `classifier_validation.csv`.
+- Stops the Layer 3 pipeline when any expected pattern is classified incorrectly.
+
+
+### selection_report.py
+
+#### save_figure
+- Saves every figure atomically.
+
+#### factor_figure_path
+- Creates a readable figure name from the factor key.
+
+#### heatmap_panel
+- Draws one factor-by-horizon metric panel.
+
+#### plot_hypothesis_overview
+- Visualizes Mean IC, the strongest economic-effect t-statistic, monthly consistency and rank autocorrelation across all 448 hypotheses.
+
+#### plot_selection_summary
+- Creates one compact Layer 3 result image.
+- Shows the complete research scope, detected relationship shapes and final FDR decision.
+- Keeps statistical Rank-IC discoveries separate from economic discoveries and final candidates.
+
+#### plot_quantile_curves
+- Shows Q1-Q10 returns relative to the Q4-Q7 middle for all eight horizons.
+
+#### plot_factor_dashboard
+- Shows IC, strongest economic-effect strength, time consistency and rank stability for one factor configuration.
+
+#### plot_monthly_ic
+- Creates eight year-by-month IC heatmaps for one factor configuration.
+
+#### factor_keys_for_figures
+- Limits detailed figures to the most informative active factor configurations.
+- Prevents a full run from creating 448 separate graph sets.
+
+#### create_selection_figures
+- Creates the compact summary, complete-scope overview and detailed factor figures for the active analysis.
+
+#### format_number
+- Formats report values consistently and keeps missing values visible as `NA`.
+
+#### markdown_cell
+- Escapes factor keys so vertical bars do not break Markdown tables.
+
+#### markdown_table
+- Converts IC and stability diagnostics into a compact readable table.
+
+#### economic_markdown_table
+- Shows the four directly interpretable return effects and their HAC t-statistics.
+- Keeps economic patterns in front of IC diagnostics.
+
+#### selection_conclusion
+- Separates globally significant Rank IC tests from globally significant economic-return tests.
+- Writes the final Layer 3 decision only when the complete 448-hypothesis scope was analyzed.
+
+#### build_selection_report
+- Creates `factor_selection_report.md` with scope, pattern counts, evidence status, hypothesis cards, figures and interpretation rules.
+- Shows at most 50 detected patterns in Markdown while keeping all 448 rows in CSV.
+- Clearly separates economic pattern evidence from supporting IC information.
+- Writes the final Layer 3 counts for rank-IC discoveries, economic-effect discoveries and economic candidates.
+
+
+### **pipeline.py**
+
+#### prepare_quantile_data
+- Reuses `daily_quantile_results.parquet` when it already exists.
+- Rebuilds it only when the file is missing.
+
+#### run_factor_classification
+- Validates all six known classifier patterns before reading real results.
+- Calculates hypothesis metrics and pattern classifications.
+- Saves cards, effect tests, quantile curves, time stability, figures and the Markdown report.
+
+#### run_pipeline
+- Runs the complete current Factor Selection Layer.
+- Saves separate metadata describing the active scope and created results.
+- Prints the total execution time.
+- Does not run the Factor Layer or any Research Layer validation.
+
+
+### Factor Selection Output Verification
+
+![Factor Selection summary](Results/Factor_Selection_Layer/Figures/factor_selection_summary.png)
+
+The complete run analyzes 56 factor configurations across eight horizons. It creates:
+
+- `hypothesis_cards.csv`: one readable classification row per hypothesis.
+- `effect_tests.csv`: five separate relationship tests per hypothesis.
+- `quantile_curves.csv`: Q1-Q10 factor and return curves.
+- `classifier_validation.csv`: the six-case classifier self-check.
+- `time_stability.parquet`: monthly and annual effect histories used by the figures.
+- `factor_selection_report.md`: the main readable report.
+- `factor_selection_summary.png`: the compact scope and final-decision summary used in this research paper.
+- `Figures/`: the complete-scope overview and detailed figures for the active factor.
+
+The completed full run found 426 hypotheses without stable structure and 22 descriptive economic patterns. Ten patterns were unstable through time and twelve were rejected after global multiple-testing correction. No economic hypothesis became a final candidate. One volatility-scaled momentum IC result survived global FDR, but its Q10-Q1 return spread was not statistically supported.
+
+The final Layer 3 conclusion is therefore limited: one configuration is a statistical rank-signal lead, while no configuration is a confirmed economic return effect. Four deliberately labelled leads were frozen for portfolio research instead of silently expanding the search after seeing the results.
+
+
+## Appendix E — Research Layer Implementation
+
+The purpose of this layer is to test whether the frozen Factor Selection leads can be converted into an economically usable portfolio. It does not redefine factor formulas and it does not search the complete 448-hypothesis grid again.
+
+The current shortlist contains four deliberately labelled leads: the globally significant one-day volatility-scaled momentum rank signal and three exploratory return-pattern leads from short-term reversal, liquidity change and low volatility. Passing a lead into this layer does not mean that alpha has already been found.
+
+Layer 4 contains the general research system and one isolated Low Volatility study. The root `pipeline.py` performs the general comparison of the four frozen leads. The `Low_Volatility` folder contains its own configuration, research logic and pipeline for the focused sensitivity study.
+
+Both pipelines compare continuous and tail-based portfolio construction, four rebalance frequencies, calendar starting phases, beta-neutral and unconstrained implementations, four transaction-cost assumptions, full-history risk statistics, two walk-forward structures and point-in-time market regimes.
+
+The walk-forward output is explicitly post-selection. The candidates were already discovered using the complete historical sample, so historical OOS windows cannot become a genuinely untouched final test after the fact. They show temporal behaviour and implementation stability without erasing this limitation.
+
+
+### research_config.py
+- Defines shared inputs and the General Research cache, result and figure paths.
+- Defines the path of the automatically updated General Research summary figure.
+- Freezes the four candidate leads received from the completed Selection Layer.
+- Defines six portfolio-construction methods.
+- Uses 1, 5, 21 and 63-day rebalance frequencies.
+- Defines 0, 5, 10 and 25 bps transaction-cost scenarios, with 10 bps as the primary result.
+- Defines trailing beta, risk, walk-forward and market-regime settings.
+
+
+### research_storage.py
+
+#### prepare_research_directories
+- Creates the General Layer 4 Cache, Results and Figures directories.
+
+#### input_signature
+- Records the size and modification time of every required input.
+- Includes the selected candidate set and portfolio configuration.
+- Creates one signature used to decide whether the expensive portfolio cache is still compatible.
+
+#### portfolio_cache_is_valid
+- Reuses portfolio paths only when the signature, every required matrix, metadata and calendar-phase result are present.
+
+#### save_portfolio_cache
+- Saves reusable portfolio return, turnover and exposure matrices in `Data/Research_Layer/General/Cache`.
+- Saves readable path metadata in `Results/Research_Layer/General`.
+
+#### load_portfolio_cache
+- Loads all compatible portfolio matrices and path metadata without recalculating positions.
+
+#### clear_current_research_outputs
+- Deletes only current Research Layer data and results.
+
+
+### research_data.py
+
+#### load_research_data
+- Loads daily returns, point-in-time membership and final price availability including the 2008-2009 warm-up history.
+- Aligns all dates and ticker columns.
+- Keeps portfolio and walk-forward results limited to 2010 onward.
+
+#### load_risk_free_daily
+- Loads the annual three-month Treasury rate.
+- Forward-fills it only across the already available historical dates.
+- Converts the annual percentage rate into a daily rate used for long-only Sharpe calculations.
+
+#### candidate_table
+- Locates every frozen candidate in Factor Layer metadata.
+- Adds its Selection Layer pattern, status, IC and primary economic-effect information.
+- Rejects factor paths outside the Factor Layer directory.
+
+#### load_candidate_factors
+- Loads and aligns only the four factor matrices required by Layer 4.
+
+#### load_sector_history
+- Loads optional point-in-time sector history when `sector_history.csv` exists.
+- Requires ticker, sector, start date and end date.
+- Reports `NOT_AVAILABLE` instead of applying current sectors to old companies when the file is absent.
+
+#### build_sector_matrix
+- Converts available point-in-time sector intervals into a date-by-ticker matrix.
+
+
+### multiple_testing_research.py
+
+#### bh_values
+- Calculates Benjamini-Hochberg q-values without changing the original p-values.
+
+#### simes_p_value
+- Combines the tests inside one predefined family into one family-level p-value.
+
+#### add_group_bh
+- Recalculates exploratory FDR separately by effect, factor family and factor-family/effect group.
+
+#### add_hierarchical_fdr
+- First tests all predefined factor-family/effect groups.
+- Applies a second within-group correction only inside groups that passed the first stage.
+- Keeps the hierarchical result separate from the original global FDR result.
+
+#### compare_multiple_testing
+- Compares raw p-values, global FDR, exploratory within-group FDR and hierarchical FDR across all 2,240 Selection Layer tests.
+- Does not replace the completed Selection Layer decision after seeing the data.
+
+
+### factor_overlap.py
+
+#### rowwise_correlation
+- Calculates one cross-sectional correlation for every date with at least 30 common stocks.
+
+#### run_factor_overlap
+- Compares the daily ranks of every pair of frozen candidates.
+- Shows whether different formulas mostly reproduce the same stock ordering.
+
+
+### portfolio_construction.py
+
+#### percentile_ranks
+- Ranks only eligible point-in-time index members on the current trade date.
+
+#### continuous_weights
+- Uses the complete factor ranking instead of discarding stocks outside Q1 and Q10.
+- Gives larger absolute weights to stocks farther from the cross-sectional middle.
+- Creates equal long and short gross exposure.
+
+#### equal_leg_weights
+- Creates equal-weight long and short baskets with at least five names in each leg.
+
+#### long_only_weights
+- Creates a one-sided Q1 or Q10 basket with total exposure equal to one.
+
+#### beta_neutralize
+- Uses trailing known betas to scale long and short books toward zero estimated market beta.
+- Excludes names without sufficient beta history from the beta-neutral implementation.
+- Does not silently use an unconstrained portfolio when neutralization is impossible.
+
+#### build_target_weights_from_ranks
+- Creates continuous high-minus-low, Q10-Q1, Q10-middle, middle-Q1, long-Q10 or long-Q1 target weights.
+
+#### build_target_weights
+- Combines daily ranking and the requested portfolio rule.
+
+
+### risk_exposure.py
+
+#### build_market_return
+- Creates an equal-weight point-in-time S&P500 return proxy from available members.
+
+#### build_trailing_betas
+- Estimates every stock beta from trailing 252-day returns.
+- Requires at least 126 observations and shifts beta by one day.
+
+#### expanding_binary_state
+- Compares one current market indicator only with its expanding historical median.
+- Prevents future regime information from defining past thresholds.
+
+#### build_market_regimes
+- Creates point-in-time high/low volatility, dispersion and average-correlation states.
+- Separately marks whether the previously known US three-month rate is above 2%.
+
+
+### portfolio_engine.py
+
+#### calendar_offsets
+- Creates up to three evenly spaced starting phases for each rebalance frequency.
+
+#### path_specifications
+- Combines the provided candidates, six portfolio methods, beta constraints, rebalance frequencies and calendar phases.
+
+#### drift_weights
+- Carries existing position weights through realised daily stock returns between rebalances.
+
+#### simulate_factor_paths
+- Calculates one cross-sectional rank per factor and date.
+- Updates all methods, frequencies and calendar phases for that factor together.
+- Uses the previous trading date's factor to set positions before applying the current `t-1 -> t` return.
+- Applies point-in-time membership, records forced exits and never uses a missing return as verified price movement.
+- Records gross return, turnover, beta, gross and net exposure, maximum position, holding count, unpriced weight and available sector diagnostics.
+
+#### build_phase_paths
+- Runs the optimized portfolio engine for every frozen candidate.
+
+#### aggregate_calendar_phases
+- Treats different start dates as equal portfolio sleeves and averages their daily paths.
+- Creates one ensemble path for every factor, method, constraint and rebalance frequency.
+- Saves the dispersion between individual calendar phases separately.
+
+
+### portfolio_evaluation.py
+
+#### apply_transaction_costs
+- Deducts one-way trading costs from realised turnover.
+
+#### annualized_return
+- Compounds the daily portfolio path and annualizes it using 252 trading days.
+
+#### annualized_sharpe
+- Calculates annualized return per unit of daily volatility.
+
+#### maximum_drawdown
+- Measures the largest peak-to-trough loss of the compounded path.
+
+#### alpha_beta_test
+- Regresses portfolio returns on the point-in-time market proxy.
+- Uses HAC standard errors for annualized alpha and its t-statistic.
+
+#### evaluate_one_path
+- Calculates net return, volatility, Sharpe, drawdown, time consistency, alpha, beta, turnover, cost drag and data-quality diagnostics.
+- Uses return above the risk-free rate for long-only portfolios.
+- Uses the self-financing spread return for market-neutral portfolios.
+
+#### evaluate_portfolios
+- Applies all four transaction-cost assumptions to every calendar-phase ensemble path.
+
+#### benchmark_statistics
+- Calculates the point-in-time equal-weight market and risk-free benchmarks from 2010 onward.
+- Reports annualized return, volatility, Sharpe and maximum drawdown.
+
+#### candidate_decisions
+- Applies the declared statistical and economic lead rules to the four general candidates.
+- Selects one full-history implementation per candidate and evaluates that same implementation in walk-forward results.
+- Separates `STATISTICAL_LEAD`, `ECONOMIC_LEAD` and `REJECTED` results.
+- Does not assign `VALIDATED_ALPHA` because candidate discovery already used the complete history.
+
+
+### walk_forward_research.py
+
+#### walk_forward_periods
+- Creates a short 18-month training / 6-month OOS sequence.
+- Creates a long four-year training / one-year OOS sequence.
+- Moves each sequence forward by exactly its OOS length.
+
+#### oriented_net_returns
+- Applies the direction selected from the preceding training period.
+- Reverses gross market-neutral return without reversing transaction costs.
+
+#### run_walk_forward
+- Keeps every portfolio method and parameter setting in the result.
+- Chooses only the market-neutral direction from its preceding training observations.
+- Freezes that direction over the next OOS period.
+- Saves every individual period, complete stitched OOS paths and one summary per implementation.
+- Marks all results as post-selection rather than untouched OOS evidence.
+
+
+### regime_research.py
+
+#### run_regime_analysis
+- Separates completed walk-forward returns by risk-free-rate, volatility, dispersion and correlation state.
+- Reports return, Sharpe and positive-day frequency inside every state.
+
+
+### research_report.py
+
+#### save_figure
+- Saves one General Research figure in `Results/Research_Layer/General/Figures`.
+
+#### candidate_label
+- Converts a complete factor key into a short readable family name for figures.
+
+#### plot_research_summary
+- Creates `general_research_summary.png`.
+- Shows final statuses for the four frozen leads.
+- Compares their selected net annualized returns, full-history Sharpe and long walk-forward Sharpe.
+
+#### plot_multiple_testing
+- Compares discovery counts under the original global FDR and exploratory alternative corrections.
+
+#### plot_cost_sensitivity
+- Shows how median implementation Sharpe changes under different transaction costs.
+
+#### plot_turnover_sharpe
+- Shows the relationship between annualized turnover and net Sharpe at the primary cost assumption.
+
+#### plot_walk_forward_paths
+- Shows the strongest displayed post-selection walk-forward path for every factor and periodization scheme.
+
+#### plot_regime_comparison
+- Shows the top displayed walk-forward path across the recorded market regimes.
+
+#### plot_factor_overlap
+- Visualizes daily rank correlation between the four frozen factor leads.
+
+#### create_research_figures
+- Creates the General Research summary and all supporting diagnostic figures.
+
+#### markdown_table
+- Converts readable result tables into Markdown while preserving missing values.
+
+#### relative_figure_path
+- Creates report-relative paths for General Research figures.
+
+#### build_research_report
+- Creates `research_report.md` with final candidate statuses, benchmarks, statistical sensitivity, implementation results, risk diagnostics, walk-forward behaviour and interpretation limits.
+
+
+### **pipeline.py** — General Research
+
+#### run_multiple_testing_comparison
+- Rebuilds the readable FDR sensitivity tables from the completed Selection Layer effects.
+
+#### prepare_portfolio_paths
+- Reuses a compatible portfolio cache.
+- Otherwise calculates trailing betas, all calendar-phase paths and phase ensembles once.
+
+#### risk_summary
+- Extracts beta, leverage, turnover, concentration, sector and missing-return diagnostics at the primary 10 bps cost assumption.
+
+#### run_pipeline
+- Runs the general four-candidate Research Layer in chronological order.
+- Always recreates readable statistics, walk-forward results, figures and the Markdown report.
+- Rebuilds expensive portfolio paths only when their inputs or configuration changed.
+- Prints the complete execution time.
+- Does not run or change Data System, Factor Layer or Factor Selection Layer.
+
+
+### Low_Volatility/config.py
+- Defines every focused Low Volatility data, result and figure path.
+- Defines the path of the automatically updated Low Volatility summary figure.
+- Defines the seven lookback windows, fixed portfolio anchor and declared decision rules.
+- Keeps focused-study settings out of the general `research_config.py`.
+
+
+### Low_Volatility/research.py
+
+#### prepare_low_volatility_directories
+- Creates the separate Low Volatility Cache, Results and Figures directories.
+
+#### load_low_volatility_candidates
+- Loads the existing 20, 40, 60, 90, 120, 180 and 252-day Low Volatility matrices.
+- Uses the same 63-day Selection Layer horizon only to describe their earlier pattern classifications.
+- Fails when any declared window is missing or duplicated.
+
+#### load_low_volatility_factors
+- Aligns all seven Low Volatility matrices with the Research Layer dates and tickers.
+
+#### low_volatility_cache_is_valid
+- Reuses the focused cache only when its signature and every required matrix and metadata file are present.
+
+#### save_low_volatility_cache
+- Stores the focused portfolio paths, metadata, calendar phases and cache signature separately from General Research.
+
+#### load_low_volatility_cache
+- Loads the complete compatible focused cache without recalculating positions.
+
+#### matching_anchor
+- Keeps only `Q10 - middle`, beta-neutral portfolios rebalanced every 63 trading days.
+- Applies exactly the same portfolio definition to every volatility lookback.
+
+#### one_row
+- Requires one unique result for a requested window, cost or walk-forward scheme.
+- Stops the report instead of silently using an ambiguous row.
+
+#### build_window_summary
+- Applies the same post-selection anchor implementation to every volatility lookback.
+- Checks net Sharpe, alpha t-stat, 25 bps costs, calendar phases, both walk-forward structures and market regimes.
+- Keeps realised beta, drawdown, turnover, holding count and maximum position size visible as risk diagnostics.
+- Applies FDR correction to the seven anchor alpha tests.
+- Requires support from a neighbouring declared lookback instead of selecting one isolated maximum.
+- Labels every window as `NOT_SUPPORTED`, `ISOLATED_RESULT`, `ROBUST_ECONOMIC_LEAD` or `STRONG_POST_SELECTION_LEAD`.
+
+#### save_low_volatility_figure
+- Saves one focused figure in `Results/Research_Layer/Low_Volatility/Figures`.
+
+#### plot_low_volatility_summary
+- Creates `low_volatility_summary.png`.
+- Compares net annualized return across all seven windows.
+- Compares full-history, long walk-forward and short walk-forward Sharpe.
+- Shows how many declared checks each window passed.
+
+#### create_low_volatility_figures
+- Visualizes lookback sensitivity, walk-forward Sharpe, transaction costs and the declared pass/fail checks.
+
+#### build_low_volatility_report
+- Creates a separate focused report without rewriting the General Research result.
+- States explicitly that the anchor direction was discovered after viewing Layer 4 and is not an untouched confirmation.
+
+
+### **Low_Volatility/pipeline.py**
+
+#### low_volatility_settings
+- Records the fixed windows, complete portfolio grid and common anchor implementation.
+
+#### prepare_low_volatility_paths
+- Reuses a compatible focused cache or builds all seven factor-window portfolio grids.
+- Creates 700 calendar-phase paths and 280 ensemble implementations.
+
+#### run_low_volatility_pipeline
+- Runs the complete Low Volatility sensitivity study independently from General Research.
+- Saves focused statistics, walk-forward periods, regimes, benchmarks, figures and `low_volatility_report.md`.
+- Does not rerun or overwrite the General Research pipeline.
+
+
+### delete.py
+- Deletes General and Low Volatility Research Layer cache and readable results.
+- Does not delete any previous project layer.
+
+
+### Research Interpretation Rules
+
+- Full-history portfolio results are descriptive because the same history influenced the candidate shortlist.
+- Global FDR remains the original confirmatory multiple-testing result.
+- Within-family and hierarchical corrections show whether the original correction was too broad, but they are not used to rewrite the discovery result.
+- Walk-forward analysis measures historical temporal behaviour but cannot recreate a genuinely untouched test after the candidates have already been viewed on the complete history.
+- Sector exposure remains explicitly unavailable until a reliable point-in-time sector dataset is added to the Data System.
+- A factor is not called alpha unless its return survives costs, turnover, risk exposure, calendar phases, both walk-forward structures and market-regime analysis.
+- The focused Low Volatility study looks for a stable parameter plateau, not the single highest Sharpe ratio.
+
+
+### Research Layer Output Verification
+
+#### General Research
+
+![General Research summary](Results/Research_Layer/General/Figures/general_research_summary.png)
+
+The General Research pipeline tested four frozen leads through 160 portfolio implementations. At the declared 10 bps cost assumption:
+
+- Low Volatility became one `ECONOMIC_LEAD`.
+- Volatility-Scaled Momentum remained one `STATISTICAL_LEAD`.
+- Short-Term Reversal and Liquidity Change were rejected.
+- No candidate was labelled validated alpha because candidate discovery already used the complete historical sample.
+
+The selected 60-day Low Volatility implementation produced a 4.77% net annualized return, 0.505 full-history Sharpe and 0.432 long walk-forward Sharpe. Its alpha HAC t-statistic was 1.60, so the result remained an economic lead rather than statistically confirmed alpha.
+
+The complete tables, diagnostics and limitations are saved in `Results/Research_Layer/General/research_report.md`.
+
+
+#### Low Volatility Research
+
+![Low Volatility summary](Results/Research_Layer/Low_Volatility/Figures/low_volatility_summary.png)
+
+The focused pipeline applied the same `Q10 - middle`, beta-neutral, 63-day implementation to seven volatility windows:
+
+- The 60-day window had the highest net annualized return at 4.77% and the highest full-history Sharpe at 0.505.
+- It passed 6 of 10 declared checks and remained positive in both walk-forward structures.
+- Its neighbouring windows did not form a robust parameter plateau.
+- No window survived all statistical, cost, calendar-phase, walk-forward, regime and neighbour-support requirements.
+
+The final status is therefore `ISOLATED_RESULT`, not validated alpha. The complete focused analysis is saved in `Results/Research_Layer/Low_Volatility/low_volatility_report.md`.
+
+
+## Appendix F — Complete Pipeline, Testing and Outputs
+
+The final project stage connects the complete execution chain with the research conclusion produced by its saved results.
+
+
+### Complete Project Pipeline
+
+The complete project can be executed through `src/Pipeline/run.py`.
+
+The orchestrator runs the five executable stages in their required order:
+
+1. Data System.
+2. Factor Layer.
+3. Factor Selection Layer.
+4. General Research.
+5. Low Volatility Research.
+
+Every stage remains responsible for its own calculations, cache validation, outputs and reports. The complete pipeline does not duplicate financial logic, delete existing data or force unnecessary rebuilding. Execution stops immediately when one stage fails, preventing later layers from using incomplete results.
+
+
+### **Pipeline/run.py**
+
+#### PIPELINE_STAGES
+- Stores the required execution order and the path of every layer pipeline.
+
+#### format_duration
+- Converts elapsed seconds into a readable hours, minutes and seconds value.
+
+#### run_stage
+- Runs one layer with the same Python environment used for the complete pipeline.
+- Prints the current stage and its execution time.
+- Stops when the layer script is missing or exits with an error.
+
+#### run_complete_pipeline
+- Runs all five stages sequentially.
+- Allows every layer to reuse its own valid cache.
+- Prints the duration of every completed stage and the complete project runtime.
+- Does not contain data, factor, selection or portfolio logic.
+
+
+### Testing and Verification
+
+The project currently contains 43 automated tests covering the most consequential implementation rules.
+
+- **Data System:** quality masks, unconfirmed and confirmed extreme returns, price gaps, availability, adjusted-price/volume compatibility, ticker retries and aliases, reused symbols, risk-free-rate reuse and deletion scope.
+- **Factor and Selection Layers:** quality at both forward-return endpoints, one-day signal lag, separation of monotonic and tail effects, and acceptance of negative as well as positive monotonic structures.
+- **Research Layer:** portfolio neutrality, complete-cross-section weights, beta neutralization, transaction costs, calendar phases, batched-engine equivalence, previous-day signal timing, point-in-time risk-free regimes, both walk-forward structures, decision-path consistency and neighbouring-window plateau logic.
+
+These tests verify declared calculations and information timing. They cannot prove that an external data source is correct, that a historical anomaly will persist, or that the backtest represents achievable institutional execution.
+
+
+### Output Reference
+
+| Layer | Main readable result | Main reproducible data |
+| --- | --- | --- |
+| Data System | `Results/Data_System/data_audit_report.md` and `Figures/data_audit_summary.png` | `Data/Data_System/Raw` and `Data/Data_System/Processed` |
+| Factor Layer | `Results/Factors_Layer/factor_layer_report.md` and `Figures/factor_layer_summary.png` | 56 factor matrices, eight forward-return matrices and `factor_metadata.csv` |
+| Factor Selection | `Results/Factor_Selection_Layer/factor_selection_report.md` and `Figures/factor_selection_summary.png` | `daily_quantile_results.parquet`, `hypothesis_cards.csv`, `effect_tests.csv` and `quantile_curves.csv` |
+| General Research | `Results/Research_Layer/General/research_report.md` and `Figures/general_research_summary.png` | Portfolio statistics, walk-forward results, risk diagnostics and reusable portfolio paths |
+| Low Volatility Research | `Results/Research_Layer/Low_Volatility/low_volatility_report.md` and `Figures/low_volatility_summary.png` | Window summaries, portfolio statistics, walk-forward results and focused portfolio paths |
+
+Large matrices and reusable caches are stored under `Data` and excluded from Git. Compact reports, figures, metadata and decision tables are stored under `Results` and retained in Git history.
