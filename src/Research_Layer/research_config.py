@@ -28,9 +28,27 @@ SELECTION_RESULTS_DIR = os.path.join(
 )
 
 RESEARCH_DATA_DIR = os.path.join(PROJECT_ROOT, "Data", "Research_Layer")
-RESEARCH_CACHE_DIR = os.path.join(RESEARCH_DATA_DIR, "Cache")
+GENERAL_RESEARCH_DATA_DIR = os.path.join(RESEARCH_DATA_DIR, "General")
+RESEARCH_CACHE_DIR = os.path.join(GENERAL_RESEARCH_DATA_DIR, "Cache")
 RESEARCH_RESULTS_DIR = os.path.join(PROJECT_ROOT, "Results", "Research_Layer")
-RESEARCH_FIGURES_DIR = os.path.join(RESEARCH_RESULTS_DIR, "Figures")
+GENERAL_RESEARCH_RESULTS_DIR = os.path.join(
+    RESEARCH_RESULTS_DIR,
+    "General",
+)
+RESEARCH_FIGURES_DIR = os.path.join(
+    GENERAL_RESEARCH_RESULTS_DIR,
+    "Figures",
+)
+RESEARCH_CODE_PATHS = tuple(
+    os.path.join(os.path.dirname(__file__), name)
+    for name in (
+        "research_config.py",
+        "research_data.py",
+        "portfolio_construction.py",
+        "portfolio_engine.py",
+        "risk_exposure.py",
+    )
+)
 
 RETURNS_PATH = os.path.join(DATA_SYSTEM_PROCESSED_DIR, "returns.parquet")
 AVAILABILITY_PATH = os.path.join(
@@ -63,15 +81,15 @@ SELECTION_EFFECTS_PATH = os.path.join(
 )
 
 MULTIPLE_TESTING_RESULTS_PATH = os.path.join(
-    RESEARCH_RESULTS_DIR,
+    GENERAL_RESEARCH_RESULTS_DIR,
     "multiple_testing_comparison.csv",
 )
 MULTIPLE_TESTING_SUMMARY_PATH = os.path.join(
-    RESEARCH_RESULTS_DIR,
+    GENERAL_RESEARCH_RESULTS_DIR,
     "multiple_testing_summary.csv",
 )
 FACTOR_OVERLAP_PATH = os.path.join(
-    RESEARCH_RESULTS_DIR,
+    GENERAL_RESEARCH_RESULTS_DIR,
     "factor_overlap.csv",
 )
 PORTFOLIO_PATHS_PATH = os.path.join(
@@ -115,23 +133,23 @@ PORTFOLIO_HOLDING_COUNT_PATH = os.path.join(
     "portfolio_holding_count.parquet",
 )
 PORTFOLIO_METADATA_PATH = os.path.join(
-    RESEARCH_RESULTS_DIR,
+    GENERAL_RESEARCH_RESULTS_DIR,
     "portfolio_metadata.csv",
 )
 PORTFOLIO_STATISTICS_PATH = os.path.join(
-    RESEARCH_RESULTS_DIR,
+    GENERAL_RESEARCH_RESULTS_DIR,
     "portfolio_statistics.csv",
 )
 PHASE_STABILITY_PATH = os.path.join(
-    RESEARCH_RESULTS_DIR,
+    GENERAL_RESEARCH_RESULTS_DIR,
     "calendar_phase_stability.csv",
 )
 WALK_FORWARD_PERIODS_PATH = os.path.join(
-    RESEARCH_RESULTS_DIR,
+    GENERAL_RESEARCH_RESULTS_DIR,
     "walk_forward_periods.csv",
 )
 WALK_FORWARD_SUMMARY_PATH = os.path.join(
-    RESEARCH_RESULTS_DIR,
+    GENERAL_RESEARCH_RESULTS_DIR,
     "walk_forward_summary.csv",
 )
 WALK_FORWARD_PATHS_PATH = os.path.join(
@@ -139,11 +157,11 @@ WALK_FORWARD_PATHS_PATH = os.path.join(
     "walk_forward_oos_paths.parquet",
 )
 RISK_EXPOSURE_SUMMARY_PATH = os.path.join(
-    RESEARCH_RESULTS_DIR,
+    GENERAL_RESEARCH_RESULTS_DIR,
     "risk_exposure_summary.csv",
 )
 SECTOR_EXPOSURE_STATUS_PATH = os.path.join(
-    RESEARCH_RESULTS_DIR,
+    GENERAL_RESEARCH_RESULTS_DIR,
     "sector_exposure_status.csv",
 )
 MARKET_REGIMES_PATH = os.path.join(
@@ -151,20 +169,28 @@ MARKET_REGIMES_PATH = os.path.join(
     "market_regimes.parquet",
 )
 REGIME_RESULTS_PATH = os.path.join(
-    RESEARCH_RESULTS_DIR,
+    GENERAL_RESEARCH_RESULTS_DIR,
     "regime_performance.csv",
 )
 RESEARCH_REPORT_PATH = os.path.join(
-    RESEARCH_RESULTS_DIR,
+    GENERAL_RESEARCH_RESULTS_DIR,
     "research_report.md",
 )
 RESEARCH_RUN_METADATA_PATH = os.path.join(
-    RESEARCH_RESULTS_DIR,
+    GENERAL_RESEARCH_RESULTS_DIR,
     "research_run_metadata.json",
 )
 RESEARCH_CACHE_MANIFEST_PATH = os.path.join(
     RESEARCH_CACHE_DIR,
     "research_cache_manifest.json",
+)
+CANDIDATE_DECISIONS_PATH = os.path.join(
+    GENERAL_RESEARCH_RESULTS_DIR,
+    "candidate_decisions.csv",
+)
+BENCHMARK_STATISTICS_PATH = os.path.join(
+    GENERAL_RESEARCH_RESULTS_DIR,
+    "benchmark_statistics.csv",
 )
 
 
@@ -273,3 +299,10 @@ REGIME_DISPERSION_WINDOW = 21
 REGIME_CORRELATION_WINDOW = 63
 REGIME_EXPANDING_MIN_OBSERVATIONS = 252
 HIGH_RISK_FREE_RATE_PCT = 2.0
+
+
+# -------------------------
+# FINAL RESEARCH DECISIONS
+ECONOMIC_LEAD_MIN_NET_SHARPE = 0.40
+ECONOMIC_LEAD_MIN_LONG_WF_SHARPE = 0.25
+ECONOMIC_LEAD_MIN_LONG_WF_POSITIVE_RATE = 2 / 3

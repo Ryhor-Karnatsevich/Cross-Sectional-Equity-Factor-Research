@@ -17,6 +17,24 @@
 | liquidity_change\|liq_20d_252d | 252.0000 | upper_tail_exploratory_lead | upper_tail | rejected_by_multiple_testing |
 | low_volatility\|60d | 63.0000 | lower_tail_exploratory_lead | lower_tail | rejected_by_multiple_testing |
 
+## Final Candidate Decisions
+
+The labels apply the declared statistical and economic rules. `VALIDATED_ALPHA` is intentionally unavailable because no untouched final sample remains after candidate discovery.
+
+| factor_key | final_status | best_method | best_rebalance_days | best_net_annualized_return | best_net_sharpe | best_alpha_hac_tstat | best_long_wf_sharpe |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| volatility_scaled_momentum\|vsmom_12m_1m_vol60 | STATISTICAL_LEAD | middle_minus_q1 | 63.0000 | 0.0233 | 0.2676 | 1.3171 | -0.0076 |
+| short_term_reversal\|reversal_5d | REJECTED | q10_minus_q1 | 21.0000 | 0.0053 | 0.1034 | 0.2609 | -0.1521 |
+| liquidity_change\|liq_20d_252d | REJECTED | q10_minus_q1 | 63.0000 | 0.0173 | 0.2218 | 0.8715 | 0.0252 |
+| low_volatility\|60d | ECONOMIC_LEAD | q10_minus_middle | 63.0000 | 0.0477 | 0.5050 | 1.6033 | 0.4317 |
+
+## Benchmarks
+
+| benchmark | annualized_return | annualized_volatility | sharpe | maximum_drawdown |
+| --- | --- | --- | --- | --- |
+| equal_weight_market | 0.1412 | 0.1812 | 0.7382 | -0.3990 |
+| risk_free | 0.0150 | 0.0012 |  | 0.0000 |
+
 ## Multiple Testing Sensitivity
 
 Global FDR remains the original confirmatory result. Within-group values are reported as sensitivity diagnostics and do not replace it after seeing the data.
@@ -131,9 +149,17 @@ Each implementation is kept fixed. Only the sign of a market-neutral spread is c
 
 ## Figures
 
+### Factor Overlap
+
+![Factor Overlap](Figures/factor_overlap.png)
+
 ### Multiple Testing Comparison
 
 ![Multiple Testing Comparison](Figures/multiple_testing_comparison.png)
+
+### Regime Comparison
+
+![Regime Comparison](Figures/regime_comparison.png)
 
 ### Transaction Cost Sensitivity
 
@@ -146,11 +172,3 @@ Each implementation is kept fixed. Only the sign of a market-neutral spread is c
 ### Walk Forward Paths
 
 ![Walk Forward Paths](Figures/walk_forward_paths.png)
-
-### Regime Comparison
-
-![Regime Comparison](Figures/regime_comparison.png)
-
-### Factor Overlap
-
-![Factor Overlap](Figures/factor_overlap.png)

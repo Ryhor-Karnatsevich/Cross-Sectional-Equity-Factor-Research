@@ -28,6 +28,7 @@ from quantile_analysis import (
 )
 from hypothesis_analysis import daily_effects
 from pattern_classification import classify_pattern
+from selection_report import selection_conclusion
 
 
 class FactorLayerTest(unittest.TestCase):
@@ -50,6 +51,33 @@ class FactorLayerTest(unittest.TestCase):
 
 
 class FactorSelectionLayerTest(unittest.TestCase):
+    def test_selection_conclusion_separates_ic_from_economic_effects(self):
+        cards = pd.DataFrame(
+            [{"evidence_status": "rejected_by_multiple_testing"}]
+        )
+        effects = pd.DataFrame(
+            [
+                {
+                    "effect": "spearman_ic",
+                    "reject_active_scope_fdr": True,
+                },
+                {
+                    "effect": "q10_minus_q1",
+                    "reject_active_scope_fdr": False,
+                },
+            ]
+        )
+
+        conclusion = "\n".join(
+            selection_conclusion(cards, effects, full_scope=True)
+        )
+
+        self.assertIn("Rank-IC discoveries after global FDR: `1`", conclusion)
+        self.assertIn(
+            "Economic-effect discoveries after global FDR: `0`",
+            conclusion,
+        )
+
     def test_lagged_factor_is_ranked_before_future_returns_are_used(self):
         dates = pd.date_range("2020-01-01", periods=2, freq="D")
         tickers = [f"T{number:02d}" for number in range(30)]

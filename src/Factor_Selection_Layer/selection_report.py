@@ -371,6 +371,49 @@ def economic_markdown_table(cards):
     return "\n".join(lines)
 
 
+def selection_conclusion(cards, effect_tests, full_scope):
+    if not full_scope:
+        return [
+            "The active run is restricted, so it cannot produce the final "
+            "Layer 3 decision.",
+        ]
+
+    rejected = effect_tests["reject_active_scope_fdr"].fillna(False)
+    ic_discoveries = int(
+        (rejected & effect_tests["effect"].eq("spearman_ic")).sum()
+    )
+    economic_discoveries = int(
+        (rejected & effect_tests["effect"].ne("spearman_ic")).sum()
+    )
+    economic_candidates = int(
+        cards["evidence_status"].eq("candidate_after_full_fdr").sum()
+    )
+
+    if economic_candidates:
+        decision = (
+            f"Layer 3 retained {economic_candidates} statistically supported "
+            "economic candidate(s) for portfolio research."
+        )
+    elif ic_discoveries:
+        decision = (
+            "Layer 3 found statistical cross-sectional rank evidence, but no "
+            "economic return pattern survived the complete selection rules."
+        )
+    else:
+        decision = (
+            "Layer 3 found no factor-horizon relationship that survived the "
+            "complete selection rules."
+        )
+
+    return [
+        f"- Rank-IC discoveries after global FDR: `{ic_discoveries}`.",
+        f"- Economic-effect discoveries after global FDR: `{economic_discoveries}`.",
+        f"- Final economic candidates: `{economic_candidates}`.",
+        "",
+        decision,
+    ]
+
+
 def build_selection_report(cards, effect_tests, figure_paths):
     factor_count = cards["factor_key"].nunique()
     hypothesis_count = cards["hypothesis_key"].nunique()
@@ -417,6 +460,9 @@ def build_selection_report(cards, effect_tests, figure_paths):
     lines.extend(["", "## Evidence Status", ""])
     for status, count in status_counts.items():
         lines.append(f"- `{status}`: {count} hypotheses.")
+
+    lines.extend(["", "## Final Layer Decision", ""])
+    lines.extend(selection_conclusion(cards, effect_tests, full_scope))
 
     lines.extend(
         [

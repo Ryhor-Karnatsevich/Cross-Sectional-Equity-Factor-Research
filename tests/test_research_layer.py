@@ -12,8 +12,9 @@ if RESEARCH_LAYER_PATH not in sys.path:
     sys.path.insert(0, RESEARCH_LAYER_PATH)
 
 from multiple_testing_research import bh_values, simes_p_value
+from Low_Volatility.research import build_window_summary
 from portfolio_construction import build_target_weights
-from portfolio_evaluation import apply_transaction_costs
+from portfolio_evaluation import apply_transaction_costs, candidate_decisions
 from portfolio_engine import (
     MATRIX_NAMES,
     calendar_offsets,
@@ -340,6 +341,27 @@ class ResearchReportTests(unittest.TestCase):
         )
         report = build_research_report(
             candidates,
+            pd.DataFrame(
+                [{
+                    "factor_key": "factor|variant",
+                    "final_status": "ECONOMIC_LEAD",
+                    "best_method": "q10_minus_q1",
+                    "best_rebalance_days": 21,
+                    "best_net_annualized_return": 0.01,
+                    "best_net_sharpe": 0.1,
+                    "best_alpha_hac_tstat": 0.2,
+                    "best_long_wf_sharpe": 0.1,
+                }]
+            ),
+            pd.DataFrame(
+                [{
+                    "benchmark": "equal_weight_market",
+                    "annualized_return": 0.08,
+                    "annualized_volatility": 0.15,
+                    "sharpe": 0.4,
+                    "maximum_drawdown": -0.3,
+                }]
+            ),
             multiple_testing,
             statistics,
             phase_stability,
@@ -352,6 +374,173 @@ class ResearchReportTests(unittest.TestCase):
         )
         self.assertIn("Full-History Portfolio Implementations", report)
         self.assertIn("Walk-Forward Behaviour", report)
+
+
+class CandidateDecisionTests(unittest.TestCase):
+    def test_decision_uses_same_path_for_full_history_and_walk_forward(self):
+        candidates = pd.DataFrame(
+            [{
+                "factor_key": "factor|variant",
+                "selection_evidence": "exploratory_lead",
+            }]
+        )
+        statistics = pd.DataFrame(
+            [
+                {
+                    "factor_key": "factor|variant",
+                    "path_key": "best_full_history",
+                    "portfolio_type": "market_neutral",
+                    "transaction_cost_bps": 10,
+                    "method": "q10_minus_q1",
+                    "beta_neutral": True,
+                    "rebalance_days": 21,
+                    "annualized_return": 0.08,
+                    "sharpe": 0.80,
+                    "alpha_hac_tstat": 1.0,
+                },
+                {
+                    "factor_key": "factor|variant",
+                    "path_key": "best_walk_forward",
+                    "portfolio_type": "market_neutral",
+                    "transaction_cost_bps": 10,
+                    "method": "continuous_high_minus_low",
+                    "beta_neutral": False,
+                    "rebalance_days": 5,
+                    "annualized_return": 0.04,
+                    "sharpe": 0.50,
+                    "alpha_hac_tstat": 0.5,
+                },
+            ]
+        )
+        walk_forward = pd.DataFrame(
+            [
+                {
+                    "factor_key": "factor|variant",
+                    "path_key": "best_full_history",
+                    "portfolio_type": "market_neutral",
+                    "walk_forward_scheme": "long",
+                    "stitched_oos_sharpe": -0.10,
+                    "positive_oos_period_rate": 0.40,
+                },
+                {
+                    "factor_key": "factor|variant",
+                    "path_key": "best_full_history",
+                    "portfolio_type": "market_neutral",
+                    "walk_forward_scheme": "short",
+                    "stitched_oos_sharpe": -0.20,
+                    "positive_oos_period_rate": 0.40,
+                },
+                {
+                    "factor_key": "factor|variant",
+                    "path_key": "best_walk_forward",
+                    "portfolio_type": "market_neutral",
+                    "walk_forward_scheme": "long",
+                    "stitched_oos_sharpe": 1.20,
+                    "positive_oos_period_rate": 0.90,
+                },
+            ]
+        )
+
+        decision = candidate_decisions(
+            candidates,
+            statistics,
+            walk_forward,
+        ).iloc[0]
+
+        self.assertEqual(decision["evaluated_path_key"], "best_full_history")
+        self.assertEqual(decision["final_status"], "REJECTED")
+        self.assertAlmostEqual(decision["best_long_wf_sharpe"], -0.10)
+
+
+class LowVolatilityResearchTests(unittest.TestCase):
+    def test_neighbouring_windows_form_a_supported_plateau(self):
+        candidates = pd.DataFrame(
+            [
+                {
+                    "factor_key": f"low_volatility|{window}d",
+                    "window": window,
+                    "selection_pattern": "lower_tail",
+                    "selection_status": "exploratory",
+                }
+                for window in (40, 60, 90)
+            ]
+        )
+        statistics = []
+        phases = []
+        walks = []
+        regimes = []
+        for window in (40, 60, 90):
+            factor_key = f"low_volatility|{window}d"
+            path_key = f"{factor_key}|anchor"
+            for cost in (10, 25):
+                statistics.append(
+                    {
+                        "factor_key": factor_key,
+                        "path_key": path_key,
+                        "method": "q10_minus_middle",
+                        "beta_neutral": True,
+                        "rebalance_days": 63,
+                        "transaction_cost_bps": cost,
+                        "annualized_return": 0.05 if cost == 10 else 0.03,
+                        "sharpe": 0.60,
+                        "alpha_hac_tstat": 2.50,
+                        "alpha_raw_p_value": 0.01,
+                        "regression_beta": 0.02,
+                        "average_estimated_beta": 0.01,
+                        "maximum_drawdown": -0.20,
+                        "annualized_turnover": 8.0,
+                        "average_holding_count": 80.0,
+                        "maximum_position_weight": 0.03,
+                    }
+                )
+            phases.append(
+                {
+                    "path_key": path_key,
+                    "phase_annual_return_min": 0.03,
+                    "phase_sharpe_min": 0.40,
+                }
+            )
+            for scheme, periods in (("long", 12), ("short", 30)):
+                walks.append(
+                    {
+                        "factor_key": factor_key,
+                        "path_key": path_key,
+                        "method": "q10_minus_middle",
+                        "beta_neutral": True,
+                        "rebalance_days": 63,
+                        "walk_forward_scheme": scheme,
+                        "stitched_oos_annualized_return": 0.04,
+                        "stitched_oos_sharpe": 0.40,
+                        "positive_oos_period_rate": 0.75,
+                        "complete_oos_periods": periods,
+                    }
+                )
+            for state in ("low_volatility", "high_volatility"):
+                regimes.append(
+                    {
+                        "factor_key": factor_key,
+                        "method": "q10_minus_middle",
+                        "beta_neutral": True,
+                        "rebalance_days": 63,
+                        "walk_forward_scheme": "long",
+                        "regime_variable": "volatility_state",
+                        "regime_state": state,
+                        "annualized_return_approx": 0.02,
+                    }
+                )
+        summary = build_window_summary(
+            candidates,
+            pd.DataFrame(statistics),
+            pd.DataFrame(phases),
+            pd.DataFrame(walks),
+            pd.DataFrame(regimes),
+        )
+        self.assertTrue(summary["pass_neighbour_support"].all())
+        self.assertTrue(summary["pass_alpha_fdr"].all())
+        self.assertEqual(
+            set(summary["research_status"]),
+            {"STRONG_POST_SELECTION_LEAD"},
+        )
 
 
 if __name__ == "__main__":

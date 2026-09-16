@@ -1,0 +1,19 @@
+{
+  "created_at_utc": "2026-09-15T12:10:54.004872+00:00",
+  "factor_windows": [
+    20,
+    40,
+    60,
+    90,
+    120,
+    180,
+    252
+  ],
+  "factor_count": 7,
+  "portfolio_path_count": 280,
+  "portfolio_cache_rebuilt": true,
+  "walk_forward_path_count": 560,
+  "figure_count": 4,
+  "sector_exposure_status": "NOT_AVAILABLE",
+  "cache_manifest": "C:\\Users\\God\\PycharmProjects\\Cross-Sectional Alpha Modeling and Portfolio Construction\\Data\\Research_Layer\\Low_Volatility\\Cache\\cache_manifest.json"
+}

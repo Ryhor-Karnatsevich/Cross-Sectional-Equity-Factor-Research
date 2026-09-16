@@ -4,8 +4,13 @@ import statsmodels.api as sm
 
 from research_config import (
     ANNUALIZATION_FACTOR,
+    ECONOMIC_LEAD_MIN_LONG_WF_POSITIVE_RATE,
+    ECONOMIC_LEAD_MIN_LONG_WF_SHARPE,
+    ECONOMIC_LEAD_MIN_NET_SHARPE,
     MARKET_NEUTRAL_METHODS,
+    PRIMARY_TRANSACTION_COST_BPS,
     REGRESSION_HAC_LAGS,
+    RESEARCH_START_DATE,
     TRANSACTION_COST_BPS,
 )
 
@@ -66,7 +71,7 @@ def alpha_beta_test(returns, market_return, risk_free, portfolio_type):
         axis=1,
     ).dropna()
     if len(data) < 60 or data["market"].var() <= 0:
-        return np.nan, np.nan, np.nan
+        return np.nan, np.nan, np.nan, np.nan
 
     model = sm.OLS(
         data["portfolio"],
@@ -78,6 +83,7 @@ def alpha_beta_test(returns, market_return, risk_free, portfolio_type):
     return (
         float(model.params["const"] * ANNUALIZATION_FACTOR),
         float(model.tvalues["const"]),
+        float(model.pvalues["const"]),
         float(model.params["market"]),
     )
 
@@ -125,7 +131,7 @@ def evaluate_one_path(
         if portfolio_type == "long_only"
         else net_returns
     )
-    alpha, alpha_tstat, regression_beta = alpha_beta_test(
+    alpha, alpha_tstat, alpha_p_value, regression_beta = alpha_beta_test(
         net_returns,
         market_return,
         risk_free,
@@ -144,6 +150,7 @@ def evaluate_one_path(
         "positive_year_rate": direction_rate(net_returns, "Y"),
         "annualized_alpha": alpha,
         "alpha_hac_tstat": alpha_tstat,
+        "alpha_raw_p_value": alpha_p_value,
         "regression_beta": regression_beta,
         "average_estimated_beta": float(beta_exposure.mean()),
         "maximum_absolute_estimated_beta": float(beta_exposure.abs().max()),
@@ -220,4 +227,145 @@ def evaluate_portfolios(matrices, metadata, market_return, risk_free):
                     **metrics,
                 }
             )
+    return pd.DataFrame(rows)
+
+
+def benchmark_statistics(market_return, risk_free):
+    data = pd.concat(
+        [
+            market_return.rename("equal_weight_market"),
+            risk_free.rename("risk_free"),
+        ],
+        axis=1,
+    ).loc[RESEARCH_START_DATE:]
+    rows = []
+    for name in data.columns:
+        values = data[name].dropna()
+        excess = (
+            values - data["risk_free"].reindex(values.index)
+            if name == "equal_weight_market"
+            else values * 0.0
+        )
+        rows.append(
+            {
+                "benchmark": name,
+                "observations": len(values),
+                "annualized_return": annualized_return(values),
+                "annualized_volatility": float(
+                    values.std() * np.sqrt(ANNUALIZATION_FACTOR)
+                ),
+                "sharpe": annualized_sharpe(excess),
+                "maximum_drawdown": maximum_drawdown(values),
+            }
+        )
+    return pd.DataFrame(rows)
+
+
+def candidate_decisions(candidates, statistics, walk_forward_summary):
+    primary = statistics.loc[
+        statistics["transaction_cost_bps"].eq(
+            PRIMARY_TRANSACTION_COST_BPS
+        )
+        & statistics["portfolio_type"].eq("market_neutral")
+    ]
+    rows = []
+
+    for candidate in candidates.itertuples(index=False):
+        factor_stats = primary.loc[
+            primary["factor_key"].eq(candidate.factor_key)
+        ].sort_values("sharpe", ascending=False)
+        factor_walk = walk_forward_summary.loc[
+            walk_forward_summary["factor_key"].eq(candidate.factor_key)
+            & walk_forward_summary["portfolio_type"].eq("market_neutral")
+        ]
+
+        best = factor_stats.iloc[0] if not factor_stats.empty else None
+        selected_walk = (
+            factor_walk.loc[factor_walk["path_key"].eq(best["path_key"])]
+            if best is not None
+            else factor_walk.iloc[0:0]
+        )
+        long_walk = selected_walk.loc[
+            selected_walk["walk_forward_scheme"].eq("long")
+        ]
+        short_walk = selected_walk.loc[
+            selected_walk["walk_forward_scheme"].eq("short")
+        ]
+        best_long = long_walk.iloc[0] if len(long_walk) == 1 else None
+        best_short = short_walk.iloc[0] if len(short_walk) == 1 else None
+        economic_lead = bool(
+            best is not None
+            and best_long is not None
+            and best["annualized_return"] > 0
+            and best["sharpe"] >= ECONOMIC_LEAD_MIN_NET_SHARPE
+            and best_long["stitched_oos_sharpe"]
+            >= ECONOMIC_LEAD_MIN_LONG_WF_SHARPE
+            and best_long["positive_oos_period_rate"]
+            >= ECONOMIC_LEAD_MIN_LONG_WF_POSITIVE_RATE
+        )
+        statistical_lead = "global_fdr" in str(
+            candidate.selection_evidence
+        )
+
+        if economic_lead:
+            status = "ECONOMIC_LEAD"
+            reason = (
+                "Positive net market-neutral implementation and coherent "
+                "long walk-forward behaviour."
+            )
+        elif statistical_lead:
+            status = "STATISTICAL_LEAD"
+            reason = (
+                "Rank signal survived global FDR but did not meet the "
+                "economic implementation rule."
+            )
+        else:
+            status = "REJECTED"
+            reason = "Did not meet the declared statistical or economic rule."
+
+        rows.append(
+            {
+                "factor_key": candidate.factor_key,
+                "final_status": status,
+                "validated_alpha": False,
+                "best_method": best["method"] if best is not None else None,
+                "best_beta_neutral": (
+                    best["beta_neutral"] if best is not None else None
+                ),
+                "best_rebalance_days": (
+                    best["rebalance_days"] if best is not None else None
+                ),
+                "evaluated_path_key": (
+                    best["path_key"] if best is not None else None
+                ),
+                "best_net_annualized_return": (
+                    best["annualized_return"] if best is not None else np.nan
+                ),
+                "best_net_sharpe": (
+                    best["sharpe"] if best is not None else np.nan
+                ),
+                "best_alpha_hac_tstat": (
+                    best["alpha_hac_tstat"] if best is not None else np.nan
+                ),
+                "best_long_wf_sharpe": (
+                    best_long["stitched_oos_sharpe"]
+                    if best_long is not None
+                    else np.nan
+                ),
+                "best_long_wf_positive_rate": (
+                    best_long["positive_oos_period_rate"]
+                    if best_long is not None
+                    else np.nan
+                ),
+                "best_short_wf_sharpe": (
+                    best_short["stitched_oos_sharpe"]
+                    if best_short is not None
+                    else np.nan
+                ),
+                "decision_reason": reason,
+                "validation_limit": (
+                    "Post-selection history; no untouched final sample."
+                ),
+            }
+        )
     return pd.DataFrame(rows)

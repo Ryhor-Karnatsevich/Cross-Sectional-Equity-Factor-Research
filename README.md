@@ -76,9 +76,14 @@ src/
     - portfolio_engine.py
     - portfolio_evaluation.py
     - walk_forward_research.py
-    - regime_research_current.py
+    - regime_research.py
     - research_report.py
-    - **pipeline.py**
+    - **pipeline.py** (general research)
+    - Low_Volatility/
+      - __init__.py
+      - config.py
+      - research.py
+      - **pipeline.py**
     - delete.py
 
 
@@ -108,7 +113,10 @@ Data/
 
 
   - Research_Layer/
-    - Cache/
+    - General/
+      - Cache/
+    - Low_Volatility/
+      - Cache/
 
 
 Results/
@@ -135,20 +143,37 @@ Results/
 
 
   - Research_Layer/
-    - Figures/
-    - multiple_testing_comparison.csv
-    - multiple_testing_summary.csv
-    - factor_overlap.csv
-    - portfolio_metadata.csv
-    - portfolio_statistics.csv
-    - calendar_phase_stability.csv
-    - walk_forward_periods.csv
-    - walk_forward_summary.csv
-    - risk_exposure_summary.csv
-    - sector_exposure_status.csv
-    - regime_performance.csv
-    - research_run_metadata.json
-    - research_report.md
+    - General/
+      - Figures/
+      - multiple_testing_comparison.csv
+      - multiple_testing_summary.csv
+      - factor_overlap.csv
+      - portfolio_metadata.csv
+      - portfolio_statistics.csv
+      - calendar_phase_stability.csv
+      - walk_forward_periods.csv
+      - walk_forward_summary.csv
+      - candidate_decisions.csv
+      - benchmark_statistics.csv
+      - risk_exposure_summary.csv
+      - sector_exposure_status.csv
+      - regime_performance.csv
+      - research_run_metadata.json
+      - research_report.md
+    - Low_Volatility/
+      - Figures/
+      - portfolio_metadata.csv
+      - portfolio_statistics.csv
+      - calendar_phase_stability.csv
+      - walk_forward_periods.csv
+      - walk_forward_summary.csv
+      - window_summary.csv
+      - benchmark_statistics.csv
+      - factor_overlap.csv
+      - regime_performance.csv
+      - sector_exposure_status.csv
+      - run_metadata.json
+      - low_volatility_report.md
 
 
 `Data` contains large datasets, calculated matrices and disposable caches. It is excluded from Git because every current file can be downloaded or calculated again.
@@ -1343,10 +1368,15 @@ The current setting uses `ACTIVE_FACTOR_KEYS = None`. Every run therefore analyz
 - Shows the four directly interpretable return effects and their HAC t-statistics.
 - Keeps economic patterns in front of IC diagnostics.
 
+#### selection_conclusion
+- Separates globally significant Rank IC tests from globally significant economic-return tests.
+- Writes the final Layer 3 decision only when the complete 448-hypothesis scope was analyzed.
+
 #### build_selection_report
 - Creates `factor_selection_report.md` with scope, pattern counts, evidence status, hypothesis cards, figures and interpretation rules.
 - Shows at most 50 detected patterns in Markdown while keeping all 448 rows in CSV.
 - Clearly separates economic pattern evidence from supporting IC information.
+- Writes the final Layer 3 counts for rank-IC discoveries, economic-effect discoveries and economic candidates.
 
 
 ### **pipeline.py**
@@ -1379,7 +1409,9 @@ The complete run analyzes 56 factor configurations across eight horizons. It cre
 - `factor_selection_report.md`: the main readable report.
 - `Figures/`: the complete-scope overview and detailed figures for the active factor.
 
-The completed full run found 426 hypotheses without stable structure and 22 descriptive economic patterns. Ten patterns were unstable through time and twelve were rejected after global multiple-testing correction. No economic hypothesis became a final candidate. One volatility-scaled momentum IC result survived global FDR, but its Q10-Q1 return spread was not statistically supported. These results define the frozen candidate leads passed to the Research Layer.
+The completed full run found 426 hypotheses without stable structure and 22 descriptive economic patterns. Ten patterns were unstable through time and twelve were rejected after global multiple-testing correction. No economic hypothesis became a final candidate. One volatility-scaled momentum IC result survived global FDR, but its Q10-Q1 return spread was not statistically supported.
+
+The final Layer 3 conclusion is therefore limited: one configuration is a statistical rank-signal lead, while no configuration is a confirmed economic return effect. Four deliberately labelled leads were frozen for portfolio research instead of silently expanding the search after seeing the results.
 
 
 ## Research Layer [4]
@@ -1388,13 +1420,15 @@ The purpose of this layer is to test whether the frozen Factor Selection leads c
 
 The current shortlist contains four deliberately labelled leads: the globally significant one-day volatility-scaled momentum rank signal and three exploratory return-pattern leads from short-term reversal, liquidity change and low volatility. Passing a lead into this layer does not mean that alpha has already been found.
 
-Layer 4 compares continuous and tail-based portfolio construction, four rebalance frequencies, calendar starting phases, beta-neutral and unconstrained implementations, four transaction-cost assumptions, full-history risk statistics, two walk-forward structures and point-in-time market regimes.
+Layer 4 contains the general research system and one isolated Low Volatility study. The root `pipeline.py` performs the general comparison of the four frozen leads. The `Low_Volatility` folder contains its own configuration, research logic and pipeline for the focused sensitivity study.
+
+Both pipelines compare continuous and tail-based portfolio construction, four rebalance frequencies, calendar starting phases, beta-neutral and unconstrained implementations, four transaction-cost assumptions, full-history risk statistics, two walk-forward structures and point-in-time market regimes.
 
 The walk-forward output is explicitly post-selection. The candidates were already discovered using the complete historical sample, so historical OOS windows cannot become a genuinely untouched final test after the fact. They show temporal behaviour and implementation stability without erasing this limitation.
 
 
 ### research_config.py
-- Defines every current Research Layer input, cache, result and figure path.
+- Defines shared inputs and the General Research cache, result and figure paths.
 - Freezes the four candidate leads received from the completed Selection Layer.
 - Defines six portfolio-construction methods.
 - Uses 1, 5, 21 and 63-day rebalance frequencies.
@@ -1405,19 +1439,19 @@ The walk-forward output is explicitly post-selection. The candidates were alread
 ### research_storage.py
 
 #### prepare_research_directories
-- Creates current Layer 4 Cache, Results and Figures directories.
+- Creates the General Layer 4 Cache, Results and Figures directories.
 
 #### input_signature
 - Records the size and modification time of every required input.
-- Includes the frozen candidates and portfolio configuration.
+- Includes the selected candidate set and portfolio configuration.
 - Creates one signature used to decide whether the expensive portfolio cache is still compatible.
 
 #### portfolio_cache_is_valid
 - Reuses portfolio paths only when the signature, every required matrix, metadata and calendar-phase result are present.
 
 #### save_portfolio_cache
-- Saves reusable portfolio return, turnover and exposure matrices in `Data/Research_Layer/Cache`.
-- Saves readable path metadata in `Results/Research_Layer`.
+- Saves reusable portfolio return, turnover and exposure matrices in `Data/Research_Layer/General/Cache`.
+- Saves readable path metadata in `Results/Research_Layer/General`.
 
 #### load_portfolio_cache
 - Loads all compatible portfolio matrices and path metadata without recalculating positions.
@@ -1538,7 +1572,7 @@ The walk-forward output is explicitly post-selection. The candidates were alread
 - Creates up to three evenly spaced starting phases for each rebalance frequency.
 
 #### path_specifications
-- Combines four candidates, six portfolio methods, beta constraints, rebalance frequencies and calendar phases.
+- Combines the provided candidates, six portfolio methods, beta constraints, rebalance frequencies and calendar phases.
 
 #### drift_weights
 - Carries existing position weights through realised daily stock returns between rebalances.
@@ -1585,6 +1619,16 @@ The walk-forward output is explicitly post-selection. The candidates were alread
 #### evaluate_portfolios
 - Applies all four transaction-cost assumptions to every calendar-phase ensemble path.
 
+#### benchmark_statistics
+- Calculates the point-in-time equal-weight market and risk-free benchmarks from 2010 onward.
+- Reports annualized return, volatility, Sharpe and maximum drawdown.
+
+#### candidate_decisions
+- Applies the declared statistical and economic lead rules to the four general candidates.
+- Selects one full-history implementation per candidate and evaluates that same implementation in walk-forward results.
+- Separates `STATISTICAL_LEAD`, `ECONOMIC_LEAD` and `REJECTED` results.
+- Does not assign `VALIDATED_ALPHA` because candidate discovery already used the complete history.
+
 
 ### walk_forward_research.py
 
@@ -1605,7 +1649,7 @@ The walk-forward output is explicitly post-selection. The candidates were alread
 - Marks all results as post-selection rather than untouched OOS evidence.
 
 
-### regime_research_current.py
+### regime_research.py
 
 #### run_regime_analysis
 - Separates completed walk-forward returns by risk-free-rate, volatility, dispersion and correlation state.
@@ -1614,10 +1658,10 @@ The walk-forward output is explicitly post-selection. The candidates were alread
 
 ### research_report.py
 - Creates figures for multiple-testing sensitivity, factor overlap, costs, turnover, walk-forward paths and regimes.
-- Creates `research_report.md` with frozen candidates, statistical sensitivity, implementation results, risk diagnostics, walk-forward behaviour and interpretation limits.
+- Creates `research_report.md` with final candidate statuses, benchmarks, statistical sensitivity, implementation results, risk diagnostics, walk-forward behaviour and interpretation limits.
 
 
-### **pipeline.py**
+### **pipeline.py** — General Research
 
 #### run_multiple_testing_comparison
 - Rebuilds the readable FDR sensitivity tables from the completed Selection Layer effects.
@@ -1630,15 +1674,85 @@ The walk-forward output is explicitly post-selection. The candidates were alread
 - Extracts beta, leverage, turnover, concentration, sector and missing-return diagnostics at the primary 10 bps cost assumption.
 
 #### run_pipeline
-- Runs the complete current Research Layer in chronological order.
+- Runs the general four-candidate Research Layer in chronological order.
 - Always recreates readable statistics, walk-forward results, figures and the Markdown report.
 - Rebuilds expensive portfolio paths only when their inputs or configuration changed.
 - Prints the complete execution time.
 - Does not run or change Data System, Factor Layer or Factor Selection Layer.
 
 
+### Low_Volatility/config.py
+- Defines every focused Low Volatility data, result and figure path.
+- Defines the seven lookback windows, fixed portfolio anchor and declared decision rules.
+- Keeps focused-study settings out of the general `research_config.py`.
+
+
+### Low_Volatility/research.py
+
+#### prepare_low_volatility_directories
+- Creates the separate Low Volatility Cache, Results and Figures directories.
+
+#### load_low_volatility_candidates
+- Loads the existing 20, 40, 60, 90, 120, 180 and 252-day Low Volatility matrices.
+- Uses the same 63-day Selection Layer horizon only to describe their earlier pattern classifications.
+- Fails when any declared window is missing or duplicated.
+
+#### load_low_volatility_factors
+- Aligns all seven Low Volatility matrices with the Research Layer dates and tickers.
+
+#### low_volatility_cache_is_valid
+- Reuses the focused cache only when its signature and every required matrix and metadata file are present.
+
+#### save_low_volatility_cache
+- Stores the focused portfolio paths, metadata, calendar phases and cache signature separately from General Research.
+
+#### load_low_volatility_cache
+- Loads the complete compatible focused cache without recalculating positions.
+
+#### matching_anchor
+- Keeps only `Q10 - middle`, beta-neutral portfolios rebalanced every 63 trading days.
+- Applies exactly the same portfolio definition to every volatility lookback.
+
+#### one_row
+- Requires one unique result for a requested window, cost or walk-forward scheme.
+- Stops the report instead of silently using an ambiguous row.
+
+#### build_window_summary
+- Applies the same post-selection anchor implementation to every volatility lookback.
+- Checks net Sharpe, alpha t-stat, 25 bps costs, calendar phases, both walk-forward structures and market regimes.
+- Keeps realised beta, drawdown, turnover, holding count and maximum position size visible as risk diagnostics.
+- Applies FDR correction to the seven anchor alpha tests.
+- Requires support from a neighbouring declared lookback instead of selecting one isolated maximum.
+- Labels every window as `NOT_SUPPORTED`, `ISOLATED_RESULT`, `ROBUST_ECONOMIC_LEAD` or `STRONG_POST_SELECTION_LEAD`.
+
+#### save_low_volatility_figure
+- Saves one focused figure in `Results/Research_Layer/Low_Volatility/Figures`.
+
+#### create_low_volatility_figures
+- Visualizes lookback sensitivity, walk-forward Sharpe, transaction costs and the declared pass/fail checks.
+
+#### build_low_volatility_report
+- Creates a separate focused report without rewriting the General Research result.
+- States explicitly that the anchor direction was discovered after viewing Layer 4 and is not an untouched confirmation.
+
+
+### **Low_Volatility/pipeline.py**
+
+#### low_volatility_settings
+- Records the fixed windows, complete portfolio grid and common anchor implementation.
+
+#### prepare_low_volatility_paths
+- Reuses a compatible focused cache or builds all seven factor-window portfolio grids.
+- Creates 700 calendar-phase paths and 280 ensemble implementations.
+
+#### run_low_volatility_pipeline
+- Runs the complete Low Volatility sensitivity study independently from General Research.
+- Saves focused statistics, walk-forward periods, regimes, benchmarks, figures and `low_volatility_report.md`.
+- Does not rerun or overwrite the General Research pipeline.
+
+
 ### delete.py
-- Deletes current Research Layer cache and readable results.
+- Deletes General and Low Volatility Research Layer cache and readable results.
 - Does not delete any previous project layer.
 
 
@@ -1650,3 +1764,4 @@ The walk-forward output is explicitly post-selection. The candidates were alread
 - Walk-forward analysis measures historical temporal behaviour but cannot recreate a genuinely untouched test after the candidates have already been viewed on the complete history.
 - Sector exposure remains explicitly unavailable until a reliable point-in-time sector dataset is added to the Data System.
 - A factor is not called alpha unless its return survives costs, turnover, risk exposure, calendar phases, both walk-forward structures and market-regime analysis.
+- The focused Low Volatility study looks for a stable parameter plateau, not the single highest Sharpe ratio.

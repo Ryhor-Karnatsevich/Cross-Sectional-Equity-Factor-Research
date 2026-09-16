@@ -20,6 +20,14 @@
 - `rejected_by_multiple_testing`: 12 hypotheses.
 - `time_unstable_pattern`: 10 hypotheses.
 
+## Final Layer Decision
+
+- Rank-IC discoveries after global FDR: `1`.
+- Economic-effect discoveries after global FDR: `0`.
+- Final economic candidates: `0`.
+
+Layer 3 found statistical cross-sectional rank evidence, but no economic return pattern survived the complete selection rules.
+
 ## Economic Pattern Cards
 
 The table shows up to 50 detected patterns. Complete results remain in `hypothesis_cards.csv` and `effect_tests.csv`.
@@ -84,125 +92,137 @@ IC is reported as supporting information. It does not create a candidate when no
 
 ![hypothesis overview](Figures/hypothesis_overview.png)
 
-### Short Term Reversal  Reversal 5D  Evidence Dashboard
-
-![short term reversal  reversal 5d  evidence dashboard](Figures/short_term_reversal__reversal_5d__evidence_dashboard.png)
-
-### Short Term Reversal  Reversal 5D  Quantile Curves
-
-![short term reversal  reversal 5d  quantile curves](Figures/short_term_reversal__reversal_5d__quantile_curves.png)
-
-### Short Term Reversal  Reversal 5D  Monthly Ic
-
-![short term reversal  reversal 5d  monthly ic](Figures/short_term_reversal__reversal_5d__monthly_ic.png)
-
-### Liquidity Change  Liq 20D 252D  Evidence Dashboard
-
-![liquidity change  liq 20d 252d  evidence dashboard](Figures/liquidity_change__liq_20d_252d__evidence_dashboard.png)
-
-### Liquidity Change  Liq 20D 252D  Quantile Curves
-
-![liquidity change  liq 20d 252d  quantile curves](Figures/liquidity_change__liq_20d_252d__quantile_curves.png)
-
-### Liquidity Change  Liq 20D 252D  Monthly Ic
-
-![liquidity change  liq 20d 252d  monthly ic](Figures/liquidity_change__liq_20d_252d__monthly_ic.png)
-
 ### Liquidity Change  Liq 20D 126D  Evidence Dashboard
 
 ![liquidity change  liq 20d 126d  evidence dashboard](Figures/liquidity_change__liq_20d_126d__evidence_dashboard.png)
-
-### Liquidity Change  Liq 20D 126D  Quantile Curves
-
-![liquidity change  liq 20d 126d  quantile curves](Figures/liquidity_change__liq_20d_126d__quantile_curves.png)
 
 ### Liquidity Change  Liq 20D 126D  Monthly Ic
 
 ![liquidity change  liq 20d 126d  monthly ic](Figures/liquidity_change__liq_20d_126d__monthly_ic.png)
 
-### Low Volatility  60D  Evidence Dashboard
+### Liquidity Change  Liq 20D 126D  Quantile Curves
 
-![low volatility  60d  evidence dashboard](Figures/low_volatility__60d__evidence_dashboard.png)
+![liquidity change  liq 20d 126d  quantile curves](Figures/liquidity_change__liq_20d_126d__quantile_curves.png)
 
-### Low Volatility  60D  Quantile Curves
+### Liquidity Change  Liq 20D 252D  Evidence Dashboard
 
-![low volatility  60d  quantile curves](Figures/low_volatility__60d__quantile_curves.png)
+![liquidity change  liq 20d 252d  evidence dashboard](Figures/liquidity_change__liq_20d_252d__evidence_dashboard.png)
 
-### Low Volatility  60D  Monthly Ic
+### Liquidity Change  Liq 20D 252D  Monthly Ic
 
-![low volatility  60d  monthly ic](Figures/low_volatility__60d__monthly_ic.png)
+![liquidity change  liq 20d 252d  monthly ic](Figures/liquidity_change__liq_20d_252d__monthly_ic.png)
 
-### Low Volatility  90D  Evidence Dashboard
+### Liquidity Change  Liq 20D 252D  Quantile Curves
 
-![low volatility  90d  evidence dashboard](Figures/low_volatility__90d__evidence_dashboard.png)
-
-### Low Volatility  90D  Quantile Curves
-
-![low volatility  90d  quantile curves](Figures/low_volatility__90d__quantile_curves.png)
-
-### Low Volatility  90D  Monthly Ic
-
-![low volatility  90d  monthly ic](Figures/low_volatility__90d__monthly_ic.png)
-
-### Trend  Sma20  Evidence Dashboard
-
-![trend  SMA20  evidence dashboard](Figures/trend__SMA20__evidence_dashboard.png)
-
-### Trend  Sma20  Quantile Curves
-
-![trend  SMA20  quantile curves](Figures/trend__SMA20__quantile_curves.png)
-
-### Trend  Sma20  Monthly Ic
-
-![trend  SMA20  monthly ic](Figures/trend__SMA20__monthly_ic.png)
-
-### Low Volatility  40D  Evidence Dashboard
-
-![low volatility  40d  evidence dashboard](Figures/low_volatility__40d__evidence_dashboard.png)
-
-### Low Volatility  40D  Quantile Curves
-
-![low volatility  40d  quantile curves](Figures/low_volatility__40d__quantile_curves.png)
-
-### Low Volatility  40D  Monthly Ic
-
-![low volatility  40d  monthly ic](Figures/low_volatility__40d__monthly_ic.png)
-
-### Low Volatility  180D  Evidence Dashboard
-
-![low volatility  180d  evidence dashboard](Figures/low_volatility__180d__evidence_dashboard.png)
-
-### Low Volatility  180D  Quantile Curves
-
-![low volatility  180d  quantile curves](Figures/low_volatility__180d__quantile_curves.png)
-
-### Low Volatility  180D  Monthly Ic
-
-![low volatility  180d  monthly ic](Figures/low_volatility__180d__monthly_ic.png)
-
-### Residual Momentum  Resmom 9M 1M  Evidence Dashboard
-
-![residual momentum  resmom 9m 1m  evidence dashboard](Figures/residual_momentum__resmom_9m_1m__evidence_dashboard.png)
-
-### Residual Momentum  Resmom 9M 1M  Quantile Curves
-
-![residual momentum  resmom 9m 1m  quantile curves](Figures/residual_momentum__resmom_9m_1m__quantile_curves.png)
-
-### Residual Momentum  Resmom 9M 1M  Monthly Ic
-
-![residual momentum  resmom 9m 1m  monthly ic](Figures/residual_momentum__resmom_9m_1m__monthly_ic.png)
+![liquidity change  liq 20d 252d  quantile curves](Figures/liquidity_change__liq_20d_252d__quantile_curves.png)
 
 ### Low Volatility  120D  Evidence Dashboard
 
 ![low volatility  120d  evidence dashboard](Figures/low_volatility__120d__evidence_dashboard.png)
 
+### Low Volatility  120D  Monthly Ic
+
+![low volatility  120d  monthly ic](Figures/low_volatility__120d__monthly_ic.png)
+
 ### Low Volatility  120D  Quantile Curves
 
 ![low volatility  120d  quantile curves](Figures/low_volatility__120d__quantile_curves.png)
 
-### Low Volatility  120D  Monthly Ic
+### Low Volatility  180D  Evidence Dashboard
 
-![low volatility  120d  monthly ic](Figures/low_volatility__120d__monthly_ic.png)
+![low volatility  180d  evidence dashboard](Figures/low_volatility__180d__evidence_dashboard.png)
+
+### Low Volatility  180D  Monthly Ic
+
+![low volatility  180d  monthly ic](Figures/low_volatility__180d__monthly_ic.png)
+
+### Low Volatility  180D  Quantile Curves
+
+![low volatility  180d  quantile curves](Figures/low_volatility__180d__quantile_curves.png)
+
+### Low Volatility  40D  Evidence Dashboard
+
+![low volatility  40d  evidence dashboard](Figures/low_volatility__40d__evidence_dashboard.png)
+
+### Low Volatility  40D  Monthly Ic
+
+![low volatility  40d  monthly ic](Figures/low_volatility__40d__monthly_ic.png)
+
+### Low Volatility  40D  Quantile Curves
+
+![low volatility  40d  quantile curves](Figures/low_volatility__40d__quantile_curves.png)
+
+### Low Volatility  60D  Evidence Dashboard
+
+![low volatility  60d  evidence dashboard](Figures/low_volatility__60d__evidence_dashboard.png)
+
+### Low Volatility  60D  Monthly Ic
+
+![low volatility  60d  monthly ic](Figures/low_volatility__60d__monthly_ic.png)
+
+### Low Volatility  60D  Quantile Curves
+
+![low volatility  60d  quantile curves](Figures/low_volatility__60d__quantile_curves.png)
+
+### Low Volatility  90D  Evidence Dashboard
+
+![low volatility  90d  evidence dashboard](Figures/low_volatility__90d__evidence_dashboard.png)
+
+### Low Volatility  90D  Monthly Ic
+
+![low volatility  90d  monthly ic](Figures/low_volatility__90d__monthly_ic.png)
+
+### Low Volatility  90D  Quantile Curves
+
+![low volatility  90d  quantile curves](Figures/low_volatility__90d__quantile_curves.png)
+
+### Momentum  12M-1M  Evidence Dashboard
+
+![momentum  12m-1m  evidence dashboard](Figures/momentum__12m-1m__evidence_dashboard.png)
+
+### Momentum  12M-1M  Monthly Ic
+
+![momentum  12m-1m  monthly ic](Figures/momentum__12m-1m__monthly_ic.png)
+
+### Momentum  12M-1M  Quantile Curves
+
+![momentum  12m-1m  quantile curves](Figures/momentum__12m-1m__quantile_curves.png)
+
+### Residual Momentum  Resmom 9M 1M  Evidence Dashboard
+
+![residual momentum  resmom 9m 1m  evidence dashboard](Figures/residual_momentum__resmom_9m_1m__evidence_dashboard.png)
+
+### Residual Momentum  Resmom 9M 1M  Monthly Ic
+
+![residual momentum  resmom 9m 1m  monthly ic](Figures/residual_momentum__resmom_9m_1m__monthly_ic.png)
+
+### Residual Momentum  Resmom 9M 1M  Quantile Curves
+
+![residual momentum  resmom 9m 1m  quantile curves](Figures/residual_momentum__resmom_9m_1m__quantile_curves.png)
+
+### Short Term Reversal  Reversal 5D  Evidence Dashboard
+
+![short term reversal  reversal 5d  evidence dashboard](Figures/short_term_reversal__reversal_5d__evidence_dashboard.png)
+
+### Short Term Reversal  Reversal 5D  Monthly Ic
+
+![short term reversal  reversal 5d  monthly ic](Figures/short_term_reversal__reversal_5d__monthly_ic.png)
+
+### Short Term Reversal  Reversal 5D  Quantile Curves
+
+![short term reversal  reversal 5d  quantile curves](Figures/short_term_reversal__reversal_5d__quantile_curves.png)
+
+### Trend  Sma20  Evidence Dashboard
+
+![trend  SMA20  evidence dashboard](Figures/trend__SMA20__evidence_dashboard.png)
+
+### Trend  Sma20  Monthly Ic
+
+![trend  SMA20  monthly ic](Figures/trend__SMA20__monthly_ic.png)
+
+### Trend  Sma20  Quantile Curves
+
+![trend  SMA20  quantile curves](Figures/trend__SMA20__quantile_curves.png)
 
 ## Interpretation Rules
 

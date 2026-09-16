@@ -1,17 +1,31 @@
+import os
+import sys
 from datetime import datetime, timezone
 from time import perf_counter
 
 import pandas as pd
 
+
+RESEARCH_LAYER_PATH = os.path.dirname(__file__)
+if RESEARCH_LAYER_PATH not in sys.path:
+    sys.path.insert(0, RESEARCH_LAYER_PATH)
+
+
 from factor_overlap import run_factor_overlap
 from multiple_testing_research import compare_multiple_testing
 from portfolio_engine import aggregate_calendar_phases, build_phase_paths
-from portfolio_evaluation import evaluate_portfolios
-from regime_research_current import run_regime_analysis
+from portfolio_evaluation import (
+    benchmark_statistics,
+    candidate_decisions,
+    evaluate_portfolios,
+)
+from regime_research import run_regime_analysis
 from research_config import (
     AVAILABILITY_PATH,
+    BENCHMARK_STATISTICS_PATH,
     BETA_NEUTRAL_OPTIONS,
     CALENDAR_PHASES_PER_FREQUENCY,
+    CANDIDATE_DECISIONS_PATH,
     FACTOR_METADATA_PATH,
     FACTOR_OVERLAP_PATH,
     MARKET_REGIMES_PATH,
@@ -23,6 +37,7 @@ from research_config import (
     PORTFOLIO_STATISTICS_PATH,
     PRIMARY_TRANSACTION_COST_BPS,
     REBALANCE_FREQUENCIES,
+    RESEARCH_CODE_PATHS,
     REGIME_RESULTS_PATH,
     RESEARCH_CACHE_MANIFEST_PATH,
     RESEARCH_REPORT_PATH,
@@ -100,6 +115,7 @@ def prepare_portfolio_paths(
         SELECTION_CARDS_PATH,
         SELECTION_EFFECTS_PATH,
         SECTOR_HISTORY_PATH,
+        *RESEARCH_CODE_PATHS,
         *candidates["factor_path"].tolist(),
     ]
     signature, payload = input_signature(input_paths, cache_settings())
@@ -215,6 +231,11 @@ def run_pipeline():
         save_csv(statistics, PORTFOLIO_STATISTICS_PATH)
         risks = risk_summary(statistics)
         save_csv(risks, RISK_EXPOSURE_SUMMARY_PATH)
+        benchmarks = benchmark_statistics(
+            market_return,
+            risk_free["daily_rate"],
+        )
+        save_csv(benchmarks, BENCHMARK_STATISTICS_PATH)
 
         walk_periods, walk_summary, walk_paths = run_walk_forward(
             matrices,
@@ -224,6 +245,8 @@ def run_pipeline():
         save_csv(walk_periods, WALK_FORWARD_PERIODS_PATH)
         save_csv(walk_summary, WALK_FORWARD_SUMMARY_PATH)
         save_parquet(walk_paths.astype("float32"), WALK_FORWARD_PATHS_PATH)
+        decisions = candidate_decisions(candidates, statistics, walk_summary)
+        save_csv(decisions, CANDIDATE_DECISIONS_PATH)
 
         regime_results = run_regime_analysis(
             walk_paths,
@@ -241,6 +264,8 @@ def run_pipeline():
         )
         report = build_research_report(
             candidates,
+            decisions,
+            benchmarks,
             multiple_testing_summary,
             statistics,
             phase_stability,

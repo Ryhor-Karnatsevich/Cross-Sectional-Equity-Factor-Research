@@ -1,0 +1,3 @@
+benchmark,observations,annualized_return,annualized_volatility,sharpe,maximum_drawdown
+equal_weight_market,4181,0.1412443373854897,0.18116378336971506,0.7381574323410743,-0.3989583330732508
+risk_free,4181,0.014997176822668434,0.0011660393073616056,,0.0

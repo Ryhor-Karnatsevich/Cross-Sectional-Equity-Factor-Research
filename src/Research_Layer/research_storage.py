@@ -18,12 +18,12 @@ from research_config import (
     PORTFOLIO_UNPRICED_WEIGHT_PATH,
     PORTFOLIO_UNKNOWN_SECTOR_WEIGHT_PATH,
     PHASE_STABILITY_PATH,
+    GENERAL_RESEARCH_RESULTS_DIR,
     RESEARCH_CACHE_DIR,
     RESEARCH_CACHE_MANIFEST_PATH,
     RESEARCH_CANDIDATES,
     RESEARCH_FIGURES_DIR,
     PROJECT_ROOT,
-    RESEARCH_RESULTS_DIR,
 )
 
 
@@ -43,7 +43,7 @@ PORTFOLIO_CACHE_PATHS = {
 
 def prepare_research_directories():
     os.makedirs(RESEARCH_CACHE_DIR, exist_ok=True)
-    os.makedirs(RESEARCH_RESULTS_DIR, exist_ok=True)
+    os.makedirs(GENERAL_RESEARCH_RESULTS_DIR, exist_ok=True)
     os.makedirs(RESEARCH_FIGURES_DIR, exist_ok=True)
 
 
@@ -69,7 +69,7 @@ def save_text(text, path):
         file.write(text)
 
 
-def input_signature(paths, settings):
+def input_signature(paths, settings, candidates=None):
     files = {}
     for path in paths:
         if not os.path.exists(path):
@@ -84,7 +84,11 @@ def input_signature(paths, settings):
     payload = {
         "files": files,
         "settings": settings,
-        "candidates": list(RESEARCH_CANDIDATES),
+        "candidates": (
+            list(RESEARCH_CANDIDATES)
+            if candidates is None
+            else candidates
+        ),
     }
     encoded = json.dumps(payload, sort_keys=True, default=str).encode("utf-8")
     return hashlib.sha256(encoded).hexdigest(), payload
@@ -132,8 +136,13 @@ def load_portfolio_cache():
     return matrices, metadata
 
 
-def clear_current_research_outputs():
-    for directory in (RESEARCH_CACHE_DIR, RESEARCH_FIGURES_DIR):
+def clear_current_research_outputs(additional_directories=()):
+    directories = (
+        RESEARCH_CACHE_DIR,
+        GENERAL_RESEARCH_RESULTS_DIR,
+        *additional_directories,
+    )
+    for directory in directories:
         resolved = os.path.abspath(directory)
         if (
             resolved == os.path.abspath(PROJECT_ROOT)
@@ -144,11 +153,3 @@ def clear_current_research_outputs():
         if os.path.isdir(directory):
             shutil.rmtree(directory)
         os.makedirs(directory, exist_ok=True)
-
-    if os.path.isdir(RESEARCH_RESULTS_DIR):
-        for name in os.listdir(RESEARCH_RESULTS_DIR):
-            path = os.path.join(RESEARCH_RESULTS_DIR, name)
-            if name == "Figures":
-                continue
-            if os.path.isfile(path):
-                os.remove(path)
