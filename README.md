@@ -165,8 +165,8 @@ The project intentionally reports this negative conclusion instead of presenting
 The completed environment was tested with Python 3.14 on Windows.
 
 ```powershell
-git clone https://github.com/Ryhor-Karnatsevich/Cross-Sectional-Alpha-Modeling-and-Portfolio-Construction.git
-cd "Cross-Sectional-Alpha-Modeling-and-Portfolio-Construction"
+git clone https://github.com/Ryhor-Karnatsevich/Cross-Sectional-Equity-Factor-Research.git
+cd "Cross-Sectional-Equity-Factor-Research"
 
 py -m venv .venv
 .\.venv\Scripts\Activate.ps1
