@@ -1,4 +1,3 @@
-import os
 from datetime import datetime, timezone
 from time import perf_counter
 
@@ -8,7 +7,6 @@ from pattern_classification import classify_hypotheses
 from quantile_analysis import run_quantile_analysis
 from selection_config import (
     ACTIVE_FACTOR_KEYS,
-    DAILY_QUANTILE_RESULTS_PATH,
     EFFECT_TESTS_PATH,
     HYPOTHESIS_CARDS_PATH,
     QUANTILE_CURVES_PATH,
@@ -19,6 +17,7 @@ from selection_config import (
 from selection_report import build_selection_report, create_selection_figures
 from selection_storage import (
     prepare_selection_directories,
+    quantile_cache_is_valid,
     save_csv,
     save_json,
     save_parquet,
@@ -29,10 +28,11 @@ from selection_storage import (
 # -------------------------
 # QUANTILE DATA FOUNDATION
 def prepare_quantile_data():
-    if os.path.exists(DAILY_QUANTILE_RESULTS_PATH):
-        print("Reuse existing daily_quantile_results.parquet")
+    if quantile_cache_is_valid():
+        print("Reuse valid daily_quantile_results.parquet")
         return False
 
+    print("Quantile cache missing or outdated -> rebuilding")
     run_quantile_analysis()
     return True
 

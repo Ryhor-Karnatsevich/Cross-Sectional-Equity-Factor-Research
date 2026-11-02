@@ -49,6 +49,8 @@ CONFIRMED_REAL_RETURN_EVENTS = {
     ("HIG", "2008-12-05"),
     ("GME", "2021-01-27"),
     ("NKTR", "2025-06-24"),
+    # Verified 0.41 -> 1.00 close; independent contemporaneous Bloomberg report.
+    ("GGP", "2008-11-24"),
 }
 
 # Yahoo currently returns another security or a clearly corrupted series under

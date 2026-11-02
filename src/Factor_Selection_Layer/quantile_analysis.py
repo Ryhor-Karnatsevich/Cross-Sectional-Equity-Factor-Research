@@ -15,11 +15,13 @@ from selection_config import (
     SIGNAL_LAG,
 )
 from selection_storage import (
+    file_state,
     load_factor_matrix,
     load_factor_metadata,
     load_forward_return_matrices,
     load_membership,
     prepare_selection_directories,
+    quantile_cache_signature,
     save_json,
     save_parquet_chunks,
 )
@@ -362,6 +364,7 @@ def quantile_result_chunks(metadata, membership, forward_returns):
 # COMPLETE DAILY QUANTILE ANALYSIS
 def run_quantile_analysis():
     prepare_selection_directories()
+    input_signature = quantile_cache_signature()
     metadata = load_factor_metadata()
     membership = load_membership()
     forward_returns = load_forward_return_matrices(
@@ -379,8 +382,13 @@ def run_quantile_analysis():
             f"Expected {expected_rows:,} quantile rows, created {row_count:,}"
         )
 
+    if quantile_cache_signature() != input_signature:
+        raise RuntimeError("Quantile inputs changed during calculation; rerun the stage")
+
     eligible_dates = int(research_date_mask(membership.index).sum())
     run_metadata = {
+        "cache_signature": input_signature,
+        "result_file_state": file_state(DAILY_QUANTILE_RESULTS_PATH),
         "created_at_utc": datetime.now(timezone.utc).isoformat(),
         "data_start": membership.index.min().date().isoformat(),
         "data_end": membership.index.max().date().isoformat(),

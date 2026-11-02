@@ -1,3 +1,4 @@
+import hashlib
 import json
 import os
 
@@ -10,11 +11,18 @@ from selection_config import (
     FACTOR_METADATA_PATH,
     FORWARD_RETURN_MATRIX_DIR,
     DAILY_QUANTILE_RESULTS_PATH,
+    FORWARD_HORIZONS,
     MEMBERSHIP_PATH,
+    MIN_ASSETS,
+    QUANTILE_COUNT,
+    QUANTILE_RUN_METADATA_PATH,
+    RESEARCH_END_DATE,
+    RESEARCH_START_DATE,
     SELECTION_CACHE_DIR,
     SELECTION_DATA_DIR,
     SELECTION_FIGURES_DIR,
     SELECTION_RESULTS_DIR,
+    SIGNAL_LAG,
 )
 
 
@@ -103,6 +111,62 @@ def load_forward_return_matrices(horizons, membership):
         matrices[int(horizon)] = matrix
 
     return matrices
+
+
+# -------------------------
+# QUANTILE CACHE VALIDATION
+def file_state(path):
+    state = os.stat(path)
+    return {"size": state.st_size, "modified_ns": state.st_mtime_ns}
+
+
+def quantile_cache_signature():
+    metadata = load_factor_metadata()
+    input_paths = [
+        FACTOR_METADATA_PATH,
+        MEMBERSHIP_PATH,
+        *[
+            factor_matrix_path(row.family, row.variant)
+            for row in metadata.itertuples(index=False)
+        ],
+        *[forward_return_matrix_path(horizon) for horizon in FORWARD_HORIZONS],
+    ]
+    source_directory = os.path.dirname(__file__)
+    source_hashes = {}
+    for name in ("quantile_analysis.py", "selection_storage.py"):
+        with open(os.path.join(source_directory, name), "rb") as source:
+            source_hashes[name] = hashlib.sha256(source.read()).hexdigest()
+
+    payload = {
+        "version": 1,
+        "inputs": {path: file_state(path) for path in input_paths},
+        "source_hashes": source_hashes,
+        "settings": {
+            "forward_horizons": list(FORWARD_HORIZONS),
+            "signal_lag": SIGNAL_LAG,
+            "quantiles": QUANTILE_COUNT,
+            "minimum_assets": MIN_ASSETS,
+            "research_start": RESEARCH_START_DATE,
+            "research_end": RESEARCH_END_DATE,
+        },
+    }
+    encoded = json.dumps(payload, sort_keys=True).encode("utf-8")
+    return hashlib.sha256(encoded).hexdigest()
+
+
+def quantile_cache_is_valid():
+    try:
+        with open(QUANTILE_RUN_METADATA_PATH, "r", encoding="utf-8") as file:
+            metadata = json.load(file)
+        return (
+            metadata.get("cache_signature") == quantile_cache_signature()
+            and metadata.get("result_file_state")
+            == file_state(DAILY_QUANTILE_RESULTS_PATH)
+            and metadata.get("result_rows")
+            == pq.ParquetFile(DAILY_QUANTILE_RESULTS_PATH).metadata.num_rows
+        )
+    except (OSError, ValueError, TypeError, AttributeError):
+        return False
 
 
 def load_factor_quantile_results(factor_key, columns):

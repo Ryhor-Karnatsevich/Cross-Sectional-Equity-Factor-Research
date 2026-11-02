@@ -4,5 +4,6 @@ main.py
 TASKS.md
 MMM.md
 Data
+LSEG_Recovery/
 __pycache__/
 Results/**/*.temporary.*
