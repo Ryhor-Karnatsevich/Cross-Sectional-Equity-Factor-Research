@@ -1,5 +1,10 @@
 {
-  "created_at_utc": "2026-09-14T12:03:10.796608+00:00",
+  "cache_signature": "74dc46d213d96ae7d60e7386da4f7f4d707b72b5ed272bdd906105f1a362a99d",
+  "result_file_state": {
+    "size": 491038158,
+    "modified_ns": 1793660767553707800
+  },
+  "created_at_utc": "2026-11-02T23:06:07.622022+00:00",
   "data_start": "2008-01-02",
   "data_end": "2026-08-18",
   "research_start": "2010-01-01",
