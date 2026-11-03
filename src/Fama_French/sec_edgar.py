@@ -200,9 +200,12 @@ def resolve_candidates(universe, ticker_data, historical_names):
     return pd.DataFrame(rows)
 
 
-def extract_annual_facts(data, first_year=FIRST_FISCAL_YEAR, last_year=LAST_FISCAL_YEAR):
+def extract_annual_facts(data, first_year=FIRST_FISCAL_YEAR, last_year=LAST_FISCAL_YEAR,
+                         concepts=None, flow_metrics=None):
+    concepts = CONCEPTS if concepts is None else concepts
+    flow_metrics = FLOW_METRICS if flow_metrics is None else flow_metrics
     candidates = []
-    for metric, taxonomies in CONCEPTS.items():
+    for metric, taxonomies in concepts.items():
         for taxonomy, concepts in taxonomies.items():
             for priority, concept in enumerate(concepts):
                 item = data.get("facts", {}).get(taxonomy, {}).get(concept, {})
@@ -223,7 +226,7 @@ def extract_annual_facts(data, first_year=FIRST_FISCAL_YEAR, last_year=LAST_FISC
                         if not first_year <= end.year <= last_year:
                             continue
                         duration = (end - start).days + 1 if start else None
-                        if metric in FLOW_METRICS and (duration is None or not 300 <= duration <= 400):
+                        if metric in flow_metrics and (duration is None or not 300 <= duration <= 400):
                             continue
                         candidates.append({
                             "cik": str(data["cik"]).zfill(10), "company": data.get("entityName", ""),
@@ -241,7 +244,7 @@ def extract_annual_facts(data, first_year=FIRST_FISCAL_YEAR, last_year=LAST_FISC
         frame[column] = pd.to_datetime(frame[column])
     # Annual flow periods identify financial year ends. Do not confuse every
     # balance-sheet comparison in a 10-K with an independently verified FY end.
-    annual_ends = set(frame.loc[frame.metric.isin(FLOW_METRICS), "period_end"])
+    annual_ends = set(frame.loc[frame.metric.isin(flow_metrics), "period_end"])
     frame["annual_period_confirmed"] = frame.period_end.isin(annual_ends)
     return frame
 
