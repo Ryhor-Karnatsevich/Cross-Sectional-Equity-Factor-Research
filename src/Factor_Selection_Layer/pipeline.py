@@ -1,14 +1,17 @@
+import argparse
+import json
 from datetime import datetime, timezone
 from time import perf_counter
 
 from classifier_validation import run_classifier_validation
-from hypothesis_analysis import build_hypothesis_metrics
+from hypothesis_analysis import build_hypothesis_metrics, load_saved_hypothesis_metrics
 from pattern_classification import classify_hypotheses
 from quantile_analysis import run_quantile_analysis
 from selection_config import (
     ACTIVE_FACTOR_KEYS,
     EFFECT_TESTS_PATH,
     HYPOTHESIS_CARDS_PATH,
+    MULTIPLE_TESTING_ALPHA,
     QUANTILE_CURVES_PATH,
     SELECTION_REPORT_PATH,
     SELECTION_RUN_METADATA_PATH,
@@ -39,11 +42,16 @@ def prepare_quantile_data():
 
 # -------------------------
 # HYPOTHESIS CLASSIFICATION
-def run_factor_classification():
+def run_factor_classification(correction_only=False):
     classifier_validation = run_classifier_validation()
-    cards, effect_tests, curves, time_stability, factor_count = (
-        build_hypothesis_metrics()
-    )
+    if correction_only:
+        cards, effect_tests, curves, time_stability, factor_count = (
+            load_saved_hypothesis_metrics()
+        )
+    else:
+        cards, effect_tests, curves, time_stability, factor_count = (
+            build_hypothesis_metrics()
+        )
     cards, effect_tests = classify_hypotheses(
         cards,
         effect_tests,
@@ -51,8 +59,9 @@ def run_factor_classification():
     )
     save_csv(cards, HYPOTHESIS_CARDS_PATH)
     save_csv(effect_tests, EFFECT_TESTS_PATH)
-    save_csv(curves, QUANTILE_CURVES_PATH)
-    save_parquet(time_stability, TIME_STABILITY_PATH)
+    if not correction_only:
+        save_csv(curves, QUANTILE_CURVES_PATH)
+        save_parquet(time_stability, TIME_STABILITY_PATH)
     figure_paths = create_selection_figures(
         cards,
         effect_tests,
@@ -73,12 +82,22 @@ def run_factor_classification():
 
 # -------------------------
 # COMPLETE FACTOR SELECTION LAYER
-def run_pipeline():
+def run_pipeline(correction_only=False):
     start_time = perf_counter()
     prepare_selection_directories()
 
     try:
-        quantile_data_rebuilt = prepare_quantile_data()
+        if correction_only:
+            print("Correction-only mode: reuse saved statistics; skip factor analysis and HAC")
+            with open(SELECTION_RUN_METADATA_PATH, encoding="utf-8") as file:
+                previous_run = json.load(file)
+            statistics_created = previous_run.get(
+                "hypothesis_metrics_created_at_utc", previous_run["created_at_utc"]
+            )
+            quantile_data_rebuilt = False
+        else:
+            quantile_data_rebuilt = prepare_quantile_data()
+            statistics_created = datetime.now(timezone.utc).isoformat()
         (
             cards,
             effect_tests,
@@ -86,10 +105,13 @@ def run_pipeline():
             time_stability,
             figure_paths,
             classifier_validation,
-        ) = run_factor_classification()
+        ) = run_factor_classification(correction_only=correction_only)
         full_scope = bool(effect_tests["full_research_scope"].iloc[0])
         run_metadata = {
             "created_at_utc": datetime.now(timezone.utc).isoformat(),
+            "hypothesis_metrics_created_at_utc": statistics_created,
+            "correction_only": correction_only,
+            "statistical_metrics_reused": correction_only,
             "active_factor_keys": (
                 list(ACTIVE_FACTOR_KEYS)
                 if ACTIVE_FACTOR_KEYS is not None
@@ -100,6 +122,10 @@ def run_pipeline():
             ].nunique(),
             "hypotheses_analyzed": cards["hypothesis_key"].nunique(),
             "effect_tests_analyzed": len(effect_tests),
+            "multiple_testing_method": "benjamini_hochberg",
+            "multiple_testing_scope": "within_effect",
+            "multiple_testing_alpha": MULTIPLE_TESTING_ALPHA,
+            "effect_family_test_counts": effect_tests.groupby("effect").size().to_dict(),
             "full_448_hypothesis_scope": full_scope,
             "quantile_data_rebuilt": quantile_data_rebuilt,
             "figures_created": len(figure_paths),
@@ -132,4 +158,9 @@ def run_pipeline():
 
 
 if __name__ == "__main__":
-    run_pipeline()
+    parser = argparse.ArgumentParser(description="Factor Selection pipeline")
+    parser.add_argument(
+        "--correction-only", action="store_true",
+        help="Reuse saved statistics; update BH, candidate labels and reports only",
+    )
+    run_pipeline(correction_only=parser.parse_args().correction_only)

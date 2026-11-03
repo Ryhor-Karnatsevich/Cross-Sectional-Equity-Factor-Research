@@ -1,3 +1,5 @@
+import json
+
 import numpy as np
 import pandas as pd
 from scipy.stats import norm, spearmanr
@@ -5,19 +7,26 @@ from scipy.stats import norm, spearmanr
 from selection_config import (
     ACTIVE_FACTOR_KEYS,
     EFFECT_NAMES,
+    EFFECT_TESTS_PATH,
     FORWARD_HORIZONS,
     MIDDLE_QUANTILES,
+    HYPOTHESIS_CARDS_PATH,
     MIN_ASSETS,
     QUANTILE_COUNT,
+    QUANTILE_CURVES_PATH,
+    QUANTILE_RUN_METADATA_PATH,
     RESEARCH_END_DATE,
     RESEARCH_START_DATE,
     SIGNAL_LAG,
+    SELECTION_RUN_METADATA_PATH,
+    TIME_STABILITY_PATH,
 )
 from selection_storage import (
     load_factor_matrix,
     load_factor_metadata,
     load_factor_quantile_results,
     load_membership,
+    quantile_cache_is_valid,
 )
 
 
@@ -361,6 +370,42 @@ def analyze_factor(factor_information, membership):
         pd.concat(curve_rows, ignore_index=True),
         pd.DataFrame(time_rows),
     )
+
+
+# -------------------------
+# SAVED HYPOTHESIS METRICS
+def load_saved_hypothesis_metrics():
+    if not quantile_cache_is_valid():
+        raise ValueError(
+            "Saved quantile data is missing or outdated. "
+            "Run the normal Selection pipeline first."
+        )
+    with open(SELECTION_RUN_METADATA_PATH, encoding="utf-8") as file:
+        selection_run = json.load(file)
+    with open(QUANTILE_RUN_METADATA_PATH, encoding="utf-8") as file:
+        quantile_run = json.load(file)
+    statistics_created = selection_run.get(
+        "hypothesis_metrics_created_at_utc", selection_run["created_at_utc"]
+    )
+    if pd.Timestamp(statistics_created) < pd.Timestamp(quantile_run["created_at_utc"]):
+        raise ValueError("Saved statistics predate the current quantile data; run normal analysis")
+
+    metadata = select_factor_metadata(load_factor_metadata())
+    cards = pd.read_csv(HYPOTHESIS_CARDS_PATH)
+    effects = pd.read_csv(EFFECT_TESTS_PATH)
+    curves = pd.read_csv(QUANTILE_CURVES_PATH)
+    time_stability = pd.read_parquet(TIME_STABILITY_PATH)
+    expected = {f"{key}|h{h}" for key in metadata["key"] for h in FORWARD_HORIZONS}
+    if (
+        cards["hypothesis_key"].duplicated().any()
+        or set(cards["hypothesis_key"]) != expected
+        or effects.duplicated(["hypothesis_key", "effect"]).any()
+        or set(zip(effects["hypothesis_key"], effects["effect"]))
+        != {(key, effect) for key in expected for effect in EFFECT_NAMES}
+    ):
+        raise ValueError("Saved statistics do not match the requested hypotheses; run normal analysis")
+    print("Reuse saved effect statistics, quantile curves and time stability")
+    return cards, effects, curves, time_stability, len(metadata)
 
 
 # -------------------------

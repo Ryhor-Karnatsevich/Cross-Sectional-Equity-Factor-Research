@@ -303,9 +303,7 @@ def candidate_decisions(candidates, statistics, walk_forward_summary):
             and best_long["positive_oos_period_rate"]
             >= ECONOMIC_LEAD_MIN_LONG_WF_POSITIVE_RATE
         )
-        statistical_lead = "global_fdr" in str(
-            candidate.selection_evidence
-        )
+        statistical_lead = bool(candidate.selection_rank_fdr_passed)
 
         if economic_lead:
             status = "ECONOMIC_LEAD"
@@ -316,7 +314,7 @@ def candidate_decisions(candidates, statistics, walk_forward_summary):
         elif statistical_lead:
             status = "STATISTICAL_LEAD"
             reason = (
-                "Rank signal survived global FDR but did not meet the "
+                "Rank signal survived per-effect FDR but did not meet the "
                 "economic implementation rule."
             )
         else:

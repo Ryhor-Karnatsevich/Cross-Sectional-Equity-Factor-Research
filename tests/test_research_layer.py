@@ -11,7 +11,7 @@ RESEARCH_LAYER_PATH = os.path.join(PROJECT_ROOT, "src", "Research_Layer")
 if RESEARCH_LAYER_PATH not in sys.path:
     sys.path.insert(0, RESEARCH_LAYER_PATH)
 
-from multiple_testing_research import bh_values, simes_p_value
+from multiple_testing_research import bh_values, compare_multiple_testing, simes_p_value
 from Low_Volatility.research import build_window_summary
 from portfolio_construction import build_target_weights
 from portfolio_evaluation import apply_transaction_costs, candidate_decisions
@@ -27,6 +27,22 @@ from walk_forward_research import oriented_net_returns, run_walk_forward
 
 
 class MultipleTestingResearchTests(unittest.TestCase):
+    def test_per_effect_is_primary_and_global_is_comparison(self):
+        frame = pd.DataFrame([
+            {"hypothesis_key": f"h{i}", "factor_key": "factor|variant",
+             "family": "factor", "effect": effect,
+             "raw_p_value": (0.01, 0.04)[i] if effect == "spearman_ic" else 1.0}
+            for effect in ("spearman_ic", "q10_minus_q1", "q10_minus_middle",
+                           "middle_minus_q1", "edges_minus_middle")
+            for i in range(2)
+        ])
+        result, summary = compare_multiple_testing(frame)
+        summary = summary.set_index("method")
+        self.assertEqual(summary.loc["within_effect_bh", "interpretation"], "primary_within_effect")
+        self.assertEqual(summary.loc["global_bh", "interpretation"], "pooled_comparison")
+        self.assertEqual(summary.loc["within_effect_bh", "rejections"], 2)
+        self.assertEqual(summary.loc["global_bh", "rejections"], 0)
+
     def test_simes_uses_ordered_family_p_values(self):
         self.assertAlmostEqual(simes_p_value([0.01, 0.04, 0.50]), 0.03)
 
@@ -382,6 +398,7 @@ class CandidateDecisionTests(unittest.TestCase):
             [{
                 "factor_key": "factor|variant",
                 "selection_evidence": "exploratory_lead",
+                "selection_rank_fdr_passed": False,
             }]
         )
         statistics = pd.DataFrame(
@@ -450,6 +467,10 @@ class CandidateDecisionTests(unittest.TestCase):
         self.assertEqual(decision["evaluated_path_key"], "best_full_history")
         self.assertEqual(decision["final_status"], "REJECTED")
         self.assertAlmostEqual(decision["best_long_wf_sharpe"], -0.10)
+        candidates.loc[0, "selection_rank_fdr_passed"] = True
+        rank_decision = candidate_decisions(candidates, statistics, walk_forward).iloc[0]
+        self.assertEqual(rank_decision["final_status"], "STATISTICAL_LEAD")
+        self.assertIn("per-effect FDR", rank_decision["decision_reason"])
 
 
 class LowVolatilityResearchTests(unittest.TestCase):

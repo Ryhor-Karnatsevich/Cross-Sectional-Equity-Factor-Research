@@ -208,7 +208,7 @@ RESEARCH_CANDIDATES = (
             "volatility_scaled_momentum|vsmom_12m_1m_vol60"
         ),
         "selection_horizon": 1,
-        "selection_evidence": "global_fdr_rank_signal",
+        "selection_evidence": "within_effect_fdr_rank_signal",
     },
     {
         "factor_key": "short_term_reversal|reversal_5d",

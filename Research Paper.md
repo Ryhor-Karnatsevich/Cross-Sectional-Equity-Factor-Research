@@ -1,11 +1,13 @@
 # Cross-Sectional Equity Factor Research
 
+> Method revision: the current code applies Benjamini–Hochberg separately within the five effect families, with 448 tests per family in the complete run. Pooled global BH remains a comparison. Numerical conclusions in this document are the earlier published snapshot and are not recomputed by editing the method; regenerated layer reports record the revised results.
+
 
 ## Abstract
 
 This study examines whether interpretable signals derived from historical prices, returns and trading volume can explain cross-sectional differences in future returns among point-in-time S&P500 constituents. The dataset covers 2008–2026, with observations from 2008–2009 retained as factor warm-up history and formal research beginning in 2010. Historical index membership is used to reduce survivorship bias, although incomplete Yahoo Finance coverage for old and delisted securities leaves residual data-availability limitations.
 
-The research evaluates 11 factor families, 56 parameter configurations and eight forward-return horizons. Their combination produces 448 factor-horizon hypotheses and 2,240 statistical and economic effect tests. Factor relationships are evaluated through cross-sectional Rank IC, quantile-return structures, HAC-adjusted inference, temporal consistency and global false-discovery-rate correction. Four explicitly labelled leads are subsequently examined through portfolio implementations incorporating alternative position-construction rules, rebalance frequencies, transaction costs, turnover, beta exposure, walk-forward behaviour and point-in-time market regimes.
+The research evaluates 11 factor families, 56 parameter configurations and eight forward-return horizons. Their combination produces 448 factor-horizon hypotheses and 2,240 statistical and economic effect tests. Factor relationships are evaluated through cross-sectional Rank IC, quantile-return structures, HAC-adjusted inference, temporal consistency and false-discovery-rate correction separately within each effect family. Four explicitly labelled leads are subsequently examined through portfolio implementations incorporating alternative position-construction rules, rebalance frequencies, transaction costs, turnover, beta exposure, walk-forward behaviour and point-in-time market regimes.
 
 One volatility-scaled momentum Rank-IC result survives global FDR correction, but no directly interpretable economic return effect passes the complete Factor Selection rules. The strongest portfolio-level result is a 60-day Low Volatility implementation, which produces a 4.77% net annualized return, a 0.505 full-history Sharpe ratio and a 0.432 long walk-forward Sharpe ratio at the declared 10 bps transaction-cost assumption. However, its alpha HAC t-statistic is 1.60, and neighbouring lookback windows do not form a robust parameter plateau.
 
@@ -55,7 +57,7 @@ These questions imply the following hypotheses.
 
 - **H1 — Cross-sectional information:** at least one factor configuration is associated with the ordering of subsequent returns.
 - **H2 — Economic structure:** at least one hypothesis produces a stable monotonic or tail-return pattern rather than an isolated average correlation.
-- **H3 — Multiple-testing robustness:** at least one economic effect survives the global false-discovery-rate procedure applied to the complete declared test family.
+- **H3 — Multiple-testing robustness:** at least one economic effect survives Benjamini–Hochberg correction within its declared effect family across all 448 factor-horizon hypotheses.
 - **H4 — Implementability:** at least one frozen lead produces positive and sufficiently stable net portfolio performance under the declared 10 bps transaction-cost assumption.
 - **H5 — Parameter robustness:** a successful implementation is supported by neighbouring factor parameters rather than one isolated historical maximum.
 
@@ -88,7 +90,7 @@ Liquidity can affect both expected returns and implementation costs. [Amihud (20
 
 ### Why strict inference is required
 
-Testing many factor definitions and horizons creates a large chance of selecting a lucky historical result. [Harvey, Liu and Zhu (2016)](https://doi.org/10.1093/rfs/hhv059) show why conventional single-test significance thresholds are inadequate in a crowded factor-discovery setting. The project therefore separates descriptive raw p-values from the confirmatory global false-discovery-rate decision and uses the [Benjamini–Hochberg procedure](https://doi.org/10.1111/j.2517-6161.1995.tb02031.x). Because daily observations and forward returns overlap, reported inference uses heteroskedasticity- and autocorrelation-consistent standard errors following [Newey and West (1987)](https://www.nber.org/papers/t0055).
+Testing many factor definitions and horizons creates a large chance of selecting a lucky historical result. [Harvey, Liu and Zhu (2016)](https://doi.org/10.1093/rfs/hhv059) show why conventional single-test significance thresholds are inadequate in a crowded factor-discovery setting. The project therefore separates descriptive raw p-values from the primary per-effect false-discovery-rate decision and uses the [Benjamini–Hochberg procedure](https://doi.org/10.1111/j.2517-6161.1995.tb02031.x). Because daily observations and forward returns overlap, reported inference uses heteroskedasticity- and autocorrelation-consistent standard errors following [Newey and West (1987)](https://www.nber.org/papers/t0055).
 
 
 ## 4. Data and Point-in-Time Universe
@@ -179,7 +181,7 @@ The Factor Layer creates all 56 factor-score matrices and all eight forward-retu
 
 Every hypothesis receives daily IC and quantile-return observations. HAC-adjusted statistics account for serial dependence, including the overlap created by multi-day forward returns. Monthly and annual direction rates measure whether an effect is repeatedly present rather than produced by one subperiod. Rank autocorrelation describes factor persistence and therefore has implications for turnover.
 
-Pattern classification requires sufficient observations, an economically recognisable quantile shape, temporal consistency and statistical visibility. The sign is not hard-coded: both positive and negative monotonic structures are admissible. The Benjamini–Hochberg correction is applied globally to all 2,240 declared effect tests. Exploratory within-group and hierarchical corrections are reported only as sensitivity analyses; they do not replace the original confirmatory rule after the results are visible.
+Pattern classification requires sufficient observations, an economically recognisable quantile shape, temporal consistency and statistical visibility. The sign is not hard-coded: both positive and negative monotonic structures are admissible. Benjamini–Hochberg correction is applied separately within each of the five declared effect families: Rank IC, Q10 minus Q1, Q10 minus the middle, the middle minus Q1, and both edges minus the middle. Each family contains 448 factor-horizon tests. Pooled global BH, within-factor-family and hierarchical corrections remain comparison diagnostics. The primary rule controls FDR within each effect family, not across the union of all five families.
 
 ### Stage 3 — Frozen portfolio leads
 
@@ -270,7 +272,7 @@ The appropriate next confirmation would therefore use genuinely new information:
 - **Residual survivorship and data-availability bias.** Historical membership is reconstructed, but Yahoo Finance does not provide complete histories for all old and delisted securities. Missing securities may change both factor ranks and realised returns.
 - **Membership-source risk.** Historical components come from a community-maintained repository rather than official S&P point-in-time data.
 - **No untouched final sample.** The complete history influenced factor discovery and the frozen lead set. Walk-forward results describe temporal behaviour after selection; they are not a new independent experiment.
-- **Multiple testing.** Global FDR controls the declared family, but the broader human research process also contains choices about factor families, configurations, portfolio methods and follow-up studies.
+- **Multiple testing.** Per-effect BH controls each declared effect family separately, not their pooled discoveries. The broader human research process also contains choices about factor families, configurations, portfolio methods and follow-up studies.
 - **Overlapping returns.** Multi-day forward returns share daily observations. HAC inference reduces, but does not eliminate, the difficulty of interpreting dependent tests.
 - **Approximate implementation costs.** Fixed basis-point costs do not model bid-ask variation, nonlinear market impact, capacity, borrow fees, short availability or financing constraints.
 - **Incomplete risk controls.** Point-in-time sector classifications are unavailable. The code reports sector exposure as `NOT_AVAILABLE` instead of incorrectly applying current sectors to historical companies.
@@ -1639,6 +1641,11 @@ The current setting uses `ACTIVE_FACTOR_KEYS = None`. Every run therefore analyz
 - Reads one factor configuration from the daily Parquet dataset.
 - Calculates all eight hypothesis cards, 40 effect tests, quantile curves and time-stability observations.
 
+#### load_saved_hypothesis_metrics
+- Loads saved hypothesis cards, raw effect statistics, quantile curves and time stability for correction-only runs.
+- Checks that the current quantile cache is valid, that the statistics were created after that quantile run, and that the saved hypotheses match the requested scope.
+- Stops on missing or incompatible results instead of starting a full recalculation.
+
 #### build_hypothesis_metrics
 - Repeats the same analysis for every active factor configuration.
 - Returns the complete tables required for classification and reporting.
@@ -1647,7 +1654,9 @@ The current setting uses `ACTIVE_FACTOR_KEYS = None`. Every run therefore analyz
 ### pattern_classification.py
 
 #### apply_multiple_testing
-- Applies Benjamini-Hochberg false-discovery-rate correction across every effect test in the active run.
+- Applies Benjamini-Hochberg separately within each of the five effect types in the active run.
+- Saves per-effect q-values and rejection flags as the primary results and pooled global values as a comparison.
+- Records the total and valid test counts in each effect family. Existing active-scope columns refer to the per-effect result.
 - Marks the correction as preliminary while fewer than all 448 hypotheses are active.
 - Also reports a conservative Bonferroni value for the planned full 2,240 effect tests.
 
@@ -1741,7 +1750,7 @@ The current setting uses `ACTIVE_FACTOR_KEYS = None`. Every run therefore analyz
 - Keeps economic patterns in front of IC diagnostics.
 
 #### selection_conclusion
-- Separates globally significant Rank IC tests from globally significant economic-return tests.
+- Separates Rank IC tests passing per-effect BH from economic-return tests passing their own effect-family corrections.
 - Writes the final Layer 3 decision only when the complete 448-hypothesis scope was analyzed.
 
 #### build_selection_report
@@ -1758,6 +1767,7 @@ The current setting uses `ACTIVE_FACTOR_KEYS = None`. Every run therefore analyz
 - Rebuilds it only when the file is missing.
 
 #### run_factor_classification
+- With `--correction-only`, reuses saved statistics and updates correction values, labels, figures and the report. Does not rewrite quantile curves or time-stability datasets.
 - Validates all six known classifier patterns before reading real results.
 - Calculates hypothesis metrics and pattern classifications.
 - Saves cards, effect tests, quantile curves, time stability, figures and the Markdown report.
@@ -1874,16 +1884,16 @@ The walk-forward output is explicitly post-selection. The candidates were alread
 - Combines the tests inside one predefined family into one family-level p-value.
 
 #### add_group_bh
-- Recalculates exploratory FDR separately by effect, factor family and factor-family/effect group.
+- Calculates the primary FDR correction by effect and comparison corrections by factor family and factor-family/effect group.
 
 #### add_hierarchical_fdr
 - First tests all predefined factor-family/effect groups.
 - Applies a second within-group correction only inside groups that passed the first stage.
-- Keeps the hierarchical result separate from the original global FDR result.
+- Keeps the hierarchical result separate from the primary per-effect and pooled global BH results.
 
 #### compare_multiple_testing
-- Compares raw p-values, global FDR, exploratory within-group FDR and hierarchical FDR across all 2,240 Selection Layer tests.
-- Does not replace the completed Selection Layer decision after seeing the data.
+- Compares raw p-values, primary per-effect BH, pooled global BH, other within-group corrections and hierarchical FDR across all 2,240 Selection Layer tests.
+- Labels per-effect BH as the primary method and global BH as the pooled comparison.
 
 
 ### factor_overlap.py
@@ -2046,7 +2056,7 @@ The walk-forward output is explicitly post-selection. The candidates were alread
 - Compares their selected net annualized returns, full-history Sharpe and long walk-forward Sharpe.
 
 #### plot_multiple_testing
-- Compares discovery counts under the original global FDR and exploratory alternative corrections.
+- Compares discovery counts under primary per-effect BH, pooled global BH and alternative comparison corrections.
 
 #### plot_cost_sensitivity
 - Shows how median implementation Sharpe changes under different transaction costs.
@@ -2181,8 +2191,8 @@ The walk-forward output is explicitly post-selection. The candidates were alread
 ### Research Interpretation Rules
 
 - Full-history portfolio results are descriptive because the same history influenced the candidate shortlist.
-- Global FDR remains the original confirmatory multiple-testing result.
-- Within-family and hierarchical corrections show whether the original correction was too broad, but they are not used to rewrite the discovery result.
+- Per-effect BH is the primary multiple-testing rule, applied independently within each of the five effect families.
+- Pooled global BH, within-factor-family and hierarchical corrections remain comparison diagnostics. They do not determine the primary candidate labels.
 - Walk-forward analysis measures historical temporal behaviour but cannot recreate a genuinely untouched test after the candidates have already been viewed on the complete history.
 - Sector exposure remains explicitly unavailable until a reliable point-in-time sector dataset is added to the Data System.
 - A factor is not called alpha unless its return survives costs, turnover, risk exposure, calendar phases, both walk-forward structures and market-regime analysis.

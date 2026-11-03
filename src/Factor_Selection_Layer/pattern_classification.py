@@ -21,8 +21,27 @@ from selection_config import (
 def apply_multiple_testing(effect_tests, factor_count):
     effect_tests = effect_tests.copy()
     valid = effect_tests["raw_p_value"].notna()
-    effect_tests["bh_q_value_active_scope"] = np.nan
-    effect_tests["reject_active_scope_fdr"] = False
+    if not effect_tests["effect"].isin(EFFECT_NAMES).all():
+        raise ValueError("Unknown effect type in multiple-testing input")
+    effect_tests["bh_q_value_within_effect"] = np.nan
+    effect_tests["reject_within_effect_fdr"] = False
+    effect_tests["bh_q_value_global"] = np.nan
+    effect_tests["reject_global_fdr"] = False
+    effect_tests["effect_family_test_count"] = effect_tests.groupby(
+        "effect"
+    )["raw_p_value"].transform("size")
+    effect_tests["effect_family_valid_test_count"] = effect_tests.groupby(
+        "effect"
+    )["raw_p_value"].transform("count")
+
+    for _, group in effect_tests.loc[valid].groupby("effect", sort=False):
+        rejected, q_values, _, _ = multipletests(
+            group["raw_p_value"],
+            alpha=MULTIPLE_TESTING_ALPHA,
+            method="fdr_bh",
+        )
+        effect_tests.loc[group.index, "bh_q_value_within_effect"] = q_values
+        effect_tests.loc[group.index, "reject_within_effect_fdr"] = rejected
 
     if valid.any():
         rejected, q_values, _, _ = multipletests(
@@ -30,8 +49,14 @@ def apply_multiple_testing(effect_tests, factor_count):
             alpha=MULTIPLE_TESTING_ALPHA,
             method="fdr_bh",
         )
-        effect_tests.loc[valid, "bh_q_value_active_scope"] = q_values
-        effect_tests.loc[valid, "reject_active_scope_fdr"] = rejected
+        effect_tests.loc[valid, "bh_q_value_global"] = q_values
+        effect_tests.loc[valid, "reject_global_fdr"] = rejected
+
+    # Existing consumers keep their column names; the primary scope is now
+    # one effect family, not the pooled collection of all five effects.
+    effect_tests["bh_q_value_active_scope"] = effect_tests["bh_q_value_within_effect"]
+    effect_tests["reject_active_scope_fdr"] = effect_tests["reject_within_effect_fdr"]
+    effect_tests["fdr_scope"] = "within_effect"
 
     expected_hypotheses = 56 * len(FORWARD_HORIZONS)
     expected_effect_tests = expected_hypotheses * len(EFFECT_NAMES)
@@ -177,6 +202,7 @@ def primary_effect_values(row, effect_lookup):
                 "primary_effect_hac_tstat": np.nan,
                 "primary_effect_raw_p_value": np.nan,
                 "primary_effect_bh_q_active_scope": np.nan,
+                "primary_effect_bh_q_global": np.nan,
                 "primary_effect_planned_bonferroni_p": np.nan,
                 "primary_effect_monthly_direction_rate": np.nan,
                 "primary_effect_annual_direction_rate": np.nan,
@@ -199,8 +225,9 @@ def primary_effect_values(row, effect_lookup):
             "primary_effect_hac_tstat": effect["hac_tstat"],
             "primary_effect_raw_p_value": effect["raw_p_value"],
             "primary_effect_bh_q_active_scope": effect[
-                "bh_q_value_active_scope"
+                "bh_q_value_within_effect"
             ],
+            "primary_effect_bh_q_global": effect["bh_q_value_global"],
             "primary_effect_planned_bonferroni_p": effect[
                 "planned_bonferroni_p_value"
             ],
@@ -244,7 +271,7 @@ def evidence_status(row):
     if not row["full_research_scope"]:
         return "provisional_candidate"
     if row["primary_effect_bh_q_active_scope"] <= MULTIPLE_TESTING_ALPHA:
-        return "candidate_after_full_fdr"
+        return "candidate_after_effect_fdr"
     return "rejected_by_multiple_testing"
 
 
@@ -268,7 +295,31 @@ def classification_reason(row):
 # COMPLETE CLASSIFICATION
 def classify_hypotheses(cards, effect_tests, factor_count):
     effect_tests = apply_multiple_testing(effect_tests, factor_count)
-    cards = cards.copy()
+    # Saved cards already contain derived classification/FDR columns. Rebuild
+    # those columns while preserving their original statistical estimates.
+    scope_columns = {
+        "full_research_scope", "active_hypothesis_count", "active_effect_test_count",
+        "pattern", "pattern_direction", "primary_effect", "evidence_status",
+        "classification_reason", "evidence_score",
+    }
+    derived_prefixes = (
+        "primary_effect_", "strongest_economic_effect",
+        "spearman_ic_bh_", "spearman_ic_reject_",
+    )
+    cards = cards.drop(columns=[
+        column for column in cards
+        if column in scope_columns or column.startswith(derived_prefixes)
+    ]).copy()
+    ic_evidence = effect_tests.loc[
+        effect_tests["effect"].eq("spearman_ic"),
+        ["hypothesis_key", "bh_q_value_within_effect", "reject_within_effect_fdr",
+         "bh_q_value_global", "reject_global_fdr"],
+    ].set_index("hypothesis_key", verify_integrity=True)
+    cards = cards.join(
+        ic_evidence.add_prefix("spearman_ic_"),
+        on="hypothesis_key",
+        validate="one_to_one",
+    )
     classifications = cards.apply(classify_pattern, axis=1)
     cards[["pattern", "pattern_direction", "primary_effect"]] = pd.DataFrame(
         classifications.tolist(),

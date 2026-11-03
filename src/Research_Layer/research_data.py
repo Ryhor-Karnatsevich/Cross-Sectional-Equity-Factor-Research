@@ -69,6 +69,11 @@ def load_risk_free_daily(index):
 def candidate_table():
     metadata = pd.read_csv(FACTOR_METADATA_PATH)
     cards = pd.read_csv(SELECTION_CARDS_PATH)
+    if "spearman_ic_reject_within_effect_fdr" not in cards.columns:
+        raise ValueError(
+            "Selection cards use an older multiple-testing schema. "
+            "Run the Factor Selection pipeline before Research."
+        )
     rows = []
 
     for candidate in RESEARCH_CANDIDATES:
@@ -104,6 +109,12 @@ def candidate_table():
                 "selection_status": card["evidence_status"],
                 "selection_ic": card["spearman_ic_mean"],
                 "selection_ic_hac_tstat": card["spearman_ic_hac_tstat"],
+                "selection_rank_fdr_passed": bool(
+                    card["spearman_ic_reject_within_effect_fdr"]
+                ),
+                "selection_rank_bh_q_value": card[
+                    "spearman_ic_bh_q_value_within_effect"
+                ],
                 "selection_primary_effect": card["primary_effect"],
                 "selection_primary_effect_mean": card["primary_effect_mean"],
                 "selection_primary_effect_hac_tstat": card[

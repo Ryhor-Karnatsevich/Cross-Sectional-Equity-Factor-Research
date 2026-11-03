@@ -399,7 +399,7 @@ def build_research_report(
         "",
         "## Multiple Testing Sensitivity",
         "",
-        "Global FDR remains the original confirmatory result. Within-group values are reported as sensitivity diagnostics and do not replace it after seeing the data.",
+        "The primary rule applies Benjamini-Hochberg separately within each of the five effect families (448 tests per family in a complete run). Pooled global BH and other grouping schemes are comparison diagnostics. Per-effect control does not imply FDR control over the union of all five families.",
         "",
         markdown_table(
             multiple_testing_summary,
@@ -514,7 +514,7 @@ def build_research_report(
         "## Interpretation Boundary",
         "",
         "- A strong full-history path is not final evidence because the candidate shortlist was obtained from the same complete history.",
-        "- Hierarchical and within-family FDR are sensitivity checks, not permission to ignore the global FDR result.",
+        "- Per-effect BH is the primary Selection rule. Pooled global, within-factor-family and hierarchical corrections remain comparison diagnostics.",
         "- A candidate requires coherent walk-forward returns, tolerable turnover and costs, controlled risk exposure, and no dependence on one market regime.",
         "- Remaining Yahoo historical-data limitations continue to apply.",
         "",

@@ -8,6 +8,9 @@
 - Factor-horizon hypotheses analyzed: `448`.
 - Effect tests analyzed: `2240`.
 - Full 448-hypothesis scope: `yes`.
+- Primary correction: Benjamini-Hochberg applied separately within each of the five effect families at 5% FDR.
+- Each complete family contains 448 factor-horizon tests. FDR control applies within each family, not to their pooled discoveries.
+- Pooled global BH is retained in effect_tests.csv as a comparison; active-scope columns refer to the primary per-effect correction.
 
 ## Pattern Classification
 
@@ -24,8 +27,8 @@
 
 ## Final Layer Decision
 
-- Rank-IC discoveries after global FDR: `13`.
-- Economic-effect discoveries after global FDR: `0`.
+- Rank-IC discoveries after per-effect FDR: `22`.
+- Economic-effect discoveries after per-effect FDR: `0`.
 - Final economic candidates: `0`.
 
 Layer 3 found statistical cross-sectional rank evidence, but no economic return pattern survived the complete selection rules.

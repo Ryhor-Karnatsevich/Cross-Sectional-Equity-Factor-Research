@@ -52,7 +52,7 @@ def plot_selection_summary(cards, effect_tests):
         (rejected & effect_tests["effect"].ne("spearman_ic")).sum()
     )
     economic_candidates = int(
-        cards["evidence_status"].eq("candidate_after_full_fdr").sum()
+        cards["evidence_status"].eq("candidate_after_effect_fdr").sum()
     )
 
     figure, axes = plt.subplots(1, 3, figsize=(16, 5.7))
@@ -110,8 +110,8 @@ def plot_selection_summary(cards, effect_tests):
 
     decision_axis = axes[2]
     decision_labels = (
-        "Rank IC\nFDR discoveries",
-        "Economic\nFDR discoveries",
+        "Rank IC\nPer-effect FDR",
+        "Economic\nPer-effect FDR",
         "Final economic\ncandidates",
     )
     decision_values = (
@@ -485,7 +485,7 @@ def selection_conclusion(cards, effect_tests, full_scope):
         (rejected & effect_tests["effect"].ne("spearman_ic")).sum()
     )
     economic_candidates = int(
-        cards["evidence_status"].eq("candidate_after_full_fdr").sum()
+        cards["evidence_status"].eq("candidate_after_effect_fdr").sum()
     )
 
     if economic_candidates:
@@ -505,8 +505,8 @@ def selection_conclusion(cards, effect_tests, full_scope):
         )
 
     return [
-        f"- Rank-IC discoveries after global FDR: `{ic_discoveries}`.",
-        f"- Economic-effect discoveries after global FDR: `{economic_discoveries}`.",
+        f"- Rank-IC discoveries after per-effect FDR: `{ic_discoveries}`.",
+        f"- Economic-effect discoveries after per-effect FDR: `{economic_discoveries}`.",
         f"- Final economic candidates: `{economic_candidates}`.",
         "",
         decision,
@@ -538,6 +538,9 @@ def build_selection_report(cards, effect_tests, figure_paths):
         f"- Factor-horizon hypotheses analyzed: `{hypothesis_count}`.",
         f"- Effect tests analyzed: `{len(effect_tests)}`.",
         f"- Full 448-hypothesis scope: `{'yes' if full_scope else 'no'}`.",
+        "- Primary correction: Benjamini-Hochberg applied separately within each of the five effect families at 5% FDR.",
+        "- Each complete family contains 448 factor-horizon tests. FDR control applies within each family, not to their pooled discoveries.",
+        "- Pooled global BH is retained in effect_tests.csv as a comparison; active-scope columns refer to the primary per-effect correction.",
         "",
     ]
 

@@ -131,7 +131,7 @@ def compare_multiple_testing(effect_tests):
         "raw_p_below_0_05": result["raw_p_value"]
         <= MULTIPLE_TESTING_ALPHA,
         "global_bh": result["research_global_rejected"],
-        "within_effect_bh_exploratory": result["within_effect_bh_rejected"],
+        "within_effect_bh": result["within_effect_bh_rejected"],
         "within_family_bh_exploratory": result["within_family_bh_rejected"],
         "within_family_effect_bh_exploratory": result[
             "within_family_effect_bh_rejected"
@@ -152,12 +152,16 @@ def compare_multiple_testing(effect_tests):
                     (rejected & result["effect"].eq("spearman_ic")).sum()
                 ),
                 "interpretation": (
-                    "confirmatory"
-                    if method == "global_bh"
+                    "primary_within_effect"
+                    if method == "within_effect_bh"
                     else (
-                        "structured_sensitivity"
-                        if method == "hierarchical_fdr"
-                        else "exploratory"
+                        "pooled_comparison"
+                        if method == "global_bh"
+                        else (
+                            "structured_sensitivity"
+                            if method == "hierarchical_fdr"
+                            else "exploratory"
+                        )
                     )
                 ),
             }

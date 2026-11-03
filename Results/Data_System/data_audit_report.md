@@ -1,6 +1,6 @@
 # Data System Audit Report
 
-- Checked at: `2026-11-02T23:44:28+01:00`
+- Checked at: `2026-11-03T11:36:53+01:00`
 - Overall status: **WARNING**
 - Bundle fingerprint: `720466b18a18e6077bb93b4194478c307c5d87c7640c3768543f438e3d36bf8c`
 - Checks: PASS 53 / WARNING 5 / FAIL 0

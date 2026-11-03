@@ -14,7 +14,7 @@
 | Forward-return horizons | 8 |
 | Factor-horizon hypotheses | 448 |
 | Winsorization applied | no |
-| Factor cache reused | no |
+| Factor cache reused | yes |
 
 ## Factor Families
 
