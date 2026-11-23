@@ -1,0 +1,3 @@
+﻿ticker,ric,company,isin,first_membership_date,last_membership_date,provider_company,mapping_status,Instrument,TR.ISIN
+WFT,WFT.N^E19,Weatherford | Weatherford International PLC,IE00BLNN3691,2008-01-02,2009-02-25,,EXISTING_MAPPING,WFT.N^E19,US94708K1034
+XOM,XOM.N,ExxonMobil Holdings Corp,US30231G1022,2008-01-02,2026-08-18,,EXISTING_MAPPING,XOM.N,US30233Q1085

@@ -1,0 +1,1184 @@
+
+FTRCQ.PK^E21 FY2006 TR.F.BalanceSheet
+{"fields": ["TR.F.BalanceSheet.fieldname", "TR.F.BalanceSheet.fielddescription", "TR.F.BalanceSheet"], "parameters": {"Curn": "USD", "Period": "FY2006", "ReportingState": "Orig", "Scale": 0}, "universe": ["FTRCQ.PK^E21"]}
+Traceback (most recent call last):
+  File "C:\Users\SaleUEP.UE\Downloads\lseg_1.py", line 543, in call
+    frame = self.ld.get_data(**request, header_type=self.ld.HeaderType.NAME)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 87, in get_data
+    return _get_data_eikon_approach(universe, fields, parameters, header_type, session)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 138, in _get_data_eikon_approach
+    raise_if_all(exceptions)
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 94, in raise_if_all
+    raise LDError(message="\n\n".join(exceptions))
+lseg.data._errors.LDError: Unable to resolve all requested identifiers in ['FTRCQ.PK^E21'].
+
+
+FTRCQ.PK^E21 FY2006 TR.F.BalanceSheet
+{"fields": ["TR.F.BalanceSheet.fieldname", "TR.F.BalanceSheet.fielddescription", "TR.F.BalanceSheet"], "parameters": {"Curn": "USD", "Period": "FY2006", "ReportingState": "Orig", "Scale": 0}, "universe": ["FTRCQ.PK^E21"]}
+Traceback (most recent call last):
+  File "C:\Users\SaleUEP.UE\Downloads\lseg_1.py", line 543, in call
+    frame = self.ld.get_data(**request, header_type=self.ld.HeaderType.NAME)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 87, in get_data
+    return _get_data_eikon_approach(universe, fields, parameters, header_type, session)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 138, in _get_data_eikon_approach
+    raise_if_all(exceptions)
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 94, in raise_if_all
+    raise LDError(message="\n\n".join(exceptions))
+lseg.data._errors.LDError: Unable to resolve all requested identifiers in ['FTRCQ.PK^E21'].
+
+
+IACVV.O^D25 FY2006 TR.F.BalanceSheet
+{"fields": ["TR.F.BalanceSheet.fieldname", "TR.F.BalanceSheet.fielddescription", "TR.F.BalanceSheet"], "parameters": {"Curn": "USD", "Period": "FY2006", "ReportingState": "Orig", "Scale": 0}, "universe": ["IACVV.O^D25"]}
+Traceback (most recent call last):
+  File "C:\Users\SaleUEP.UE\Downloads\lseg_1.py", line 543, in call
+    frame = self.ld.get_data(**request, header_type=self.ld.HeaderType.NAME)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 87, in get_data
+    return _get_data_eikon_approach(universe, fields, parameters, header_type, session)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 138, in _get_data_eikon_approach
+    raise_if_all(exceptions)
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 94, in raise_if_all
+    raise LDError(message="\n\n".join(exceptions))
+lseg.data._errors.LDError: Unable to resolve all requested identifiers in ['IACVV.O^D25'].
+
+
+IACVV.O^D25 FY2006 TR.F.BalanceSheet
+{"fields": ["TR.F.BalanceSheet.fieldname", "TR.F.BalanceSheet.fielddescription", "TR.F.BalanceSheet"], "parameters": {"Curn": "USD", "Period": "FY2006", "ReportingState": "Orig", "Scale": 0}, "universe": ["IACVV.O^D25"]}
+Traceback (most recent call last):
+  File "C:\Users\SaleUEP.UE\Downloads\lseg_1.py", line 543, in call
+    frame = self.ld.get_data(**request, header_type=self.ld.HeaderType.NAME)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 87, in get_data
+    return _get_data_eikon_approach(universe, fields, parameters, header_type, session)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 138, in _get_data_eikon_approach
+    raise_if_all(exceptions)
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 94, in raise_if_all
+    raise LDError(message="\n\n".join(exceptions))
+lseg.data._errors.LDError: Unable to resolve all requested identifiers in ['IACVV.O^D25'].
+
+
+LEHMQ.PK^C12 FY2006 TR.F.BalanceSheet
+{"fields": ["TR.F.BalanceSheet.fieldname", "TR.F.BalanceSheet.fielddescription", "TR.F.BalanceSheet"], "parameters": {"Curn": "USD", "Period": "FY2006", "ReportingState": "Orig", "Scale": 0}, "universe": ["LEHMQ.PK^C12"]}
+Traceback (most recent call last):
+  File "C:\Users\SaleUEP.UE\Downloads\lseg_1.py", line 543, in call
+    frame = self.ld.get_data(**request, header_type=self.ld.HeaderType.NAME)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 87, in get_data
+    return _get_data_eikon_approach(universe, fields, parameters, header_type, session)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 138, in _get_data_eikon_approach
+    raise_if_all(exceptions)
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 94, in raise_if_all
+    raise LDError(message="\n\n".join(exceptions))
+lseg.data._errors.LDError: Unable to resolve all requested identifiers in ['LEHMQ.PK^C12'].
+
+
+LEHMQ.PK^C12 FY2006 TR.F.BalanceSheet
+{"fields": ["TR.F.BalanceSheet.fieldname", "TR.F.BalanceSheet.fielddescription", "TR.F.BalanceSheet"], "parameters": {"Curn": "USD", "Period": "FY2006", "ReportingState": "Orig", "Scale": 0}, "universe": ["LEHMQ.PK^C12"]}
+Traceback (most recent call last):
+  File "C:\Users\SaleUEP.UE\Downloads\lseg_1.py", line 543, in call
+    frame = self.ld.get_data(**request, header_type=self.ld.HeaderType.NAME)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 87, in get_data
+    return _get_data_eikon_approach(universe, fields, parameters, header_type, session)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 138, in _get_data_eikon_approach
+    raise_if_all(exceptions)
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 94, in raise_if_all
+    raise LDError(message="\n\n".join(exceptions))
+lseg.data._errors.LDError: Unable to resolve all requested identifiers in ['LEHMQ.PK^C12'].
+
+
+MTLQQ.PK^D11 FY2006 TR.F.BalanceSheet
+{"fields": ["TR.F.BalanceSheet.fieldname", "TR.F.BalanceSheet.fielddescription", "TR.F.BalanceSheet"], "parameters": {"Curn": "USD", "Period": "FY2006", "ReportingState": "Orig", "Scale": 0}, "universe": ["MTLQQ.PK^D11"]}
+Traceback (most recent call last):
+  File "C:\Users\SaleUEP.UE\Downloads\lseg_1.py", line 543, in call
+    frame = self.ld.get_data(**request, header_type=self.ld.HeaderType.NAME)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 87, in get_data
+    return _get_data_eikon_approach(universe, fields, parameters, header_type, session)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 138, in _get_data_eikon_approach
+    raise_if_all(exceptions)
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 94, in raise_if_all
+    raise LDError(message="\n\n".join(exceptions))
+lseg.data._errors.LDError: Unable to resolve all requested identifiers in ['MTLQQ.PK^D11'].
+
+
+MTLQQ.PK^D11 FY2006 TR.F.BalanceSheet
+{"fields": ["TR.F.BalanceSheet.fieldname", "TR.F.BalanceSheet.fielddescription", "TR.F.BalanceSheet"], "parameters": {"Curn": "USD", "Period": "FY2006", "ReportingState": "Orig", "Scale": 0}, "universe": ["MTLQQ.PK^D11"]}
+Traceback (most recent call last):
+  File "C:\Users\SaleUEP.UE\Downloads\lseg_1.py", line 543, in call
+    frame = self.ld.get_data(**request, header_type=self.ld.HeaderType.NAME)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 87, in get_data
+    return _get_data_eikon_approach(universe, fields, parameters, header_type, session)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 138, in _get_data_eikon_approach
+    raise_if_all(exceptions)
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 94, in raise_if_all
+    raise LDError(message="\n\n".join(exceptions))
+lseg.data._errors.LDError: Unable to resolve all requested identifiers in ['MTLQQ.PK^D11'].
+
+
+PX^J18 FY2006 TR.F.BalanceSheet
+{"fields": ["TR.F.BalanceSheet.fieldname", "TR.F.BalanceSheet.fielddescription", "TR.F.BalanceSheet"], "parameters": {"Curn": "USD", "Period": "FY2006", "ReportingState": "Orig", "Scale": 0}, "universe": ["PX^J18"]}
+Traceback (most recent call last):
+  File "C:\Users\SaleUEP.UE\Downloads\lseg_1.py", line 543, in call
+    frame = self.ld.get_data(**request, header_type=self.ld.HeaderType.NAME)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 87, in get_data
+    return _get_data_eikon_approach(universe, fields, parameters, header_type, session)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 138, in _get_data_eikon_approach
+    raise_if_all(exceptions)
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 94, in raise_if_all
+    raise LDError(message="\n\n".join(exceptions))
+lseg.data._errors.LDError: Unable to resolve all requested identifiers in ['PX^J18'].
+
+
+PX^J18 FY2006 TR.F.BalanceSheet
+{"fields": ["TR.F.BalanceSheet.fieldname", "TR.F.BalanceSheet.fielddescription", "TR.F.BalanceSheet"], "parameters": {"Curn": "USD", "Period": "FY2006", "ReportingState": "Orig", "Scale": 0}, "universe": ["PX^J18"]}
+Traceback (most recent call last):
+  File "C:\Users\SaleUEP.UE\Downloads\lseg_1.py", line 543, in call
+    frame = self.ld.get_data(**request, header_type=self.ld.HeaderType.NAME)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 87, in get_data
+    return _get_data_eikon_approach(universe, fields, parameters, header_type, session)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 138, in _get_data_eikon_approach
+    raise_if_all(exceptions)
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 94, in raise_if_all
+    raise LDError(message="\n\n".join(exceptions))
+lseg.data._errors.LDError: Unable to resolve all requested identifiers in ['PX^J18'].
+
+
+DNRCQ.PK^I20 FY2007 TR.F.BalanceSheet
+{"fields": ["TR.F.BalanceSheet.fieldname", "TR.F.BalanceSheet.fielddescription", "TR.F.BalanceSheet"], "parameters": {"Curn": "USD", "Period": "FY2007", "ReportingState": "Orig", "Scale": 0}, "universe": ["DNRCQ.PK^I20"]}
+Traceback (most recent call last):
+  File "C:\Users\SaleUEP.UE\Downloads\lseg_1.py", line 543, in call
+    frame = self.ld.get_data(**request, header_type=self.ld.HeaderType.NAME)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 87, in get_data
+    return _get_data_eikon_approach(universe, fields, parameters, header_type, session)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 138, in _get_data_eikon_approach
+    raise_if_all(exceptions)
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 94, in raise_if_all
+    raise LDError(message="\n\n".join(exceptions))
+lseg.data._errors.LDError: Unable to resolve all requested identifiers in ['DNRCQ.PK^I20'].
+
+
+DNRCQ.PK^I20 FY2007 TR.F.BalanceSheet
+{"fields": ["TR.F.BalanceSheet.fieldname", "TR.F.BalanceSheet.fielddescription", "TR.F.BalanceSheet"], "parameters": {"Curn": "USD", "Period": "FY2007", "ReportingState": "Orig", "Scale": 0}, "universe": ["DNRCQ.PK^I20"]}
+Traceback (most recent call last):
+  File "C:\Users\SaleUEP.UE\Downloads\lseg_1.py", line 543, in call
+    frame = self.ld.get_data(**request, header_type=self.ld.HeaderType.NAME)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 87, in get_data
+    return _get_data_eikon_approach(universe, fields, parameters, header_type, session)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 138, in _get_data_eikon_approach
+    raise_if_all(exceptions)
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 94, in raise_if_all
+    raise LDError(message="\n\n".join(exceptions))
+lseg.data._errors.LDError: Unable to resolve all requested identifiers in ['DNRCQ.PK^I20'].
+
+
+FTRCQ.PK^E21 FY2007 TR.F.BalanceSheet
+{"fields": ["TR.F.BalanceSheet.fieldname", "TR.F.BalanceSheet.fielddescription", "TR.F.BalanceSheet"], "parameters": {"Curn": "USD", "Period": "FY2007", "ReportingState": "Orig", "Scale": 0}, "universe": ["FTRCQ.PK^E21"]}
+Traceback (most recent call last):
+  File "C:\Users\SaleUEP.UE\Downloads\lseg_1.py", line 543, in call
+    frame = self.ld.get_data(**request, header_type=self.ld.HeaderType.NAME)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 87, in get_data
+    return _get_data_eikon_approach(universe, fields, parameters, header_type, session)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 138, in _get_data_eikon_approach
+    raise_if_all(exceptions)
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 94, in raise_if_all
+    raise LDError(message="\n\n".join(exceptions))
+lseg.data._errors.LDError: Unable to resolve all requested identifiers in ['FTRCQ.PK^E21'].
+
+
+FTRCQ.PK^E21 FY2007 TR.F.BalanceSheet
+{"fields": ["TR.F.BalanceSheet.fieldname", "TR.F.BalanceSheet.fielddescription", "TR.F.BalanceSheet"], "parameters": {"Curn": "USD", "Period": "FY2007", "ReportingState": "Orig", "Scale": 0}, "universe": ["FTRCQ.PK^E21"]}
+Traceback (most recent call last):
+  File "C:\Users\SaleUEP.UE\Downloads\lseg_1.py", line 543, in call
+    frame = self.ld.get_data(**request, header_type=self.ld.HeaderType.NAME)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 87, in get_data
+    return _get_data_eikon_approach(universe, fields, parameters, header_type, session)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 138, in _get_data_eikon_approach
+    raise_if_all(exceptions)
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 94, in raise_if_all
+    raise LDError(message="\n\n".join(exceptions))
+lseg.data._errors.LDError: Unable to resolve all requested identifiers in ['FTRCQ.PK^E21'].
+
+
+IACVV.O^D25 FY2007 TR.F.BalanceSheet
+{"fields": ["TR.F.BalanceSheet.fieldname", "TR.F.BalanceSheet.fielddescription", "TR.F.BalanceSheet"], "parameters": {"Curn": "USD", "Period": "FY2007", "ReportingState": "Orig", "Scale": 0}, "universe": ["IACVV.O^D25"]}
+Traceback (most recent call last):
+  File "C:\Users\SaleUEP.UE\Downloads\lseg_1.py", line 543, in call
+    frame = self.ld.get_data(**request, header_type=self.ld.HeaderType.NAME)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 87, in get_data
+    return _get_data_eikon_approach(universe, fields, parameters, header_type, session)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 138, in _get_data_eikon_approach
+    raise_if_all(exceptions)
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 94, in raise_if_all
+    raise LDError(message="\n\n".join(exceptions))
+lseg.data._errors.LDError: Unable to resolve all requested identifiers in ['IACVV.O^D25'].
+
+
+IACVV.O^D25 FY2007 TR.F.BalanceSheet
+{"fields": ["TR.F.BalanceSheet.fieldname", "TR.F.BalanceSheet.fielddescription", "TR.F.BalanceSheet"], "parameters": {"Curn": "USD", "Period": "FY2007", "ReportingState": "Orig", "Scale": 0}, "universe": ["IACVV.O^D25"]}
+Traceback (most recent call last):
+  File "C:\Users\SaleUEP.UE\Downloads\lseg_1.py", line 543, in call
+    frame = self.ld.get_data(**request, header_type=self.ld.HeaderType.NAME)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 87, in get_data
+    return _get_data_eikon_approach(universe, fields, parameters, header_type, session)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 138, in _get_data_eikon_approach
+    raise_if_all(exceptions)
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 94, in raise_if_all
+    raise LDError(message="\n\n".join(exceptions))
+lseg.data._errors.LDError: Unable to resolve all requested identifiers in ['IACVV.O^D25'].
+
+
+LEHMQ.PK^C12 FY2007 TR.F.BalanceSheet
+{"fields": ["TR.F.BalanceSheet.fieldname", "TR.F.BalanceSheet.fielddescription", "TR.F.BalanceSheet"], "parameters": {"Curn": "USD", "Period": "FY2007", "ReportingState": "Orig", "Scale": 0}, "universe": ["LEHMQ.PK^C12"]}
+Traceback (most recent call last):
+  File "C:\Users\SaleUEP.UE\Downloads\lseg_1.py", line 543, in call
+    frame = self.ld.get_data(**request, header_type=self.ld.HeaderType.NAME)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 87, in get_data
+    return _get_data_eikon_approach(universe, fields, parameters, header_type, session)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 138, in _get_data_eikon_approach
+    raise_if_all(exceptions)
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 94, in raise_if_all
+    raise LDError(message="\n\n".join(exceptions))
+lseg.data._errors.LDError: Unable to resolve all requested identifiers in ['LEHMQ.PK^C12'].
+
+
+LEHMQ.PK^C12 FY2007 TR.F.BalanceSheet
+{"fields": ["TR.F.BalanceSheet.fieldname", "TR.F.BalanceSheet.fielddescription", "TR.F.BalanceSheet"], "parameters": {"Curn": "USD", "Period": "FY2007", "ReportingState": "Orig", "Scale": 0}, "universe": ["LEHMQ.PK^C12"]}
+Traceback (most recent call last):
+  File "C:\Users\SaleUEP.UE\Downloads\lseg_1.py", line 543, in call
+    frame = self.ld.get_data(**request, header_type=self.ld.HeaderType.NAME)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 87, in get_data
+    return _get_data_eikon_approach(universe, fields, parameters, header_type, session)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 138, in _get_data_eikon_approach
+    raise_if_all(exceptions)
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 94, in raise_if_all
+    raise LDError(message="\n\n".join(exceptions))
+lseg.data._errors.LDError: Unable to resolve all requested identifiers in ['LEHMQ.PK^C12'].
+
+
+MTLQQ.PK^D11 FY2007 TR.F.BalanceSheet
+{"fields": ["TR.F.BalanceSheet.fieldname", "TR.F.BalanceSheet.fielddescription", "TR.F.BalanceSheet"], "parameters": {"Curn": "USD", "Period": "FY2007", "ReportingState": "Orig", "Scale": 0}, "universe": ["MTLQQ.PK^D11"]}
+Traceback (most recent call last):
+  File "C:\Users\SaleUEP.UE\Downloads\lseg_1.py", line 543, in call
+    frame = self.ld.get_data(**request, header_type=self.ld.HeaderType.NAME)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 87, in get_data
+    return _get_data_eikon_approach(universe, fields, parameters, header_type, session)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 138, in _get_data_eikon_approach
+    raise_if_all(exceptions)
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 94, in raise_if_all
+    raise LDError(message="\n\n".join(exceptions))
+lseg.data._errors.LDError: Unable to resolve all requested identifiers in ['MTLQQ.PK^D11'].
+
+
+MTLQQ.PK^D11 FY2007 TR.F.BalanceSheet
+{"fields": ["TR.F.BalanceSheet.fieldname", "TR.F.BalanceSheet.fielddescription", "TR.F.BalanceSheet"], "parameters": {"Curn": "USD", "Period": "FY2007", "ReportingState": "Orig", "Scale": 0}, "universe": ["MTLQQ.PK^D11"]}
+Traceback (most recent call last):
+  File "C:\Users\SaleUEP.UE\Downloads\lseg_1.py", line 543, in call
+    frame = self.ld.get_data(**request, header_type=self.ld.HeaderType.NAME)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 87, in get_data
+    return _get_data_eikon_approach(universe, fields, parameters, header_type, session)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 138, in _get_data_eikon_approach
+    raise_if_all(exceptions)
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 94, in raise_if_all
+    raise LDError(message="\n\n".join(exceptions))
+lseg.data._errors.LDError: Unable to resolve all requested identifiers in ['MTLQQ.PK^D11'].
+
+
+PX^J18 FY2007 TR.F.BalanceSheet
+{"fields": ["TR.F.BalanceSheet.fieldname", "TR.F.BalanceSheet.fielddescription", "TR.F.BalanceSheet"], "parameters": {"Curn": "USD", "Period": "FY2007", "ReportingState": "Orig", "Scale": 0}, "universe": ["PX^J18"]}
+Traceback (most recent call last):
+  File "C:\Users\SaleUEP.UE\Downloads\lseg_1.py", line 543, in call
+    frame = self.ld.get_data(**request, header_type=self.ld.HeaderType.NAME)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 87, in get_data
+    return _get_data_eikon_approach(universe, fields, parameters, header_type, session)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 138, in _get_data_eikon_approach
+    raise_if_all(exceptions)
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 94, in raise_if_all
+    raise LDError(message="\n\n".join(exceptions))
+lseg.data._errors.LDError: Unable to resolve all requested identifiers in ['PX^J18'].
+
+
+PX^J18 FY2007 TR.F.BalanceSheet
+{"fields": ["TR.F.BalanceSheet.fieldname", "TR.F.BalanceSheet.fielddescription", "TR.F.BalanceSheet"], "parameters": {"Curn": "USD", "Period": "FY2007", "ReportingState": "Orig", "Scale": 0}, "universe": ["PX^J18"]}
+Traceback (most recent call last):
+  File "C:\Users\SaleUEP.UE\Downloads\lseg_1.py", line 543, in call
+    frame = self.ld.get_data(**request, header_type=self.ld.HeaderType.NAME)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 87, in get_data
+    return _get_data_eikon_approach(universe, fields, parameters, header_type, session)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 138, in _get_data_eikon_approach
+    raise_if_all(exceptions)
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 94, in raise_if_all
+    raise LDError(message="\n\n".join(exceptions))
+lseg.data._errors.LDError: Unable to resolve all requested identifiers in ['PX^J18'].
+
+
+DNRCQ.PK^I20 FY2008 TR.F.BalanceSheet
+{"fields": ["TR.F.BalanceSheet.fieldname", "TR.F.BalanceSheet.fielddescription", "TR.F.BalanceSheet"], "parameters": {"Curn": "USD", "Period": "FY2008", "ReportingState": "Orig", "Scale": 0}, "universe": ["DNRCQ.PK^I20"]}
+Traceback (most recent call last):
+  File "C:\Users\SaleUEP.UE\Downloads\lseg_1.py", line 543, in call
+    frame = self.ld.get_data(**request, header_type=self.ld.HeaderType.NAME)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 87, in get_data
+    return _get_data_eikon_approach(universe, fields, parameters, header_type, session)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 138, in _get_data_eikon_approach
+    raise_if_all(exceptions)
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 94, in raise_if_all
+    raise LDError(message="\n\n".join(exceptions))
+lseg.data._errors.LDError: Unable to resolve all requested identifiers in ['DNRCQ.PK^I20'].
+
+
+DNRCQ.PK^I20 FY2008 TR.F.BalanceSheet
+{"fields": ["TR.F.BalanceSheet.fieldname", "TR.F.BalanceSheet.fielddescription", "TR.F.BalanceSheet"], "parameters": {"Curn": "USD", "Period": "FY2008", "ReportingState": "Orig", "Scale": 0}, "universe": ["DNRCQ.PK^I20"]}
+Traceback (most recent call last):
+  File "C:\Users\SaleUEP.UE\Downloads\lseg_1.py", line 543, in call
+    frame = self.ld.get_data(**request, header_type=self.ld.HeaderType.NAME)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 87, in get_data
+    return _get_data_eikon_approach(universe, fields, parameters, header_type, session)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 138, in _get_data_eikon_approach
+    raise_if_all(exceptions)
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 94, in raise_if_all
+    raise LDError(message="\n\n".join(exceptions))
+lseg.data._errors.LDError: Unable to resolve all requested identifiers in ['DNRCQ.PK^I20'].
+
+
+FTRCQ.PK^E21 FY2008 TR.F.BalanceSheet
+{"fields": ["TR.F.BalanceSheet.fieldname", "TR.F.BalanceSheet.fielddescription", "TR.F.BalanceSheet"], "parameters": {"Curn": "USD", "Period": "FY2008", "ReportingState": "Orig", "Scale": 0}, "universe": ["FTRCQ.PK^E21"]}
+Traceback (most recent call last):
+  File "C:\Users\SaleUEP.UE\Downloads\lseg_1.py", line 543, in call
+    frame = self.ld.get_data(**request, header_type=self.ld.HeaderType.NAME)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 87, in get_data
+    return _get_data_eikon_approach(universe, fields, parameters, header_type, session)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 138, in _get_data_eikon_approach
+    raise_if_all(exceptions)
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 94, in raise_if_all
+    raise LDError(message="\n\n".join(exceptions))
+lseg.data._errors.LDError: Unable to resolve all requested identifiers in ['FTRCQ.PK^E21'].
+
+
+FTRCQ.PK^E21 FY2008 TR.F.BalanceSheet
+{"fields": ["TR.F.BalanceSheet.fieldname", "TR.F.BalanceSheet.fielddescription", "TR.F.BalanceSheet"], "parameters": {"Curn": "USD", "Period": "FY2008", "ReportingState": "Orig", "Scale": 0}, "universe": ["FTRCQ.PK^E21"]}
+Traceback (most recent call last):
+  File "C:\Users\SaleUEP.UE\Downloads\lseg_1.py", line 543, in call
+    frame = self.ld.get_data(**request, header_type=self.ld.HeaderType.NAME)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 87, in get_data
+    return _get_data_eikon_approach(universe, fields, parameters, header_type, session)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 138, in _get_data_eikon_approach
+    raise_if_all(exceptions)
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 94, in raise_if_all
+    raise LDError(message="\n\n".join(exceptions))
+lseg.data._errors.LDError: Unable to resolve all requested identifiers in ['FTRCQ.PK^E21'].
+
+
+PX^J18 FY2008 TR.F.BalanceSheet
+{"fields": ["TR.F.BalanceSheet.fieldname", "TR.F.BalanceSheet.fielddescription", "TR.F.BalanceSheet"], "parameters": {"Curn": "USD", "Period": "FY2008", "ReportingState": "Orig", "Scale": 0}, "universe": ["PX^J18"]}
+Traceback (most recent call last):
+  File "C:\Users\SaleUEP.UE\Downloads\lseg_1.py", line 543, in call
+    frame = self.ld.get_data(**request, header_type=self.ld.HeaderType.NAME)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 87, in get_data
+    return _get_data_eikon_approach(universe, fields, parameters, header_type, session)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 138, in _get_data_eikon_approach
+    raise_if_all(exceptions)
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 94, in raise_if_all
+    raise LDError(message="\n\n".join(exceptions))
+lseg.data._errors.LDError: Unable to resolve all requested identifiers in ['PX^J18'].
+
+
+PX^J18 FY2008 TR.F.BalanceSheet
+{"fields": ["TR.F.BalanceSheet.fieldname", "TR.F.BalanceSheet.fielddescription", "TR.F.BalanceSheet"], "parameters": {"Curn": "USD", "Period": "FY2008", "ReportingState": "Orig", "Scale": 0}, "universe": ["PX^J18"]}
+Traceback (most recent call last):
+  File "C:\Users\SaleUEP.UE\Downloads\lseg_1.py", line 543, in call
+    frame = self.ld.get_data(**request, header_type=self.ld.HeaderType.NAME)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 87, in get_data
+    return _get_data_eikon_approach(universe, fields, parameters, header_type, session)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 138, in _get_data_eikon_approach
+    raise_if_all(exceptions)
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 94, in raise_if_all
+    raise LDError(message="\n\n".join(exceptions))
+lseg.data._errors.LDError: Unable to resolve all requested identifiers in ['PX^J18'].
+
+
+DNRCQ.PK^I20 FY2009 TR.F.BalanceSheet
+{"fields": ["TR.F.BalanceSheet.fieldname", "TR.F.BalanceSheet.fielddescription", "TR.F.BalanceSheet"], "parameters": {"Curn": "USD", "Period": "FY2009", "ReportingState": "Orig", "Scale": 0}, "universe": ["DNRCQ.PK^I20"]}
+Traceback (most recent call last):
+  File "C:\Users\SaleUEP.UE\Downloads\lseg_1.py", line 543, in call
+    frame = self.ld.get_data(**request, header_type=self.ld.HeaderType.NAME)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 87, in get_data
+    return _get_data_eikon_approach(universe, fields, parameters, header_type, session)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 138, in _get_data_eikon_approach
+    raise_if_all(exceptions)
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 94, in raise_if_all
+    raise LDError(message="\n\n".join(exceptions))
+lseg.data._errors.LDError: Unable to resolve all requested identifiers in ['DNRCQ.PK^I20'].
+
+
+DNRCQ.PK^I20 FY2009 TR.F.BalanceSheet
+{"fields": ["TR.F.BalanceSheet.fieldname", "TR.F.BalanceSheet.fielddescription", "TR.F.BalanceSheet"], "parameters": {"Curn": "USD", "Period": "FY2009", "ReportingState": "Orig", "Scale": 0}, "universe": ["DNRCQ.PK^I20"]}
+Traceback (most recent call last):
+  File "C:\Users\SaleUEP.UE\Downloads\lseg_1.py", line 543, in call
+    frame = self.ld.get_data(**request, header_type=self.ld.HeaderType.NAME)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 87, in get_data
+    return _get_data_eikon_approach(universe, fields, parameters, header_type, session)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 138, in _get_data_eikon_approach
+    raise_if_all(exceptions)
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 94, in raise_if_all
+    raise LDError(message="\n\n".join(exceptions))
+lseg.data._errors.LDError: Unable to resolve all requested identifiers in ['DNRCQ.PK^I20'].
+
+
+FTRCQ.PK^E21 FY2009 TR.F.BalanceSheet
+{"fields": ["TR.F.BalanceSheet.fieldname", "TR.F.BalanceSheet.fielddescription", "TR.F.BalanceSheet"], "parameters": {"Curn": "USD", "Period": "FY2009", "ReportingState": "Orig", "Scale": 0}, "universe": ["FTRCQ.PK^E21"]}
+Traceback (most recent call last):
+  File "C:\Users\SaleUEP.UE\Downloads\lseg_1.py", line 543, in call
+    frame = self.ld.get_data(**request, header_type=self.ld.HeaderType.NAME)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 87, in get_data
+    return _get_data_eikon_approach(universe, fields, parameters, header_type, session)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 138, in _get_data_eikon_approach
+    raise_if_all(exceptions)
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 94, in raise_if_all
+    raise LDError(message="\n\n".join(exceptions))
+lseg.data._errors.LDError: Unable to resolve all requested identifiers in ['FTRCQ.PK^E21'].
+
+
+FTRCQ.PK^E21 FY2009 TR.F.BalanceSheet
+{"fields": ["TR.F.BalanceSheet.fieldname", "TR.F.BalanceSheet.fielddescription", "TR.F.BalanceSheet"], "parameters": {"Curn": "USD", "Period": "FY2009", "ReportingState": "Orig", "Scale": 0}, "universe": ["FTRCQ.PK^E21"]}
+Traceback (most recent call last):
+  File "C:\Users\SaleUEP.UE\Downloads\lseg_1.py", line 543, in call
+    frame = self.ld.get_data(**request, header_type=self.ld.HeaderType.NAME)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 87, in get_data
+    return _get_data_eikon_approach(universe, fields, parameters, header_type, session)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 138, in _get_data_eikon_approach
+    raise_if_all(exceptions)
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 94, in raise_if_all
+    raise LDError(message="\n\n".join(exceptions))
+lseg.data._errors.LDError: Unable to resolve all requested identifiers in ['FTRCQ.PK^E21'].
+
+
+PX^J18 FY2009 TR.F.BalanceSheet
+{"fields": ["TR.F.BalanceSheet.fieldname", "TR.F.BalanceSheet.fielddescription", "TR.F.BalanceSheet"], "parameters": {"Curn": "USD", "Period": "FY2009", "ReportingState": "Orig", "Scale": 0}, "universe": ["PX^J18"]}
+Traceback (most recent call last):
+  File "C:\Users\SaleUEP.UE\Downloads\lseg_1.py", line 543, in call
+    frame = self.ld.get_data(**request, header_type=self.ld.HeaderType.NAME)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 87, in get_data
+    return _get_data_eikon_approach(universe, fields, parameters, header_type, session)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 138, in _get_data_eikon_approach
+    raise_if_all(exceptions)
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 94, in raise_if_all
+    raise LDError(message="\n\n".join(exceptions))
+lseg.data._errors.LDError: Unable to resolve all requested identifiers in ['PX^J18'].
+
+
+PX^J18 FY2009 TR.F.BalanceSheet
+{"fields": ["TR.F.BalanceSheet.fieldname", "TR.F.BalanceSheet.fielddescription", "TR.F.BalanceSheet"], "parameters": {"Curn": "USD", "Period": "FY2009", "ReportingState": "Orig", "Scale": 0}, "universe": ["PX^J18"]}
+Traceback (most recent call last):
+  File "C:\Users\SaleUEP.UE\Downloads\lseg_1.py", line 543, in call
+    frame = self.ld.get_data(**request, header_type=self.ld.HeaderType.NAME)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 87, in get_data
+    return _get_data_eikon_approach(universe, fields, parameters, header_type, session)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 138, in _get_data_eikon_approach
+    raise_if_all(exceptions)
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 94, in raise_if_all
+    raise LDError(message="\n\n".join(exceptions))
+lseg.data._errors.LDError: Unable to resolve all requested identifiers in ['PX^J18'].
+
+
+DNRCQ.PK^I20 FY2010 TR.F.BalanceSheet
+{"fields": ["TR.F.BalanceSheet.fieldname", "TR.F.BalanceSheet.fielddescription", "TR.F.BalanceSheet"], "parameters": {"Curn": "USD", "Period": "FY2010", "ReportingState": "Orig", "Scale": 0}, "universe": ["DNRCQ.PK^I20"]}
+Traceback (most recent call last):
+  File "C:\Users\SaleUEP.UE\Downloads\lseg_1.py", line 543, in call
+    frame = self.ld.get_data(**request, header_type=self.ld.HeaderType.NAME)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 87, in get_data
+    return _get_data_eikon_approach(universe, fields, parameters, header_type, session)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 138, in _get_data_eikon_approach
+    raise_if_all(exceptions)
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 94, in raise_if_all
+    raise LDError(message="\n\n".join(exceptions))
+lseg.data._errors.LDError: Unable to resolve all requested identifiers in ['DNRCQ.PK^I20'].
+
+
+DNRCQ.PK^I20 FY2010 TR.F.BalanceSheet
+{"fields": ["TR.F.BalanceSheet.fieldname", "TR.F.BalanceSheet.fielddescription", "TR.F.BalanceSheet"], "parameters": {"Curn": "USD", "Period": "FY2010", "ReportingState": "Orig", "Scale": 0}, "universe": ["DNRCQ.PK^I20"]}
+Traceback (most recent call last):
+  File "C:\Users\SaleUEP.UE\Downloads\lseg_1.py", line 543, in call
+    frame = self.ld.get_data(**request, header_type=self.ld.HeaderType.NAME)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 87, in get_data
+    return _get_data_eikon_approach(universe, fields, parameters, header_type, session)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 138, in _get_data_eikon_approach
+    raise_if_all(exceptions)
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 94, in raise_if_all
+    raise LDError(message="\n\n".join(exceptions))
+lseg.data._errors.LDError: Unable to resolve all requested identifiers in ['DNRCQ.PK^I20'].
+
+
+FTRCQ.PK^E21 FY2010 TR.F.BalanceSheet
+{"fields": ["TR.F.BalanceSheet.fieldname", "TR.F.BalanceSheet.fielddescription", "TR.F.BalanceSheet"], "parameters": {"Curn": "USD", "Period": "FY2010", "ReportingState": "Orig", "Scale": 0}, "universe": ["FTRCQ.PK^E21"]}
+Traceback (most recent call last):
+  File "C:\Users\SaleUEP.UE\Downloads\lseg_1.py", line 543, in call
+    frame = self.ld.get_data(**request, header_type=self.ld.HeaderType.NAME)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 87, in get_data
+    return _get_data_eikon_approach(universe, fields, parameters, header_type, session)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 138, in _get_data_eikon_approach
+    raise_if_all(exceptions)
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 94, in raise_if_all
+    raise LDError(message="\n\n".join(exceptions))
+lseg.data._errors.LDError: Unable to resolve all requested identifiers in ['FTRCQ.PK^E21'].
+
+
+FTRCQ.PK^E21 FY2010 TR.F.BalanceSheet
+{"fields": ["TR.F.BalanceSheet.fieldname", "TR.F.BalanceSheet.fielddescription", "TR.F.BalanceSheet"], "parameters": {"Curn": "USD", "Period": "FY2010", "ReportingState": "Orig", "Scale": 0}, "universe": ["FTRCQ.PK^E21"]}
+Traceback (most recent call last):
+  File "C:\Users\SaleUEP.UE\Downloads\lseg_1.py", line 543, in call
+    frame = self.ld.get_data(**request, header_type=self.ld.HeaderType.NAME)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 87, in get_data
+    return _get_data_eikon_approach(universe, fields, parameters, header_type, session)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 138, in _get_data_eikon_approach
+    raise_if_all(exceptions)
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 94, in raise_if_all
+    raise LDError(message="\n\n".join(exceptions))
+lseg.data._errors.LDError: Unable to resolve all requested identifiers in ['FTRCQ.PK^E21'].
+
+
+PX^J18 FY2010 TR.F.BalanceSheet
+{"fields": ["TR.F.BalanceSheet.fieldname", "TR.F.BalanceSheet.fielddescription", "TR.F.BalanceSheet"], "parameters": {"Curn": "USD", "Period": "FY2010", "ReportingState": "Orig", "Scale": 0}, "universe": ["PX^J18"]}
+Traceback (most recent call last):
+  File "C:\Users\SaleUEP.UE\Downloads\lseg_1.py", line 543, in call
+    frame = self.ld.get_data(**request, header_type=self.ld.HeaderType.NAME)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 87, in get_data
+    return _get_data_eikon_approach(universe, fields, parameters, header_type, session)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 138, in _get_data_eikon_approach
+    raise_if_all(exceptions)
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 94, in raise_if_all
+    raise LDError(message="\n\n".join(exceptions))
+lseg.data._errors.LDError: Unable to resolve all requested identifiers in ['PX^J18'].
+
+
+PX^J18 FY2010 TR.F.BalanceSheet
+{"fields": ["TR.F.BalanceSheet.fieldname", "TR.F.BalanceSheet.fielddescription", "TR.F.BalanceSheet"], "parameters": {"Curn": "USD", "Period": "FY2010", "ReportingState": "Orig", "Scale": 0}, "universe": ["PX^J18"]}
+Traceback (most recent call last):
+  File "C:\Users\SaleUEP.UE\Downloads\lseg_1.py", line 543, in call
+    frame = self.ld.get_data(**request, header_type=self.ld.HeaderType.NAME)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 87, in get_data
+    return _get_data_eikon_approach(universe, fields, parameters, header_type, session)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 138, in _get_data_eikon_approach
+    raise_if_all(exceptions)
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 94, in raise_if_all
+    raise LDError(message="\n\n".join(exceptions))
+lseg.data._errors.LDError: Unable to resolve all requested identifiers in ['PX^J18'].
+
+
+DNRCQ.PK^I20 FY2011 TR.F.BalanceSheet
+{"fields": ["TR.F.BalanceSheet.fieldname", "TR.F.BalanceSheet.fielddescription", "TR.F.BalanceSheet"], "parameters": {"Curn": "USD", "Period": "FY2011", "ReportingState": "Orig", "Scale": 0}, "universe": ["DNRCQ.PK^I20"]}
+Traceback (most recent call last):
+  File "C:\Users\SaleUEP.UE\Downloads\lseg_1.py", line 543, in call
+    frame = self.ld.get_data(**request, header_type=self.ld.HeaderType.NAME)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 87, in get_data
+    return _get_data_eikon_approach(universe, fields, parameters, header_type, session)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 138, in _get_data_eikon_approach
+    raise_if_all(exceptions)
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 94, in raise_if_all
+    raise LDError(message="\n\n".join(exceptions))
+lseg.data._errors.LDError: Unable to resolve all requested identifiers in ['DNRCQ.PK^I20'].
+
+
+DNRCQ.PK^I20 FY2011 TR.F.BalanceSheet
+{"fields": ["TR.F.BalanceSheet.fieldname", "TR.F.BalanceSheet.fielddescription", "TR.F.BalanceSheet"], "parameters": {"Curn": "USD", "Period": "FY2011", "ReportingState": "Orig", "Scale": 0}, "universe": ["DNRCQ.PK^I20"]}
+Traceback (most recent call last):
+  File "C:\Users\SaleUEP.UE\Downloads\lseg_1.py", line 543, in call
+    frame = self.ld.get_data(**request, header_type=self.ld.HeaderType.NAME)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 87, in get_data
+    return _get_data_eikon_approach(universe, fields, parameters, header_type, session)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 138, in _get_data_eikon_approach
+    raise_if_all(exceptions)
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 94, in raise_if_all
+    raise LDError(message="\n\n".join(exceptions))
+lseg.data._errors.LDError: Unable to resolve all requested identifiers in ['DNRCQ.PK^I20'].
+
+
+FTRCQ.PK^E21 FY2011 TR.F.BalanceSheet
+{"fields": ["TR.F.BalanceSheet.fieldname", "TR.F.BalanceSheet.fielddescription", "TR.F.BalanceSheet"], "parameters": {"Curn": "USD", "Period": "FY2011", "ReportingState": "Orig", "Scale": 0}, "universe": ["FTRCQ.PK^E21"]}
+Traceback (most recent call last):
+  File "C:\Users\SaleUEP.UE\Downloads\lseg_1.py", line 543, in call
+    frame = self.ld.get_data(**request, header_type=self.ld.HeaderType.NAME)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 87, in get_data
+    return _get_data_eikon_approach(universe, fields, parameters, header_type, session)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 138, in _get_data_eikon_approach
+    raise_if_all(exceptions)
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 94, in raise_if_all
+    raise LDError(message="\n\n".join(exceptions))
+lseg.data._errors.LDError: Unable to resolve all requested identifiers in ['FTRCQ.PK^E21'].
+
+
+FTRCQ.PK^E21 FY2011 TR.F.BalanceSheet
+{"fields": ["TR.F.BalanceSheet.fieldname", "TR.F.BalanceSheet.fielddescription", "TR.F.BalanceSheet"], "parameters": {"Curn": "USD", "Period": "FY2011", "ReportingState": "Orig", "Scale": 0}, "universe": ["FTRCQ.PK^E21"]}
+Traceback (most recent call last):
+  File "C:\Users\SaleUEP.UE\Downloads\lseg_1.py", line 543, in call
+    frame = self.ld.get_data(**request, header_type=self.ld.HeaderType.NAME)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 87, in get_data
+    return _get_data_eikon_approach(universe, fields, parameters, header_type, session)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 138, in _get_data_eikon_approach
+    raise_if_all(exceptions)
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 94, in raise_if_all
+    raise LDError(message="\n\n".join(exceptions))
+lseg.data._errors.LDError: Unable to resolve all requested identifiers in ['FTRCQ.PK^E21'].
+
+
+PX^J18 FY2011 TR.F.BalanceSheet
+{"fields": ["TR.F.BalanceSheet.fieldname", "TR.F.BalanceSheet.fielddescription", "TR.F.BalanceSheet"], "parameters": {"Curn": "USD", "Period": "FY2011", "ReportingState": "Orig", "Scale": 0}, "universe": ["PX^J18"]}
+Traceback (most recent call last):
+  File "C:\Users\SaleUEP.UE\Downloads\lseg_1.py", line 543, in call
+    frame = self.ld.get_data(**request, header_type=self.ld.HeaderType.NAME)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 87, in get_data
+    return _get_data_eikon_approach(universe, fields, parameters, header_type, session)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 138, in _get_data_eikon_approach
+    raise_if_all(exceptions)
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 94, in raise_if_all
+    raise LDError(message="\n\n".join(exceptions))
+lseg.data._errors.LDError: Unable to resolve all requested identifiers in ['PX^J18'].
+
+
+PX^J18 FY2011 TR.F.BalanceSheet
+{"fields": ["TR.F.BalanceSheet.fieldname", "TR.F.BalanceSheet.fielddescription", "TR.F.BalanceSheet"], "parameters": {"Curn": "USD", "Period": "FY2011", "ReportingState": "Orig", "Scale": 0}, "universe": ["PX^J18"]}
+Traceback (most recent call last):
+  File "C:\Users\SaleUEP.UE\Downloads\lseg_1.py", line 543, in call
+    frame = self.ld.get_data(**request, header_type=self.ld.HeaderType.NAME)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 87, in get_data
+    return _get_data_eikon_approach(universe, fields, parameters, header_type, session)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 138, in _get_data_eikon_approach
+    raise_if_all(exceptions)
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 94, in raise_if_all
+    raise LDError(message="\n\n".join(exceptions))
+lseg.data._errors.LDError: Unable to resolve all requested identifiers in ['PX^J18'].
+
+
+DNRCQ.PK^I20 FY2012 TR.F.BalanceSheet
+{"fields": ["TR.F.BalanceSheet.fieldname", "TR.F.BalanceSheet.fielddescription", "TR.F.BalanceSheet"], "parameters": {"Curn": "USD", "Period": "FY2012", "ReportingState": "Orig", "Scale": 0}, "universe": ["DNRCQ.PK^I20"]}
+Traceback (most recent call last):
+  File "C:\Users\SaleUEP.UE\Downloads\lseg_1.py", line 543, in call
+    frame = self.ld.get_data(**request, header_type=self.ld.HeaderType.NAME)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 87, in get_data
+    return _get_data_eikon_approach(universe, fields, parameters, header_type, session)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 138, in _get_data_eikon_approach
+    raise_if_all(exceptions)
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 94, in raise_if_all
+    raise LDError(message="\n\n".join(exceptions))
+lseg.data._errors.LDError: Unable to resolve all requested identifiers in ['DNRCQ.PK^I20'].
+
+
+DNRCQ.PK^I20 FY2012 TR.F.BalanceSheet
+{"fields": ["TR.F.BalanceSheet.fieldname", "TR.F.BalanceSheet.fielddescription", "TR.F.BalanceSheet"], "parameters": {"Curn": "USD", "Period": "FY2012", "ReportingState": "Orig", "Scale": 0}, "universe": ["DNRCQ.PK^I20"]}
+Traceback (most recent call last):
+  File "C:\Users\SaleUEP.UE\Downloads\lseg_1.py", line 543, in call
+    frame = self.ld.get_data(**request, header_type=self.ld.HeaderType.NAME)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 87, in get_data
+    return _get_data_eikon_approach(universe, fields, parameters, header_type, session)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 138, in _get_data_eikon_approach
+    raise_if_all(exceptions)
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 94, in raise_if_all
+    raise LDError(message="\n\n".join(exceptions))
+lseg.data._errors.LDError: Unable to resolve all requested identifiers in ['DNRCQ.PK^I20'].
+
+
+FTRCQ.PK^E21 FY2012 TR.F.BalanceSheet
+{"fields": ["TR.F.BalanceSheet.fieldname", "TR.F.BalanceSheet.fielddescription", "TR.F.BalanceSheet"], "parameters": {"Curn": "USD", "Period": "FY2012", "ReportingState": "Orig", "Scale": 0}, "universe": ["FTRCQ.PK^E21"]}
+Traceback (most recent call last):
+  File "C:\Users\SaleUEP.UE\Downloads\lseg_1.py", line 543, in call
+    frame = self.ld.get_data(**request, header_type=self.ld.HeaderType.NAME)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 87, in get_data
+    return _get_data_eikon_approach(universe, fields, parameters, header_type, session)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 138, in _get_data_eikon_approach
+    raise_if_all(exceptions)
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 94, in raise_if_all
+    raise LDError(message="\n\n".join(exceptions))
+lseg.data._errors.LDError: Unable to resolve all requested identifiers in ['FTRCQ.PK^E21'].
+
+
+FTRCQ.PK^E21 FY2012 TR.F.BalanceSheet
+{"fields": ["TR.F.BalanceSheet.fieldname", "TR.F.BalanceSheet.fielddescription", "TR.F.BalanceSheet"], "parameters": {"Curn": "USD", "Period": "FY2012", "ReportingState": "Orig", "Scale": 0}, "universe": ["FTRCQ.PK^E21"]}
+Traceback (most recent call last):
+  File "C:\Users\SaleUEP.UE\Downloads\lseg_1.py", line 543, in call
+    frame = self.ld.get_data(**request, header_type=self.ld.HeaderType.NAME)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 87, in get_data
+    return _get_data_eikon_approach(universe, fields, parameters, header_type, session)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 138, in _get_data_eikon_approach
+    raise_if_all(exceptions)
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 94, in raise_if_all
+    raise LDError(message="\n\n".join(exceptions))
+lseg.data._errors.LDError: Unable to resolve all requested identifiers in ['FTRCQ.PK^E21'].
+
+
+PX^J18 FY2012 TR.F.BalanceSheet
+{"fields": ["TR.F.BalanceSheet.fieldname", "TR.F.BalanceSheet.fielddescription", "TR.F.BalanceSheet"], "parameters": {"Curn": "USD", "Period": "FY2012", "ReportingState": "Orig", "Scale": 0}, "universe": ["PX^J18"]}
+Traceback (most recent call last):
+  File "C:\Users\SaleUEP.UE\Downloads\lseg_1.py", line 543, in call
+    frame = self.ld.get_data(**request, header_type=self.ld.HeaderType.NAME)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 87, in get_data
+    return _get_data_eikon_approach(universe, fields, parameters, header_type, session)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 138, in _get_data_eikon_approach
+    raise_if_all(exceptions)
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 94, in raise_if_all
+    raise LDError(message="\n\n".join(exceptions))
+lseg.data._errors.LDError: Unable to resolve all requested identifiers in ['PX^J18'].
+
+
+PX^J18 FY2012 TR.F.BalanceSheet
+{"fields": ["TR.F.BalanceSheet.fieldname", "TR.F.BalanceSheet.fielddescription", "TR.F.BalanceSheet"], "parameters": {"Curn": "USD", "Period": "FY2012", "ReportingState": "Orig", "Scale": 0}, "universe": ["PX^J18"]}
+Traceback (most recent call last):
+  File "C:\Users\SaleUEP.UE\Downloads\lseg_1.py", line 543, in call
+    frame = self.ld.get_data(**request, header_type=self.ld.HeaderType.NAME)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 87, in get_data
+    return _get_data_eikon_approach(universe, fields, parameters, header_type, session)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 138, in _get_data_eikon_approach
+    raise_if_all(exceptions)
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 94, in raise_if_all
+    raise LDError(message="\n\n".join(exceptions))
+lseg.data._errors.LDError: Unable to resolve all requested identifiers in ['PX^J18'].
+
+
+DNRCQ.PK^I20 FY2013 TR.F.BalanceSheet
+{"fields": ["TR.F.BalanceSheet.fieldname", "TR.F.BalanceSheet.fielddescription", "TR.F.BalanceSheet"], "parameters": {"Curn": "USD", "Period": "FY2013", "ReportingState": "Orig", "Scale": 0}, "universe": ["DNRCQ.PK^I20"]}
+Traceback (most recent call last):
+  File "C:\Users\SaleUEP.UE\Downloads\lseg_1.py", line 543, in call
+    frame = self.ld.get_data(**request, header_type=self.ld.HeaderType.NAME)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 87, in get_data
+    return _get_data_eikon_approach(universe, fields, parameters, header_type, session)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 138, in _get_data_eikon_approach
+    raise_if_all(exceptions)
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 94, in raise_if_all
+    raise LDError(message="\n\n".join(exceptions))
+lseg.data._errors.LDError: Unable to resolve all requested identifiers in ['DNRCQ.PK^I20'].
+
+
+DNRCQ.PK^I20 FY2013 TR.F.BalanceSheet
+{"fields": ["TR.F.BalanceSheet.fieldname", "TR.F.BalanceSheet.fielddescription", "TR.F.BalanceSheet"], "parameters": {"Curn": "USD", "Period": "FY2013", "ReportingState": "Orig", "Scale": 0}, "universe": ["DNRCQ.PK^I20"]}
+Traceback (most recent call last):
+  File "C:\Users\SaleUEP.UE\Downloads\lseg_1.py", line 543, in call
+    frame = self.ld.get_data(**request, header_type=self.ld.HeaderType.NAME)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 87, in get_data
+    return _get_data_eikon_approach(universe, fields, parameters, header_type, session)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 138, in _get_data_eikon_approach
+    raise_if_all(exceptions)
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 94, in raise_if_all
+    raise LDError(message="\n\n".join(exceptions))
+lseg.data._errors.LDError: Unable to resolve all requested identifiers in ['DNRCQ.PK^I20'].
+
+
+FTRCQ.PK^E21 FY2013 TR.F.BalanceSheet
+{"fields": ["TR.F.BalanceSheet.fieldname", "TR.F.BalanceSheet.fielddescription", "TR.F.BalanceSheet"], "parameters": {"Curn": "USD", "Period": "FY2013", "ReportingState": "Orig", "Scale": 0}, "universe": ["FTRCQ.PK^E21"]}
+Traceback (most recent call last):
+  File "C:\Users\SaleUEP.UE\Downloads\lseg_1.py", line 543, in call
+    frame = self.ld.get_data(**request, header_type=self.ld.HeaderType.NAME)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 87, in get_data
+    return _get_data_eikon_approach(universe, fields, parameters, header_type, session)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 138, in _get_data_eikon_approach
+    raise_if_all(exceptions)
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 94, in raise_if_all
+    raise LDError(message="\n\n".join(exceptions))
+lseg.data._errors.LDError: Unable to resolve all requested identifiers in ['FTRCQ.PK^E21'].
+
+
+FTRCQ.PK^E21 FY2013 TR.F.BalanceSheet
+{"fields": ["TR.F.BalanceSheet.fieldname", "TR.F.BalanceSheet.fielddescription", "TR.F.BalanceSheet"], "parameters": {"Curn": "USD", "Period": "FY2013", "ReportingState": "Orig", "Scale": 0}, "universe": ["FTRCQ.PK^E21"]}
+Traceback (most recent call last):
+  File "C:\Users\SaleUEP.UE\Downloads\lseg_1.py", line 543, in call
+    frame = self.ld.get_data(**request, header_type=self.ld.HeaderType.NAME)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 87, in get_data
+    return _get_data_eikon_approach(universe, fields, parameters, header_type, session)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 138, in _get_data_eikon_approach
+    raise_if_all(exceptions)
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 94, in raise_if_all
+    raise LDError(message="\n\n".join(exceptions))
+lseg.data._errors.LDError: Unable to resolve all requested identifiers in ['FTRCQ.PK^E21'].
+
+
+PX^J18 FY2013 TR.F.BalanceSheet
+{"fields": ["TR.F.BalanceSheet.fieldname", "TR.F.BalanceSheet.fielddescription", "TR.F.BalanceSheet"], "parameters": {"Curn": "USD", "Period": "FY2013", "ReportingState": "Orig", "Scale": 0}, "universe": ["PX^J18"]}
+Traceback (most recent call last):
+  File "C:\Users\SaleUEP.UE\Downloads\lseg_1.py", line 543, in call
+    frame = self.ld.get_data(**request, header_type=self.ld.HeaderType.NAME)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 87, in get_data
+    return _get_data_eikon_approach(universe, fields, parameters, header_type, session)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 138, in _get_data_eikon_approach
+    raise_if_all(exceptions)
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 94, in raise_if_all
+    raise LDError(message="\n\n".join(exceptions))
+lseg.data._errors.LDError: Unable to resolve all requested identifiers in ['PX^J18'].
+
+
+PX^J18 FY2013 TR.F.BalanceSheet
+{"fields": ["TR.F.BalanceSheet.fieldname", "TR.F.BalanceSheet.fielddescription", "TR.F.BalanceSheet"], "parameters": {"Curn": "USD", "Period": "FY2013", "ReportingState": "Orig", "Scale": 0}, "universe": ["PX^J18"]}
+Traceback (most recent call last):
+  File "C:\Users\SaleUEP.UE\Downloads\lseg_1.py", line 543, in call
+    frame = self.ld.get_data(**request, header_type=self.ld.HeaderType.NAME)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 87, in get_data
+    return _get_data_eikon_approach(universe, fields, parameters, header_type, session)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 138, in _get_data_eikon_approach
+    raise_if_all(exceptions)
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 94, in raise_if_all
+    raise LDError(message="\n\n".join(exceptions))
+lseg.data._errors.LDError: Unable to resolve all requested identifiers in ['PX^J18'].
+
+
+FTRCQ.PK^E21 FY2014 TR.F.BalanceSheet
+{"fields": ["TR.F.BalanceSheet.fieldname", "TR.F.BalanceSheet.fielddescription", "TR.F.BalanceSheet"], "parameters": {"Curn": "USD", "Period": "FY2014", "ReportingState": "Orig", "Scale": 0}, "universe": ["FTRCQ.PK^E21"]}
+Traceback (most recent call last):
+  File "C:\Users\SaleUEP.UE\Downloads\lseg_1.py", line 543, in call
+    frame = self.ld.get_data(**request, header_type=self.ld.HeaderType.NAME)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 87, in get_data
+    return _get_data_eikon_approach(universe, fields, parameters, header_type, session)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 138, in _get_data_eikon_approach
+    raise_if_all(exceptions)
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 94, in raise_if_all
+    raise LDError(message="\n\n".join(exceptions))
+lseg.data._errors.LDError: Unable to resolve all requested identifiers in ['FTRCQ.PK^E21'].
+
+
+FTRCQ.PK^E21 FY2014 TR.F.BalanceSheet
+{"fields": ["TR.F.BalanceSheet.fieldname", "TR.F.BalanceSheet.fielddescription", "TR.F.BalanceSheet"], "parameters": {"Curn": "USD", "Period": "FY2014", "ReportingState": "Orig", "Scale": 0}, "universe": ["FTRCQ.PK^E21"]}
+Traceback (most recent call last):
+  File "C:\Users\SaleUEP.UE\Downloads\lseg_1.py", line 543, in call
+    frame = self.ld.get_data(**request, header_type=self.ld.HeaderType.NAME)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 87, in get_data
+    return _get_data_eikon_approach(universe, fields, parameters, header_type, session)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 138, in _get_data_eikon_approach
+    raise_if_all(exceptions)
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 94, in raise_if_all
+    raise LDError(message="\n\n".join(exceptions))
+lseg.data._errors.LDError: Unable to resolve all requested identifiers in ['FTRCQ.PK^E21'].
+
+
+PX^J18 FY2014 TR.F.BalanceSheet
+{"fields": ["TR.F.BalanceSheet.fieldname", "TR.F.BalanceSheet.fielddescription", "TR.F.BalanceSheet"], "parameters": {"Curn": "USD", "Period": "FY2014", "ReportingState": "Orig", "Scale": 0}, "universe": ["PX^J18"]}
+Traceback (most recent call last):
+  File "C:\Users\SaleUEP.UE\Downloads\lseg_1.py", line 543, in call
+    frame = self.ld.get_data(**request, header_type=self.ld.HeaderType.NAME)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 87, in get_data
+    return _get_data_eikon_approach(universe, fields, parameters, header_type, session)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 138, in _get_data_eikon_approach
+    raise_if_all(exceptions)
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 94, in raise_if_all
+    raise LDError(message="\n\n".join(exceptions))
+lseg.data._errors.LDError: Unable to resolve all requested identifiers in ['PX^J18'].
+
+
+PX^J18 FY2014 TR.F.BalanceSheet
+{"fields": ["TR.F.BalanceSheet.fieldname", "TR.F.BalanceSheet.fielddescription", "TR.F.BalanceSheet"], "parameters": {"Curn": "USD", "Period": "FY2014", "ReportingState": "Orig", "Scale": 0}, "universe": ["PX^J18"]}
+Traceback (most recent call last):
+  File "C:\Users\SaleUEP.UE\Downloads\lseg_1.py", line 543, in call
+    frame = self.ld.get_data(**request, header_type=self.ld.HeaderType.NAME)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 87, in get_data
+    return _get_data_eikon_approach(universe, fields, parameters, header_type, session)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 138, in _get_data_eikon_approach
+    raise_if_all(exceptions)
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 94, in raise_if_all
+    raise LDError(message="\n\n".join(exceptions))
+lseg.data._errors.LDError: Unable to resolve all requested identifiers in ['PX^J18'].
+
+
+FTRCQ.PK^E21 FY2015 TR.F.BalanceSheet
+{"fields": ["TR.F.BalanceSheet.fieldname", "TR.F.BalanceSheet.fielddescription", "TR.F.BalanceSheet"], "parameters": {"Curn": "USD", "Period": "FY2015", "ReportingState": "Orig", "Scale": 0}, "universe": ["FTRCQ.PK^E21"]}
+Traceback (most recent call last):
+  File "C:\Users\SaleUEP.UE\Downloads\lseg_1.py", line 543, in call
+    frame = self.ld.get_data(**request, header_type=self.ld.HeaderType.NAME)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 87, in get_data
+    return _get_data_eikon_approach(universe, fields, parameters, header_type, session)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 138, in _get_data_eikon_approach
+    raise_if_all(exceptions)
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 94, in raise_if_all
+    raise LDError(message="\n\n".join(exceptions))
+lseg.data._errors.LDError: Unable to resolve all requested identifiers in ['FTRCQ.PK^E21'].
+
+
+FTRCQ.PK^E21 FY2015 TR.F.BalanceSheet
+{"fields": ["TR.F.BalanceSheet.fieldname", "TR.F.BalanceSheet.fielddescription", "TR.F.BalanceSheet"], "parameters": {"Curn": "USD", "Period": "FY2015", "ReportingState": "Orig", "Scale": 0}, "universe": ["FTRCQ.PK^E21"]}
+Traceback (most recent call last):
+  File "C:\Users\SaleUEP.UE\Downloads\lseg_1.py", line 543, in call
+    frame = self.ld.get_data(**request, header_type=self.ld.HeaderType.NAME)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 87, in get_data
+    return _get_data_eikon_approach(universe, fields, parameters, header_type, session)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 138, in _get_data_eikon_approach
+    raise_if_all(exceptions)
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 94, in raise_if_all
+    raise LDError(message="\n\n".join(exceptions))
+lseg.data._errors.LDError: Unable to resolve all requested identifiers in ['FTRCQ.PK^E21'].
+
+
+PX^J18 FY2015 TR.F.BalanceSheet
+{"fields": ["TR.F.BalanceSheet.fieldname", "TR.F.BalanceSheet.fielddescription", "TR.F.BalanceSheet"], "parameters": {"Curn": "USD", "Period": "FY2015", "ReportingState": "Orig", "Scale": 0}, "universe": ["PX^J18"]}
+Traceback (most recent call last):
+  File "C:\Users\SaleUEP.UE\Downloads\lseg_1.py", line 543, in call
+    frame = self.ld.get_data(**request, header_type=self.ld.HeaderType.NAME)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 87, in get_data
+    return _get_data_eikon_approach(universe, fields, parameters, header_type, session)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 138, in _get_data_eikon_approach
+    raise_if_all(exceptions)
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 94, in raise_if_all
+    raise LDError(message="\n\n".join(exceptions))
+lseg.data._errors.LDError: Unable to resolve all requested identifiers in ['PX^J18'].
+
+
+PX^J18 FY2015 TR.F.BalanceSheet
+{"fields": ["TR.F.BalanceSheet.fieldname", "TR.F.BalanceSheet.fielddescription", "TR.F.BalanceSheet"], "parameters": {"Curn": "USD", "Period": "FY2015", "ReportingState": "Orig", "Scale": 0}, "universe": ["PX^J18"]}
+Traceback (most recent call last):
+  File "C:\Users\SaleUEP.UE\Downloads\lseg_1.py", line 543, in call
+    frame = self.ld.get_data(**request, header_type=self.ld.HeaderType.NAME)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 87, in get_data
+    return _get_data_eikon_approach(universe, fields, parameters, header_type, session)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 138, in _get_data_eikon_approach
+    raise_if_all(exceptions)
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 94, in raise_if_all
+    raise LDError(message="\n\n".join(exceptions))
+lseg.data._errors.LDError: Unable to resolve all requested identifiers in ['PX^J18'].
+
+
+PX^J18 FY2016 TR.F.BalanceSheet
+{"fields": ["TR.F.BalanceSheet.fieldname", "TR.F.BalanceSheet.fielddescription", "TR.F.BalanceSheet"], "parameters": {"Curn": "USD", "Period": "FY2016", "ReportingState": "Orig", "Scale": 0}, "universe": ["PX^J18"]}
+Traceback (most recent call last):
+  File "C:\Users\SaleUEP.UE\Downloads\lseg_1.py", line 543, in call
+    frame = self.ld.get_data(**request, header_type=self.ld.HeaderType.NAME)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 87, in get_data
+    return _get_data_eikon_approach(universe, fields, parameters, header_type, session)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 138, in _get_data_eikon_approach
+    raise_if_all(exceptions)
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 94, in raise_if_all
+    raise LDError(message="\n\n".join(exceptions))
+lseg.data._errors.LDError: Unable to resolve all requested identifiers in ['PX^J18'].
+
+
+PX^J18 FY2016 TR.F.BalanceSheet
+{"fields": ["TR.F.BalanceSheet.fieldname", "TR.F.BalanceSheet.fielddescription", "TR.F.BalanceSheet"], "parameters": {"Curn": "USD", "Period": "FY2016", "ReportingState": "Orig", "Scale": 0}, "universe": ["PX^J18"]}
+Traceback (most recent call last):
+  File "C:\Users\SaleUEP.UE\Downloads\lseg_1.py", line 543, in call
+    frame = self.ld.get_data(**request, header_type=self.ld.HeaderType.NAME)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 87, in get_data
+    return _get_data_eikon_approach(universe, fields, parameters, header_type, session)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 138, in _get_data_eikon_approach
+    raise_if_all(exceptions)
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 94, in raise_if_all
+    raise LDError(message="\n\n".join(exceptions))
+lseg.data._errors.LDError: Unable to resolve all requested identifiers in ['PX^J18'].
+
+
+PX^J18 FY2017 TR.F.BalanceSheet
+{"fields": ["TR.F.BalanceSheet.fieldname", "TR.F.BalanceSheet.fielddescription", "TR.F.BalanceSheet"], "parameters": {"Curn": "USD", "Period": "FY2017", "ReportingState": "Orig", "Scale": 0}, "universe": ["PX^J18"]}
+Traceback (most recent call last):
+  File "C:\Users\SaleUEP.UE\Downloads\lseg_1.py", line 543, in call
+    frame = self.ld.get_data(**request, header_type=self.ld.HeaderType.NAME)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 87, in get_data
+    return _get_data_eikon_approach(universe, fields, parameters, header_type, session)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 138, in _get_data_eikon_approach
+    raise_if_all(exceptions)
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 94, in raise_if_all
+    raise LDError(message="\n\n".join(exceptions))
+lseg.data._errors.LDError: Unable to resolve all requested identifiers in ['PX^J18'].
+
+
+PX^J18 FY2017 TR.F.BalanceSheet
+{"fields": ["TR.F.BalanceSheet.fieldname", "TR.F.BalanceSheet.fielddescription", "TR.F.BalanceSheet"], "parameters": {"Curn": "USD", "Period": "FY2017", "ReportingState": "Orig", "Scale": 0}, "universe": ["PX^J18"]}
+Traceback (most recent call last):
+  File "C:\Users\SaleUEP.UE\Downloads\lseg_1.py", line 543, in call
+    frame = self.ld.get_data(**request, header_type=self.ld.HeaderType.NAME)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 87, in get_data
+    return _get_data_eikon_approach(universe, fields, parameters, header_type, session)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 138, in _get_data_eikon_approach
+    raise_if_all(exceptions)
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 94, in raise_if_all
+    raise LDError(message="\n\n".join(exceptions))
+lseg.data._errors.LDError: Unable to resolve all requested identifiers in ['PX^J18'].
+
+
+LEHMQ.PK^C12 FY2006 TR.F.IncomeStatement
+{"fields": ["TR.F.IncomeStatement.fieldname", "TR.F.IncomeStatement.fielddescription", "TR.F.IncomeStatement"], "parameters": {"Curn": "USD", "Period": "FY2006", "ReportingState": "Orig", "Scale": 0}, "universe": ["LEHMQ.PK^C12"]}
+Traceback (most recent call last):
+  File "C:\Users\SaleUEP.UE\Downloads\lseg_1.py", line 543, in call
+    frame = self.ld.get_data(**request, header_type=self.ld.HeaderType.NAME)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 87, in get_data
+    return _get_data_eikon_approach(universe, fields, parameters, header_type, session)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 138, in _get_data_eikon_approach
+    raise_if_all(exceptions)
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 94, in raise_if_all
+    raise LDError(message="\n\n".join(exceptions))
+lseg.data._errors.LDError: Unable to resolve all requested identifiers in ['LEHMQ.PK^C12'].
+
+
+LEHMQ.PK^C12 FY2006 TR.F.IncomeStatement
+{"fields": ["TR.F.IncomeStatement.fieldname", "TR.F.IncomeStatement.fielddescription", "TR.F.IncomeStatement"], "parameters": {"Curn": "USD", "Period": "FY2006", "ReportingState": "Orig", "Scale": 0}, "universe": ["LEHMQ.PK^C12"]}
+Traceback (most recent call last):
+  File "C:\Users\SaleUEP.UE\Downloads\lseg_1.py", line 543, in call
+    frame = self.ld.get_data(**request, header_type=self.ld.HeaderType.NAME)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 87, in get_data
+    return _get_data_eikon_approach(universe, fields, parameters, header_type, session)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 138, in _get_data_eikon_approach
+    raise_if_all(exceptions)
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 94, in raise_if_all
+    raise LDError(message="\n\n".join(exceptions))
+lseg.data._errors.LDError: Unable to resolve all requested identifiers in ['LEHMQ.PK^C12'].
+
+
+LEHMQ.PK^C12 FY2007 TR.F.IncomeStatement
+{"fields": ["TR.F.IncomeStatement.fieldname", "TR.F.IncomeStatement.fielddescription", "TR.F.IncomeStatement"], "parameters": {"Curn": "USD", "Period": "FY2007", "ReportingState": "Orig", "Scale": 0}, "universe": ["LEHMQ.PK^C12"]}
+Traceback (most recent call last):
+  File "C:\Users\SaleUEP.UE\Downloads\lseg_1.py", line 543, in call
+    frame = self.ld.get_data(**request, header_type=self.ld.HeaderType.NAME)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 87, in get_data
+    return _get_data_eikon_approach(universe, fields, parameters, header_type, session)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 138, in _get_data_eikon_approach
+    raise_if_all(exceptions)
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 94, in raise_if_all
+    raise LDError(message="\n\n".join(exceptions))
+lseg.data._errors.LDError: Unable to resolve all requested identifiers in ['LEHMQ.PK^C12'].
+
+
+LEHMQ.PK^C12 FY2007 TR.F.IncomeStatement
+{"fields": ["TR.F.IncomeStatement.fieldname", "TR.F.IncomeStatement.fielddescription", "TR.F.IncomeStatement"], "parameters": {"Curn": "USD", "Period": "FY2007", "ReportingState": "Orig", "Scale": 0}, "universe": ["LEHMQ.PK^C12"]}
+Traceback (most recent call last):
+  File "C:\Users\SaleUEP.UE\Downloads\lseg_1.py", line 543, in call
+    frame = self.ld.get_data(**request, header_type=self.ld.HeaderType.NAME)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 87, in get_data
+    return _get_data_eikon_approach(universe, fields, parameters, header_type, session)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 138, in _get_data_eikon_approach
+    raise_if_all(exceptions)
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 94, in raise_if_all
+    raise LDError(message="\n\n".join(exceptions))
+lseg.data._errors.LDError: Unable to resolve all requested identifiers in ['LEHMQ.PK^C12'].
+

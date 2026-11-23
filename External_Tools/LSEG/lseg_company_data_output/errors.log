@@ -1,0 +1,64 @@
+
+batch 12: FY2016 / annual accounting
+{"fields": ["TR.TotalAssetsReported", "TR.TotalAssetsReported.periodenddate", "TR.TotalRevenue", "TR.TotalRevenue.periodenddate", "TR.CostofRevenueTotal", "TR.CostofRevenueTotal.periodenddate", "TR.SgaExpenseTotal", "TR.SgaExpenseTotal.periodenddate", "TR.InterestExpense", "TR.InterestExpense.periodenddate", "TR.F.ShHoldEqCom", "TR.F.ShHoldEqCom.date", "TR.TotalEquity", "TR.TotalEquity.periodenddate", "TR.F.MinIntr", "TR.F.MinIntr.date", "TR.ISOriginalAnnouncementDate", "TR.ISOriginalAnnouncementDate.periodenddate", "TR.BSOriginalAnnouncementDate", "TR.BSOriginalAnnouncementDate.periodenddate"], "parameters": {"Curn": "USD", "Period": "FY2016", "ReportingState": "Orig", "Scale": 0}, "universe": ["CVS", "CVX", "CXO^A21", "CZR.O", "D", "DAL", "DASH.O", "DAY^B26", "DDOG.O", "DDR.II^G10", "DDS", "DE", "DECK.K", "DELL.O^J13", "DFODQ.PK^F21", "DFS^E25", "DG", "DGX", "DHI", "DHR"]}
+Traceback (most recent call last):
+  File "C:\Users\SaleUEP.UE\Downloads\lseg_company_data.py", line 570, in request
+    frame = self.ld.get_data(**request, header_type=self.ld.HeaderType.NAME)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 87, in get_data
+    return _get_data_eikon_approach(universe, fields, parameters, header_type, session)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 138, in _get_data_eikon_approach
+    raise_if_all(exceptions)
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 94, in raise_if_all
+    raise LDError(message="\n\n".join(exceptions))
+lseg.data._errors.LDError: Backend error. 400 Bad Request Requested universes: ['CVS', 'CVX', 'CXO^A21', 'CZR.O', 'D', 'DAL', 'DASH.O', 'DAY^B26', 'DDOG.O', 'DDR.II^G10', 'DDS', 'DE', 'DECK.K', 'DELL.O^J13', 'DFODQ.PK^F21', 'DFS^E25', 'DG', 'DGX', 'DHI', 'DHR']. Requested fields: ['TR.TOTALASSETSREPORTED', 'TR.TOTALASSETSREPORTED.PERIODENDDATE', 'TR.TOTALREVENUE', 'TR.TOTALREVENUE.PERIODENDDATE', 'TR.COSTOFREVENUETOTAL', 'TR.COSTOFREVENUETOTAL.PERIODENDDATE', 'TR.SGAEXPENSETOTAL', 'TR.SGAEXPENSETOTAL.PERIODENDDATE', 'TR.INTERESTEXPENSE', 'TR.INTERESTEXPENSE.PERIODENDDATE', 'TR.F.SHHOLDEQCOM', 'TR.F.SHHOLDEQCOM.DATE', 'TR.TOTALEQUITY', 'TR.TOTALEQUITY.PERIODENDDATE', 'TR.F.MININTR', 'TR.F.MININTR.DATE', 'TR.ISORIGINALANNOUNCEMENTDATE', 'TR.ISORIGINALANNOUNCEMENTDATE.PERIODENDDATE', 'TR.BSORIGINALANNOUNCEMENTDATE', 'TR.BSORIGINALANNOUNCEMENTDATE.PERIODENDDATE']
+
+
+batch 21: FY2012 / annual accounting
+{"fields": ["TR.TotalAssetsReported", "TR.TotalAssetsReported.periodenddate", "TR.TotalRevenue", "TR.TotalRevenue.periodenddate", "TR.CostofRevenueTotal", "TR.CostofRevenueTotal.periodenddate", "TR.SgaExpenseTotal", "TR.SgaExpenseTotal.periodenddate", "TR.InterestExpense", "TR.InterestExpense.periodenddate", "TR.F.ShHoldEqCom", "TR.F.ShHoldEqCom.date", "TR.TotalEquity", "TR.TotalEquity.periodenddate", "TR.F.MinIntr", "TR.F.MinIntr.date", "TR.ISOriginalAnnouncementDate", "TR.ISOriginalAnnouncementDate.periodenddate", "TR.BSOriginalAnnouncementDate", "TR.BSOriginalAnnouncementDate.periodenddate"], "parameters": {"Curn": "USD", "Period": "FY2012", "ReportingState": "Orig", "Scale": 0}, "universe": ["HSP^I15", "HST.O", "HSY", "HUBB.K", "HUM", "HWM", "IBKR.O", "IBM", "ICE", "IDXX.O", "IEX", "IFF", "IGT^D15", "ILMN.O", "INCY.O", "INFO.K^B22", "INTC.O", "INTU.O", "INVH.K", "IP"]}
+Traceback (most recent call last):
+  File "C:\Users\SaleUEP.UE\Downloads\lseg_company_data.py", line 570, in request
+    frame = self.ld.get_data(**request, header_type=self.ld.HeaderType.NAME)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 87, in get_data
+    return _get_data_eikon_approach(universe, fields, parameters, header_type, session)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 138, in _get_data_eikon_approach
+    raise_if_all(exceptions)
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 94, in raise_if_all
+    raise LDError(message="\n\n".join(exceptions))
+lseg.data._errors.LDError: Backend error. 400 Bad Request Requested universes: ['HSP^I15', 'HST.O', 'HSY', 'HUBB.K', 'HUM', 'HWM', 'IBKR.O', 'IBM', 'ICE', 'IDXX.O', 'IEX', 'IFF', 'IGT^D15', 'ILMN.O', 'INCY.O', 'INFO.K^B22', 'INTC.O', 'INTU.O', 'INVH.K', 'IP']. Requested fields: ['TR.TOTALASSETSREPORTED', 'TR.TOTALASSETSREPORTED.PERIODENDDATE', 'TR.TOTALREVENUE', 'TR.TOTALREVENUE.PERIODENDDATE', 'TR.COSTOFREVENUETOTAL', 'TR.COSTOFREVENUETOTAL.PERIODENDDATE', 'TR.SGAEXPENSETOTAL', 'TR.SGAEXPENSETOTAL.PERIODENDDATE', 'TR.INTERESTEXPENSE', 'TR.INTERESTEXPENSE.PERIODENDDATE', 'TR.F.SHHOLDEQCOM', 'TR.F.SHHOLDEQCOM.DATE', 'TR.TOTALEQUITY', 'TR.TOTALEQUITY.PERIODENDDATE', 'TR.F.MININTR', 'TR.F.MININTR.DATE', 'TR.ISORIGINALANNOUNCEMENTDATE', 'TR.ISORIGINALANNOUNCEMENTDATE.PERIODENDDATE', 'TR.BSORIGINALANNOUNCEMENTDATE', 'TR.BSORIGINALANNOUNCEMENTDATE.PERIODENDDATE']
+
+
+batch 21: FY2012 / fallback common_equity_provider
+{"fields": ["TR.F.ShHoldEqCom", "TR.F.ShHoldEqCom.date"], "parameters": {"Curn": "USD", "Period": "FY2012", "ReportingState": "Orig", "Scale": 0}, "universe": ["HSP^I15", "HST.O", "HSY", "HUBB.K", "HUM", "HWM", "IBKR.O", "IBM", "ICE", "IDXX.O", "IEX", "IFF", "IGT^D15", "ILMN.O", "INCY.O", "INFO.K^B22", "INTC.O", "INTU.O", "INVH.K", "IP"]}
+Traceback (most recent call last):
+  File "C:\Users\SaleUEP.UE\Downloads\lseg_company_data.py", line 570, in request
+    frame = self.ld.get_data(**request, header_type=self.ld.HeaderType.NAME)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 87, in get_data
+    return _get_data_eikon_approach(universe, fields, parameters, header_type, session)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 138, in _get_data_eikon_approach
+    raise_if_all(exceptions)
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 94, in raise_if_all
+    raise LDError(message="\n\n".join(exceptions))
+lseg.data._errors.LDError: Backend error. 400 Bad Request Requested universes: ['HSP^I15', 'HST.O', 'HSY', 'HUBB.K', 'HUM', 'HWM', 'IBKR.O', 'IBM', 'ICE', 'IDXX.O', 'IEX', 'IFF', 'IGT^D15', 'ILMN.O', 'INCY.O', 'INFO.K^B22', 'INTC.O', 'INTU.O', 'INVH.K', 'IP']. Requested fields: ['TR.F.SHHOLDEQCOM', 'TR.F.SHHOLDEQCOM.DATE']
+
+
+batch 42: FY2015 / annual accounting
+{"fields": ["TR.TotalAssetsReported", "TR.TotalAssetsReported.periodenddate", "TR.TotalRevenue", "TR.TotalRevenue.periodenddate", "TR.CostofRevenueTotal", "TR.CostofRevenueTotal.periodenddate", "TR.SgaExpenseTotal", "TR.SgaExpenseTotal.periodenddate", "TR.InterestExpense", "TR.InterestExpense.periodenddate", "TR.F.ShHoldEqCom", "TR.F.ShHoldEqCom.date", "TR.TotalEquity", "TR.TotalEquity.periodenddate", "TR.F.MinIntr", "TR.F.MinIntr.date", "TR.ISOriginalAnnouncementDate", "TR.ISOriginalAnnouncementDate.periodenddate", "TR.BSOriginalAnnouncementDate", "TR.BSOriginalAnnouncementDate.periodenddate"], "parameters": {"Curn": "USD", "Period": "FY2015", "ReportingState": "Orig", "Scale": 0}, "universe": ["VZ", "WAB", "WAMUQ.PK^C12", "WAT", "WB.N^A09", "WBA.O^H25", "WCG^A20", "WDAY.O", "WDC.O", "WEC", "WELL.K", "WFC", "WFM.O^H17", "WFT.N^E19", "WHR", "WINMQ.PK^I20", "WMB", "WMT.O", "WPX^A21", "WRB"]}
+Traceback (most recent call last):
+  File "C:\Users\SaleUEP.UE\Downloads\lseg_company_data.py", line 570, in request
+    frame = self.ld.get_data(**request, header_type=self.ld.HeaderType.NAME)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 87, in get_data
+    return _get_data_eikon_approach(universe, fields, parameters, header_type, session)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 138, in _get_data_eikon_approach
+    raise_if_all(exceptions)
+  File "C:\Users\SaleUEP.UE\AppData\Local\Python\pythoncore-3.12-64\Lib\site-packages\lseg\data\_access_layer\get_data_func.py", line 94, in raise_if_all
+    raise LDError(message="\n\n".join(exceptions))
+lseg.data._errors.LDError: Backend error. 400 Bad Request Requested universes: ['VZ', 'WAB', 'WAMUQ.PK^C12', 'WAT', 'WB.N^A09', 'WBA.O^H25', 'WCG^A20', 'WDAY.O', 'WDC.O', 'WEC', 'WELL.K', 'WFC', 'WFM.O^H17', 'WFT.N^E19', 'WHR', 'WINMQ.PK^I20', 'WMB', 'WMT.O', 'WPX^A21', 'WRB']. Requested fields: ['TR.TOTALASSETSREPORTED', 'TR.TOTALASSETSREPORTED.PERIODENDDATE', 'TR.TOTALREVENUE', 'TR.TOTALREVENUE.PERIODENDDATE', 'TR.COSTOFREVENUETOTAL', 'TR.COSTOFREVENUETOTAL.PERIODENDDATE', 'TR.SGAEXPENSETOTAL', 'TR.SGAEXPENSETOTAL.PERIODENDDATE', 'TR.INTERESTEXPENSE', 'TR.INTERESTEXPENSE.PERIODENDDATE', 'TR.F.SHHOLDEQCOM', 'TR.F.SHHOLDEQCOM.DATE', 'TR.TOTALEQUITY', 'TR.TOTALEQUITY.PERIODENDDATE', 'TR.F.MININTR', 'TR.F.MININTR.DATE', 'TR.ISORIGINALANNOUNCEMENTDATE', 'TR.ISORIGINALANNOUNCEMENTDATE.PERIODENDDATE', 'TR.BSORIGINALANNOUNCEMENTDATE', 'TR.BSORIGINALANNOUNCEMENTDATE.PERIODENDDATE']
+

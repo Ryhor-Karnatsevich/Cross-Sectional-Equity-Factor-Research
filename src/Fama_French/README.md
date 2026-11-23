@@ -2,7 +2,7 @@
 
 A separate research path for size, value, operating profitability and investment characteristics. The existing price-volume research pipelines remain unchanged.
 
-Current task: assemble historical company fundamentals and market capitalization before constructing portfolios.
+Company inputs have been consolidated and screened. The accepted dataset is in `Data/Fama and french/Consolidated/`; the next task is to implement the declared portfolio and model rules.
 
 - Reuse existing stock returns and point-in-time membership.
 - Start from the complete historical security union, including former index members.
@@ -14,6 +14,23 @@ Current task: assemble historical company fundamentals and market capitalization
 - Apply membership and data-availability rules on each formation/evaluation date.
 
 An S&P 500 implementation tests Fama-French-style characteristics within that universe. It does not replicate the original broad-US-market factors exactly.
+
+## Model construction rules
+
+The complete decisions are in [METHODOLOGY.md](METHODOLOGY.md). Their machine-readable settings are in [model_config.py](model_config.py). These settings are separate from the extraction configuration and are not connected to an executable model pipeline yet.
+
+- Compare FF3, Carhart4 and FF5 over July 2009–June 2026, using common valid months and the same test returns.
+- Use accepted positive common equity as book value; do not subtract preferred equity twice or infer missing adjustments.
+- Use annual June sorts for value, profitability and investment, and monthly sorts for momentum.
+- Split eligible historical S&P500 issuers into Small/Big and 30%/40%/30% characteristic groups.
+- Use capitalization weights within groups and the declared equal-weight combinations of group returns.
+- Require all expense fields for profitability; never replace a missing expense with zero.
+- Let each factor use its own eligible input sample. The market portfolio does not require accounting data.
+- Apply publication dates, issuer deduplication, prior-close membership and explicit missing-held-return rules.
+- Use the original-paper book-equity-only profitability denominator consistently. The current French library's minority-interest denominator is a different convention.
+- Obtain the official monthly RF input when implementing the builder; do not treat the existing annualized DGS3MO yield as that return.
+
+Only rules have been defined. No factors, portfolios, regressions or new performance results have been calculated for this research path.
 
 ## SEC extraction
 

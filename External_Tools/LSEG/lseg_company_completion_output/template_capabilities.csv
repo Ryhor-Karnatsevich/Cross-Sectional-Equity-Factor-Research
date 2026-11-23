@@ -1,0 +1,7 @@
+﻿template,ric,rows_parsed,status
+TR.F.IncomeStatement,CELG.O^K19,146,RAW_SAVED
+TR.F.IncomeStatement,ATVI.O^J23,115,RAW_SAVED
+TR.F.IncomeStatement,JPM.N,137,RAW_SAVED
+TR.F.BalanceSheet,CELG.O^K19,149,RAW_SAVED
+TR.F.BalanceSheet,ATVI.O^J23,145,RAW_SAVED
+TR.F.BalanceSheet,JPM.N,130,RAW_SAVED

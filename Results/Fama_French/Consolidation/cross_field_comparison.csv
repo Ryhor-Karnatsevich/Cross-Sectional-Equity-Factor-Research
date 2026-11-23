@@ -1,0 +1,6 @@
+parameter,left_field,right_field,comparable_periods,matching_values,match_pct
+assets,tr.totalassetsreported,tr.f.totassets,374,372,99.46524064171123
+revenue,tr.totalrevenue,tr.f.totrevenue,1715,1439,83.90670553935861
+COGS,tr.costofrevenuetotal,tr.f.cogstot,948,565,59.59915611814346
+SGA,tr.sgaexpensetotal,tr.f.sgatot,1382,439,31.765557163531117
+interest,tr.interestexpense,tr.f.intrexpn,1289,1078,83.63072148952676

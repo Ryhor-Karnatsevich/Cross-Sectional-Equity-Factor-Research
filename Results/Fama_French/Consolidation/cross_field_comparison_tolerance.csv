@@ -1,0 +1,6 @@
+parameter,comparable_periods,within_1pct,within_1pct_rate,median_relative_difference_pct,negative_left,negative_right
+assets,374,373,99.73262032085562,0.0,0,0
+revenue,1715,1509,87.98833819241982,0.0,3,4
+COGS,948,630,66.45569620253164,0.0,0,1
+SGA,1382,523,37.84370477568741,6.930452349976339,2,3
+interest,1289,1118,86.73390224980605,0.0,0,7
